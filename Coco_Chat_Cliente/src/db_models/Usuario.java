@@ -1,11 +1,13 @@
 package db_models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gnuno
  */
 
-public class Usuario {
+public class Usuario implements Serializable {
     public int id_usuario;
     public String nombre;
     public String username;
@@ -25,14 +27,13 @@ public class Usuario {
         estado = 0;        
     }
     
-    public Usuario(String nombre, String username, String password, String correo, String pregunta_respaldo, int estado)
+    public Usuario(String nombre, String username, String password, String correo, String pregunta_respaldo)
     {
-        this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.username = username;
         this.password = password;
         this.correo = correo;
         this.pregunta_respaldo = pregunta_respaldo;
-        this.estado = estado;
+        this.estado = 0;
     }
 }
