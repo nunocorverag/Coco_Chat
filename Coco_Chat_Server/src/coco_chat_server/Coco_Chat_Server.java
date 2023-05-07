@@ -10,6 +10,8 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import coco_chat_server.HilosCliente;
+import db_conection_package.*;
+import java.io.ObjectInputStream;
 
 public class Coco_Chat_Server {
 
@@ -23,9 +25,18 @@ public class Coco_Chat_Server {
                System.out.println("Esperando...");
                clientSocket = serverSocket.accept();
                System.out.println("Conexion recibida");
-               HilosCliente cliente = new HilosCliente(clientSocket);
-               Thread clientThread = new Thread(cliente);
-               clientThread.start();
+//               HilosCliente cliente = new HilosCliente(clientSocket);
+//               Thread clientThread = new Thread(cliente);
+//               clientThread.start();
+                ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
+                try {
+                    Object objectReceived = infoReceived.readObject();
+                 Usuario registerDetails  = (Usuario)objectReceived;
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                usuarioDAO.RegistrarUsuario(registerDetails);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         } catch (IOException ex) {
