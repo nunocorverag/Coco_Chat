@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -201,6 +202,7 @@ public class RecuperacionCuenta extends javax.swing.JFrame {
             else if(Redirigir.equals("error_fallo_pregunta_o_usuario"))
             {
                 System.out.println("Error, informacion incorrecta");
+                JOptionPane.showMessageDialog(null, "Error.Informacion incorrecta", "Error", HEIGHT);
             }
             
         } catch (IOException ex) {
