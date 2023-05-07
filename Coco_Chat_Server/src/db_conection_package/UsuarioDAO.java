@@ -99,7 +99,7 @@ public class UsuarioDAO extends Db_Conection{
         {
             PreparedStatement ps = getConnection()
                                 .prepareStatement
-                                ("UPDATE persona SET password = ? WHERE username = ?");
+                                ("UPDATE usuario SET password = ? WHERE username = ?");
             
             ps.setString(1, password);
             ps.setString(2, username);

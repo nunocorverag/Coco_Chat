@@ -114,9 +114,9 @@ public class Coco_Chat_Server {
                       if(usuarioDAO.RecuperarCuentaValidar(recoverAccountValidate.username, recoverAccountValidate.pregunta_respaldo))
                       {
                           System.out.println("redirigir_recuperar_contrasena");  
-                          int id_usuario = usuarioDAO.ObtenerIDUsuario(recoverAccountValidate.username);
-                          System.out.println(id_usuario);
-                          RespuestaCredencialesCorrectas respuesta = new RespuestaCredencialesCorrectas("redirigir_recuperar_contrasena", id_usuario);
+                          String username = recoverAccountValidate.username;
+                          System.out.println(username);
+                          RespuestaRecuperarCuenta respuesta = new RespuestaRecuperarCuenta("redirigir_recuperar_contrasena", username);
                           ObjectOutputStream respuestaCredencialesCorrectas = new ObjectOutputStream(clientSocket.getOutputStream());
                           respuestaCredencialesCorrectas.writeObject(respuesta);
                       }
