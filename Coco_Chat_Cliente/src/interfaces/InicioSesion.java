@@ -107,7 +107,7 @@ public class InicioSesion extends javax.swing.JFrame {
         passText.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         passText.setText("Contraseña");
 
-        IngresarButton.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        IngresarButton.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         IngresarButton.setText("Ingresar");
         IngresarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
