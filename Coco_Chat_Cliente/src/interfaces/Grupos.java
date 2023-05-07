@@ -38,7 +38,7 @@ public class Grupos extends javax.swing.JFrame {
         UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
         UsuariosMenu.setText("Usuarios");
         UsuariosMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UsuariosMenu.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        UsuariosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         UsuariosMenu.setIconTextGap(5);
         UsuariosMenu.setMargin(new java.awt.Insets(5, 90, 5, 90));
         UsuariosMenu.addMenuListener(new javax.swing.event.MenuListener() {
@@ -70,7 +70,7 @@ public class Grupos extends javax.swing.JFrame {
 
         GruposMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/grupos.png"))); // NOI18N
         GruposMenu.setText("Grupos");
-        GruposMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        GruposMenu.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         GruposMenu.setIconTextGap(5);
         GruposMenu.setMargin(new java.awt.Insets(5, 80, 5, 80));
         GruposMenu.addMenuListener(new javax.swing.event.MenuListener() {

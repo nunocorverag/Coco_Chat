@@ -17,7 +17,6 @@ public class InicioSesion extends javax.swing.JFrame {
     public InicioSesion() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -97,6 +96,7 @@ public class InicioSesion extends javax.swing.JFrame {
         setTitle("Inicio de sesion");
         setExtendedState(6);
         setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        setResizable(false);
 
         ConstrasenaInicioSesion.setToolTipText("Ingrese la contraseña de su cuenta");
 
