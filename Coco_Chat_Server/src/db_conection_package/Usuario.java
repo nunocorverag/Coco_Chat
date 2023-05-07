@@ -39,4 +39,10 @@ public class Usuario implements Serializable {
         this.pregunta_respaldo = pregunta_respaldo;
         this.estado = estado;
     }
+    
+    public Usuario(String username, String password)
+    {
+        this.username = username;
+        this.password = password;
+    }
 }
