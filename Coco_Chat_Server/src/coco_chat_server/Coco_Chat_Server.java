@@ -15,8 +15,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import returned_models.*;
 
 public class Coco_Chat_Server {
 
@@ -111,10 +113,12 @@ public class Coco_Chat_Server {
                       UsuarioDAO usuarioDAO = new UsuarioDAO();
                       if(usuarioDAO.RecuperarCuentaValidar(recoverAccountValidate.username, recoverAccountValidate.pregunta_respaldo))
                       {
-                          //chido
-                          System.out.println("redirigir_recuperar_cuenta");
-                          DataOutputStream respuestaCredencialesValidas = new DataOutputStream(clientSocket.getOutputStream());
-                          respuestaCredencialesValidas.writeUTF("redirigir_recuperar_cuenta");
+                          System.out.println("redirigir_recuperar_contrasena");  
+                          int id_usuario = usuarioDAO.ObtenerIDUsuario(recoverAccountValidate.username);
+                          System.out.println(id_usuario);
+                          RespuestaCredencialesCorrectas respuesta = new RespuestaCredencialesCorrectas("redirigir_recuperar_contrasena", id_usuario);
+                          ObjectOutputStream respuestaCredencialesCorrectas = new ObjectOutputStream(clientSocket.getOutputStream());
+                          respuestaCredencialesCorrectas.writeObject(respuesta);
                       }
                       else
                       {
