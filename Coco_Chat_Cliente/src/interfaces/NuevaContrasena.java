@@ -15,6 +15,8 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import user_session.SessionData;
+import user_session.SessionManager;
 
 /**
  *
@@ -108,7 +110,8 @@ public class NuevaContrasena extends javax.swing.JFrame {
         char[] obtenerContrasena = passNuevaContrasena.getPassword();
         String contrasena = new String(obtenerContrasena);
         
-        Usuario userNewPass = new Usuario(, "password", contrasena);
+        SessionData sessionData = SessionManager.getSession();
+        Usuario userNewPass = new Usuario(sessionData.getUsername(), "password", contrasena);
         Socket s;
         
         try {
@@ -117,12 +120,13 @@ public class NuevaContrasena extends javax.swing.JFrame {
             s = new Socket(direccion, 1234);
             
             DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
-            funcion.writeUTF("login");
+            funcion.writeUTF("recuperar_contrasena");
             
             ObjectOutputStream salidaObjeto = new ObjectOutputStream(s.getOutputStream());
             salidaObjeto.writeObject(userNewPass);
             
             DataInputStream salidaRedirigir = new DataInputStream(s.getInputStream());
+            
             String Redirigir = salidaRedirigir.readUTF();
             
             JOptionPane.showMessageDialog(null, "Error.Informacion incorrecta", "Error", HEIGHT);

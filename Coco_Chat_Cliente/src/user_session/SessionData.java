@@ -3,19 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package user_session;
-
 /**
  *
  * @author PABLOPC
  */
-public class SessionData {
-    private final int idUsuario;
+public class SessionData{
+    private final String username;
 
-    public SessionData(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public SessionData(String username) {
+        this.username = username;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public String getUsername() {
+        return username;
     }
 }
