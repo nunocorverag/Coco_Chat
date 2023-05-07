@@ -1,4 +1,4 @@
-package db_conection_package;
+package db_models;
 
 import java.util.Date;
 /**

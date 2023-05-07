@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package interfaces;
+import db_models.*;
 
 /**
  *
@@ -330,6 +331,8 @@ public class Registro extends javax.swing.JFrame {
         String apellidoP = ApellidoPRegistro.getText();
         String animal = AnimalRegistro.getText();
         String correo = CorreoRegistro.getText();
+        
+        Usuario userRegister = new Usuario(aqui pon todo puajajaja)
         
         char[] obtenerContrasena = ContrasenaRegistro.getPassword();
         String contrasena = new String(obtenerContrasena);
