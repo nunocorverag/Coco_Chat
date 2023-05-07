@@ -112,4 +112,27 @@ public class UsuarioDAO extends Db_Conection{
         }
         return res>0;
     }
+    
+    public int ObtenerIDUsuario(String username)
+    {
+        try 
+        {
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT id_usuario FROM usuario WHERE username=?");
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery(); 
+            
+            //Si las credenciales son correctas
+            if(rs.next())
+            {
+                //Aqui necesitamos poner esta variable global o en algun cache para guardarla
+                int id_usuario = rs.getInt("id_usuario");
+                return id_usuario;
+            }  
+        }
+        catch(SQLException es)
+        {
+            System.out.println(es.getMessage());
+        }
+        return -1;
+    }
 }

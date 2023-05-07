@@ -5,6 +5,7 @@
 package interfaces;
 
 import db_conection_package.Usuario;
+import static java.awt.image.ImageObserver.HEIGHT;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -123,6 +125,8 @@ public class NuevaContrasena extends javax.swing.JFrame {
             DataInputStream salidaRedirigir = new DataInputStream(s.getInputStream());
             String Redirigir = salidaRedirigir.readUTF();
             
+            JOptionPane.showMessageDialog(null, "Error.Informacion incorrecta", "Error", HEIGHT);
+            
             System.out.println(Redirigir);
             s.close();
             
@@ -138,7 +142,7 @@ public class NuevaContrasena extends javax.swing.JFrame {
         }
         String nuevaPass = new String(obtenerContrasena);
         System.out.println("Nueva contrasena: " + nuevaPass);
-   
+        
         InicioSesion a = new InicioSesion();
         a.setVisible(true);
         this.setVisible(false);
