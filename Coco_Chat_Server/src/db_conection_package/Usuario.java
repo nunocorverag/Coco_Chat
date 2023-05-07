@@ -1,11 +1,13 @@
 package db_conection_package;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gnuno
  */
 
-public class Usuario {
+public class Usuario implements Serializable {
     public int id_usuario;
     public String nombre;
     public String username;
@@ -13,6 +15,8 @@ public class Usuario {
     public String correo;
     public String pregunta_respaldo;
     public int estado;
+    
+    private static final long serialVersionUID = 8555120861496540659L;
     
     public Usuario()
     {

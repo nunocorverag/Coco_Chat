@@ -30,10 +30,10 @@ public class Coco_Chat_Server {
 //               clientThread.start();
                 ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
                 try {
-                    Object objectReceived = infoReceived.readObject();
-                 Usuario registerDetails  = (Usuario)objectReceived;
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                usuarioDAO.RegistrarUsuario(registerDetails);
+                  Object objectReceived = infoReceived.readObject();
+                  Usuario registerDetails  = (Usuario)objectReceived;
+                  UsuarioDAO usuarioDAO = new UsuarioDAO();
+                  usuarioDAO.RegistrarUsuario(registerDetails);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                 }
