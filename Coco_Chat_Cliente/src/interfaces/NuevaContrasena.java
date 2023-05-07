@@ -92,6 +92,11 @@ public class NuevaContrasena extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VentanaInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaInicioSesionActionPerformed
+        
+        char[] obtenerContrasena = passNuevaContrasena.getPassword();
+        String nuevaPass = new String(obtenerContrasena);
+        System.out.println("Nueva contrasena: " + nuevaPass);
+        
         InicioSesion a = new InicioSesion();
         a.setVisible(true);
         this.setVisible(false);
