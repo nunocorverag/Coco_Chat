@@ -227,7 +227,7 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_IngresarButtonActionPerformed
 
     private void VentanaRegistrarseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaRegistrarseButtonActionPerformed
-        Registro a = new Registro();
+        RegistroSinRecuperarCuenta a = new RegistroSinRecuperarCuenta();
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_VentanaRegistrarseButtonActionPerformed
