@@ -39,9 +39,15 @@ public class Usuario implements Serializable {
         this.estado = 0;
     }
     
-    public Usuario(String username, String password)
+    public Usuario(String username, String tipo, String propiedad)
     {
         this.username = username;
-        this.password = password;
+        
+        switch(tipo)
+        {
+            case "password" -> this.password = propiedad;
+            case "pregunta" -> this.pregunta_respaldo = propiedad;
+        }
     }
+    
 }

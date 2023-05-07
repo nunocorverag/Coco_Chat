@@ -191,7 +191,7 @@ public class InicioSesion extends javax.swing.JFrame {
         char[] obtenerContrasena = ConstrasenaInicioSesion.getPassword();
         String contrasena = new String(obtenerContrasena);
         
-        Usuario userLogin = new Usuario(usuario, contrasena);
+        Usuario userLogin = new Usuario(usuario, "password",contrasena);
         Socket s;
         try {
             String direccionServidor = "10.147.17.147";
