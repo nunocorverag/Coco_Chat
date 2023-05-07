@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/PABLOPC/Desktop/Coco_Chat/Coco_Chat_Cliente/src/db_conection_package/Usuario.java</file>
+            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/UsuariosDesconectados.java</file>
+            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/Grupos.java</file>
+            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/UsuariosConectados.java</file>
+            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/CrearGrupos.java</file>
+            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/AmigosConectados.java</file>
+            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/AmigosDesconectados.java</file>
         </group>
     </open-files>
 </project-private>

@@ -21,6 +21,7 @@ public class CrearGrupos extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         UsuariosMenu = new javax.swing.JMenu();
         UsuariosConectadosMenu = new javax.swing.JMenuItem();
@@ -37,6 +38,8 @@ public class CrearGrupos extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Crear grupo");
 
         UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
         UsuariosMenu.setText("Usuarios");
@@ -124,6 +127,11 @@ public class CrearGrupos extends javax.swing.JFrame {
         CrearGrupoMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         CrearGrupoMenu.setText("Crear grupo");
         CrearGrupoMenu.setMargin(new java.awt.Insets(2, 65, 2, 65));
+        CrearGrupoMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearGrupoMenuActionPerformed(evt);
+            }
+        });
         jMenu7.add(CrearGrupoMenu);
 
         jMenuBar1.add(jMenu7);
@@ -134,11 +142,17 @@ public class CrearGrupos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 726, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(296, 296, 296)
+                .addComponent(jLabel1)
+                .addContainerGap(364, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addComponent(jLabel1)
+                .addContainerGap(346, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,17 +163,19 @@ public class CrearGrupos extends javax.swing.JFrame {
     }//GEN-LAST:event_UsuariosMenuActionPerformed
 
     private void UsuariosDeconectadosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosDeconectadosMenuActionPerformed
-        CrearGrupos a = new CrearGrupos();
+        UsuariosDesconectados a = new UsuariosDesconectados();
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_UsuariosDeconectadosMenuActionPerformed
 
     private void UsuariosConectadosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosConectadosMenuActionPerformed
-        
+        UsuariosConectados a = new UsuariosConectados();
+        a.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_UsuariosConectadosMenuActionPerformed
 
     private void AmigosConectadosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AmigosConectadosMenuActionPerformed
-        CrearGrupos a = new CrearGrupos();
+        AmigosConectados a = new AmigosConectados();
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_AmigosConectadosMenuActionPerformed
@@ -171,16 +187,20 @@ public class CrearGrupos extends javax.swing.JFrame {
     }//GEN-LAST:event_AmigosDesconectadosMenuActionPerformed
 
     private void GruposMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GruposMenuActionPerformed
-        CrearGrupos a = new CrearGrupos();
+        Grupos a = new Grupos();
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_GruposMenuActionPerformed
 
     private void jMenu7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu7ActionPerformed
+        
+    }//GEN-LAST:event_jMenu7ActionPerformed
+
+    private void CrearGrupoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearGrupoMenuActionPerformed
         CrearGrupos a = new CrearGrupos();
         a.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jMenu7ActionPerformed
+    }//GEN-LAST:event_CrearGrupoMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,6 +308,7 @@ public class CrearGrupos extends javax.swing.JFrame {
     private javax.swing.JMenuItem UsuariosConectadosMenu;
     private javax.swing.JMenuItem UsuariosDeconectadosMenu;
     private javax.swing.JMenu UsuariosMenu;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu7;

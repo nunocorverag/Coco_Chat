@@ -21,10 +21,11 @@ public class AmigosDesconectados extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         UsuariosMenu = new javax.swing.JMenu();
         UsuariosConectadosMenu = new javax.swing.JMenuItem();
-        UsuariosDeconectadosMenu = new javax.swing.JMenuItem();
+        UsuariosDesconectadosMenu = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         AmigosConectadosMenu = new javax.swing.JMenuItem();
         AmigosDesconectadosMenu = new javax.swing.JMenuItem();
@@ -37,6 +38,8 @@ public class AmigosDesconectados extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Amigos desconectados");
 
         UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
         UsuariosMenu.setText("Usuarios");
@@ -60,15 +63,15 @@ public class AmigosDesconectados extends javax.swing.JFrame {
         });
         UsuariosMenu.add(UsuariosConectadosMenu);
 
-        UsuariosDeconectadosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        UsuariosDeconectadosMenu.setText("Desconectados");
-        UsuariosDeconectadosMenu.setMargin(new java.awt.Insets(2, 65, 2, 65));
-        UsuariosDeconectadosMenu.addActionListener(new java.awt.event.ActionListener() {
+        UsuariosDesconectadosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        UsuariosDesconectadosMenu.setText("Desconectados");
+        UsuariosDesconectadosMenu.setMargin(new java.awt.Insets(2, 65, 2, 65));
+        UsuariosDesconectadosMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UsuariosDeconectadosMenuActionPerformed(evt);
+                UsuariosDesconectadosMenuActionPerformed(evt);
             }
         });
-        UsuariosMenu.add(UsuariosDeconectadosMenu);
+        UsuariosMenu.add(UsuariosDesconectadosMenu);
 
         jMenuBar1.add(UsuariosMenu);
 
@@ -124,6 +127,11 @@ public class AmigosDesconectados extends javax.swing.JFrame {
         CrearGrupoMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         CrearGrupoMenu.setText("Crear grupo");
         CrearGrupoMenu.setMargin(new java.awt.Insets(2, 65, 2, 65));
+        CrearGrupoMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearGrupoMenuActionPerformed(evt);
+            }
+        });
         jMenu7.add(CrearGrupoMenu);
 
         jMenuBar1.add(jMenu7);
@@ -134,11 +142,17 @@ public class AmigosDesconectados extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 726, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(269, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(327, 327, 327))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addComponent(jLabel1)
+                .addContainerGap(328, Short.MAX_VALUE))
         );
 
         pack();
@@ -148,18 +162,20 @@ public class AmigosDesconectados extends javax.swing.JFrame {
        
     }//GEN-LAST:event_UsuariosMenuActionPerformed
 
-    private void UsuariosDeconectadosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosDeconectadosMenuActionPerformed
-        AmigosDesconectados a = new AmigosDesconectados();
+    private void UsuariosDesconectadosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosDesconectadosMenuActionPerformed
+        UsuariosDesconectados a = new UsuariosDesconectados();
         a.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_UsuariosDeconectadosMenuActionPerformed
+    }//GEN-LAST:event_UsuariosDesconectadosMenuActionPerformed
 
     private void UsuariosConectadosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosConectadosMenuActionPerformed
-        
+        UsuariosConectados a = new UsuariosConectados();
+        a.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_UsuariosConectadosMenuActionPerformed
 
     private void AmigosConectadosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AmigosConectadosMenuActionPerformed
-        AmigosDesconectados a = new AmigosDesconectados();
+        AmigosConectados a = new AmigosConectados();
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_AmigosConectadosMenuActionPerformed
@@ -177,10 +193,14 @@ public class AmigosDesconectados extends javax.swing.JFrame {
     }//GEN-LAST:event_GruposMenuActionPerformed
 
     private void jMenu7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu7ActionPerformed
+        
+    }//GEN-LAST:event_jMenu7ActionPerformed
+
+    private void CrearGrupoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearGrupoMenuActionPerformed
         CrearGrupos a = new CrearGrupos();
         a.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jMenu7ActionPerformed
+    }//GEN-LAST:event_CrearGrupoMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,8 +274,9 @@ public class AmigosDesconectados extends javax.swing.JFrame {
     private javax.swing.JMenuItem CrearGrupoMenu;
     private javax.swing.JMenuItem GruposMenu;
     private javax.swing.JMenuItem UsuariosConectadosMenu;
-    private javax.swing.JMenuItem UsuariosDeconectadosMenu;
+    private javax.swing.JMenuItem UsuariosDesconectadosMenu;
     private javax.swing.JMenu UsuariosMenu;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu7;
