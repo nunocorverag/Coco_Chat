@@ -140,7 +140,6 @@ public class NuevaContrasena extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         String nuevaPass = new String(obtenerContrasena);
         System.out.println("Nueva contrasena: " + nuevaPass);
         

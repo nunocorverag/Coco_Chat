@@ -212,6 +212,7 @@ public class InicioSesion extends javax.swing.JFrame {
             
             if(Redirigir.equals("redirigir"))
             {
+                setVisible(false);
                 Registro a = new Registro();
                 a.setVisible(true);
                 this.setVisible(false);
