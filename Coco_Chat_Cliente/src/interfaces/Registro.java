@@ -367,8 +367,7 @@ public class Registro extends javax.swing.JFrame {
         System.out.println("Correo: " + correo);
         System.out.println("Contrasena: " + contrasena);
         System.out.println("Usuario: " + usuario);
-        
-        
+
     }//GEN-LAST:event_IngresarButton3ActionPerformed
 
     private void NameBoxRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameBoxRegistroActionPerformed

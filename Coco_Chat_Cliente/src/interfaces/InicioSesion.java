@@ -21,10 +21,10 @@ public class InicioSesion extends javax.swing.JFrame {
         jFrame3 = new javax.swing.JFrame();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jDialog1 = new javax.swing.JDialog();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        ConstrasenaInicioSesion = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         TextUsuario = new javax.swing.JLabel();
-        NameBox = new javax.swing.JTextField();
+        NameBoxInicioSesion = new javax.swing.JTextField();
         passText = new javax.swing.JLabel();
         IngresarButton = new javax.swing.JButton();
         VentanaRegistrarseButton = new javax.swing.JButton();
@@ -89,7 +89,7 @@ public class InicioSesion extends javax.swing.JFrame {
         setExtendedState(6);
         setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
 
-        jPasswordField1.setToolTipText("Ingrese la contraseña de su cuenta");
+        ConstrasenaInicioSesion.setToolTipText("Ingrese la contraseña de su cuenta");
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Inicio de sesión");
@@ -97,10 +97,10 @@ public class InicioSesion extends javax.swing.JFrame {
         TextUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         TextUsuario.setText("Usuario");
 
-        NameBox.setToolTipText("Ingrese su nombre de usuario");
-        NameBox.addActionListener(new java.awt.event.ActionListener() {
+        NameBoxInicioSesion.setToolTipText("Ingrese su nombre de usuario");
+        NameBoxInicioSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NameBoxActionPerformed(evt);
+                NameBoxInicioSesionActionPerformed(evt);
             }
         });
 
@@ -133,8 +133,8 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(passText)
                     .addComponent(TextUsuario)
-                    .addComponent(NameBox, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1))
+                    .addComponent(NameBoxInicioSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                    .addComponent(ConstrasenaInicioSesion))
                 .addContainerGap(591, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -156,11 +156,11 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(TextUsuario)
                 .addGap(18, 18, 18)
-                .addComponent(NameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(NameBoxInicioSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(passText)
                 .addGap(18, 18, 18)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ConstrasenaInicioSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
                 .addComponent(IngresarButton)
                 .addGap(18, 18, 18)
@@ -171,15 +171,20 @@ public class InicioSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NameBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameBoxActionPerformed
+    private void NameBoxInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameBoxInicioSesionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NameBoxActionPerformed
+    }//GEN-LAST:event_NameBoxInicioSesionActionPerformed
 
     private void IngresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresarButtonActionPerformed
-        // TODO add your handling code here:
-        String nombre = NameBox.getText(); 
-        passText.setText(nombre);     
-        passText.setVisible(true);    
+        //obtener los datos del formulario del inicio de sesion
+        String usuario = NameBoxInicioSesion.getText();
+        
+        char[] obtenerContrasena = ConstrasenaInicioSesion.getPassword();
+        String contrasena = new String(obtenerContrasena);
+        
+        System.out.println("Usuario: " + usuario);
+        System.out.println("Contrasena: " + contrasena);
+        
     }//GEN-LAST:event_IngresarButtonActionPerformed
 
     private void VentanaRegistrarseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaRegistrarseButtonActionPerformed
@@ -225,8 +230,9 @@ public class InicioSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField ConstrasenaInicioSesion;
     private javax.swing.JButton IngresarButton;
-    private javax.swing.JTextField NameBox;
+    private javax.swing.JTextField NameBoxInicioSesion;
     private javax.swing.JLabel TextUsuario;
     private javax.swing.JButton VentanaRegistrarseButton;
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -235,7 +241,6 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JFrame jFrame2;
     private javax.swing.JFrame jFrame3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JLabel passText;
     // End of variables declaration//GEN-END:variables
