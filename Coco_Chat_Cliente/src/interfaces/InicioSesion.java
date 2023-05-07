@@ -1,5 +1,14 @@
 package interfaces;
 
+import db_conection_package.Usuario;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * @author Nancy
  */
@@ -181,6 +190,25 @@ public class InicioSesion extends javax.swing.JFrame {
         
         char[] obtenerContrasena = ConstrasenaInicioSesion.getPassword();
         String contrasena = new String(obtenerContrasena);
+        
+        Usuario userLogin = new Usuario(usuario, contrasena);
+        Socket s;
+        try {
+            String direccionServidor = "10.147.17.147";
+            InetAddress direccion = InetAddress.getByName(direccionServidor);
+            s = new Socket(direccion, 1234);
+            
+            OutputStream outputStream = s.getOutputStream();
+            outputStream.write("login".getBytes());
+            
+            ObjectOutputStream salidaObjeto = new ObjectOutputStream(s.getOutputStream());
+            salidaObjeto.writeObject(userLogin);
+            
+            
+            s.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         System.out.println("Usuario: " + usuario);
         System.out.println("Contrasena: " + contrasena);

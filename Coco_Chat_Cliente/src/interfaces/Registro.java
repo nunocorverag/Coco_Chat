@@ -6,6 +6,7 @@ package interfaces;
 import db_conection_package.Usuario;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -341,7 +342,7 @@ public class Registro extends javax.swing.JFrame {
         String contrasena = new String(obtenerContrasena);
         
         //Genera nombre de usuario
-        String usuario = nombre + " " + apellidoM + " " + apellidoP;
+        String usuario = nombre + "_" + apellidoP;
         
         //Asigna el objeto usuario con los campos ingresados
         Usuario userRegister = new Usuario(nombre, usuario, contrasena, correo, animal);
@@ -351,8 +352,12 @@ public class Registro extends javax.swing.JFrame {
             InetAddress direccion = InetAddress.getByName(direccionServidor);
             s = new Socket(direccion, 1234);
             
+            OutputStream outputStream = s.getOutputStream();
+            outputStream.write("register".getBytes());
+            
             ObjectOutputStream salidaObjeto = new ObjectOutputStream(s.getOutputStream());
             salidaObjeto.writeObject(userRegister);
+            
             
             s.close();
         } catch (IOException ex) {
