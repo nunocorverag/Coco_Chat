@@ -4,7 +4,12 @@
  */
 package interfaces;
 import db_models.*;
-
+import java.io.ObjectOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Nancy
@@ -340,8 +345,20 @@ public class Registro extends javax.swing.JFrame {
         
         //Asigna el objeto usuario con los campos ingresados
         Usuario userRegister = new Usuario(nombre, usuario, contrasena, correo, animal);
-        
-         
+        Socket s;
+        try {
+            String direccionServidor = "10.147.17.231";
+            InetAddress direccion = InetAddress.getByName(direccionServidor);
+            s = new Socket(direccion, 1234);
+            
+            ObjectOutputStream salidaObjeto = new ObjectOutputStream(s.getOutputStream());
+            salidaObjeto.writeObject(userRegister);
+            
+            s.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
         //Muestra en la consola los datos del formulario
         System.out.println("Nombre: " + nombre);
         System.out.println("Apellido paterno: " + apellidoP);
