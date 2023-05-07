@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package interfaces;
-import db_models.*;
+import db_conection_package.Usuario;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -347,7 +347,7 @@ public class Registro extends javax.swing.JFrame {
         Usuario userRegister = new Usuario(nombre, usuario, contrasena, correo, animal);
         Socket s;
         try {
-            String direccionServidor = "10.147.17.231";
+            String direccionServidor = "10.147.17.147";
             InetAddress direccion = InetAddress.getByName(direccionServidor);
             s = new Socket(direccion, 1234);
             
@@ -366,7 +366,6 @@ public class Registro extends javax.swing.JFrame {
         System.out.println("Animal favorito: " + animal);   
         System.out.println("Correo: " + correo);
         System.out.println("Contrasena: " + contrasena);
-
         System.out.println("Usuario: " + usuario);
         
         

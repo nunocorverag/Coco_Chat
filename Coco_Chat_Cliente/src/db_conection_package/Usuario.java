@@ -1,4 +1,4 @@
-package db_models;
+package db_conection_package;
 
 import java.io.Serializable;
 
@@ -15,6 +15,8 @@ public class Usuario implements Serializable {
     public String correo;
     public String pregunta_respaldo;
     public int estado;
+    
+    private static final long serialVersionUID = 8555120861496540659L;
     
     public Usuario()
     {
