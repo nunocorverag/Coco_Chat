@@ -63,8 +63,8 @@
                       <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="TextUsuario1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="NameBoxInicioSesion1" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                          <Component id="NameBoxInicioSesion2" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                          <Component id="UsuarioRecuperacion" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                          <Component id="AnimalRecuperacion" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
                           <Component id="TextUsuario2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -94,11 +94,11 @@
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Component id="TextUsuario1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="NameBoxInicioSesion1" min="-2" max="-2" attributes="0"/>
+              <Component id="UsuarioRecuperacion" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="TextUsuario2" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="NameBoxInicioSesion2" min="-2" max="-2" attributes="0"/>
+              <Component id="AnimalRecuperacion" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
               <Component id="ValidarRespuesta" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
@@ -125,12 +125,12 @@
         <Property name="text" type="java.lang.String" value="Usuario"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="NameBoxInicioSesion1">
+    <Component class="javax.swing.JTextField" name="UsuarioRecuperacion">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Ingrese su nombre de usuario"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NameBoxInicioSesion1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UsuarioRecuperacionActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="TextUsuario2">
@@ -141,12 +141,12 @@
         <Property name="text" type="java.lang.String" value="&#xbf;Cual es su animal favorito? (el que ingreso al registrarse)"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="NameBoxInicioSesion2">
+    <Component class="javax.swing.JTextField" name="AnimalRecuperacion">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Ingrese el animal que ingres&#xf3; al registrarse"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NameBoxInicioSesion2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AnimalRecuperacionActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ValidarRespuesta">
