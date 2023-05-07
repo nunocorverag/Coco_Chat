@@ -100,16 +100,60 @@ public class Coco_Chat_Server {
                         Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                     }
                }
-//               if(recibe == "login")
-//               {
-//                   
-//               }
-//               if(recibe == "abrir chat")
-//               {
-//                   thread
-//               }
+               if(funcion.equals("recuperar_cuenta_validar"))
+               {
+                    ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
+                    try {
+                      Object objectReceived = infoReceived.readObject();
+                      Usuario recoverAccountValidate  = (Usuario)objectReceived;
+                      System.out.println(recoverAccountValidate.username);
+                      System.out.println(recoverAccountValidate.pregunta_respaldo);
+                      UsuarioDAO usuarioDAO = new UsuarioDAO();
+                      if(usuarioDAO.RecuperarCuentaValidar(recoverAccountValidate.username, recoverAccountValidate.pregunta_respaldo))
+                      {
+                          //chido
+                          System.out.println("redirigir_recuperar_cuenta");
+                          DataOutputStream respuestaCredencialesValidas = new DataOutputStream(clientSocket.getOutputStream());
+                          respuestaCredencialesValidas.writeUTF("redirigir_recuperar_cuenta");
+                      }
+                      else
+                      {
+                          System.out.println("error_fallo_pregunta_o_usuario");
+                          DataOutputStream respuestaCredencialesValidas = new DataOutputStream(clientSocket.getOutputStream());
+                          respuestaCredencialesValidas.writeUTF("error_fallo_pregunta_o_usuario");
+                      }   
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+               }
+               if(funcion.equals("recuperar_contrasena"))
+               {
+                    ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
+                    try {
+                      Object objectReceived = infoReceived.readObject();
+                      Usuario recoverAccountValidate  = (Usuario)objectReceived;
+                      System.out.println(recoverAccountValidate.username);
+                      System.out.println(recoverAccountValidate.password);
+                      UsuarioDAO usuarioDAO = new UsuarioDAO();
+                      if(usuarioDAO.CambiarContrasena(recoverAccountValidate.username, recoverAccountValidate.password))
+                      {
+                          //chido
+                          System.out.println("exito_cambiar_contrasena");
+                          DataOutputStream respuestaCredencialesValidas = new DataOutputStream(clientSocket.getOutputStream());
+                          respuestaCredencialesValidas.writeUTF("exito_cambiar_contrasena");
+                      }
+                      else
+                      {
+                          System.out.println("error_cambiar_contrasena");
+                          DataOutputStream respuestaCredencialesValidas = new DataOutputStream(clientSocket.getOutputStream());
+                          respuestaCredencialesValidas.writeUTF("error_cambiar_contrasena");
+                      }   
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+               }
 
-            }
+            } //Fin del while
 
         } catch (IOException ex) {
             Logger.getLogger(Socket.class.getName()).log(Level.SEVERE, null, ex);

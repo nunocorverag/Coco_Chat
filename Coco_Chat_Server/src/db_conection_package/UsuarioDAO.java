@@ -65,4 +65,51 @@ public class UsuarioDAO extends Db_Conection{
         }
         return false;
     }
+    
+    public boolean RecuperarCuentaValidar(String username, String respuesta)
+    {
+        try 
+        {
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM usuario WHERE username=? AND pregunta_respaldo=?");
+            ps.setString(1, username);
+            ps.setString(2, respuesta);
+            ResultSet rs = ps.executeQuery(); 
+            
+            //Si las credenciales son correctas
+            if(rs.next())
+            {
+                return true;
+            }
+            //Si las credenciales son incorrectas
+            else
+            {
+                return false;
+            }          
+        }
+        catch(SQLException es)
+        {
+            System.out.println(es.getMessage());
+        }
+        return false;
+    }
+    public boolean CambiarContrasena(String username, String password)
+    {
+        int res = 0;
+        try 
+        {
+            PreparedStatement ps = getConnection()
+                                .prepareStatement
+                                ("UPDATE persona SET password = ? WHERE username = ?");
+            
+            ps.setString(1, password);
+            ps.setString(2, username);
+            
+            res = ps.executeUpdate();
+        }
+        catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        return res>0;
+    }
 }

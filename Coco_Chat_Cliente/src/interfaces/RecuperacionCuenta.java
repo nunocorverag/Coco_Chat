@@ -33,9 +33,9 @@ public class RecuperacionCuenta extends javax.swing.JFrame {
         IngresarButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         TextUsuario1 = new javax.swing.JLabel();
-        NameBoxInicioSesion1 = new javax.swing.JTextField();
+        UsuarioRecuperacion = new javax.swing.JTextField();
         TextUsuario2 = new javax.swing.JLabel();
-        NameBoxInicioSesion2 = new javax.swing.JTextField();
+        AnimalRecuperacion = new javax.swing.JTextField();
         ValidarRespuesta = new javax.swing.JButton();
         VentanaRegistro = new javax.swing.JButton();
 
@@ -66,20 +66,20 @@ public class RecuperacionCuenta extends javax.swing.JFrame {
         TextUsuario1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         TextUsuario1.setText("Usuario");
 
-        NameBoxInicioSesion1.setToolTipText("Ingrese su nombre de usuario");
-        NameBoxInicioSesion1.addActionListener(new java.awt.event.ActionListener() {
+        UsuarioRecuperacion.setToolTipText("Ingrese su nombre de usuario");
+        UsuarioRecuperacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NameBoxInicioSesion1ActionPerformed(evt);
+                UsuarioRecuperacionActionPerformed(evt);
             }
         });
 
         TextUsuario2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         TextUsuario2.setText("¿Cual es su animal favorito? (el que ingreso al registrarse)");
 
-        NameBoxInicioSesion2.setToolTipText("Ingrese el animal que ingresó al registrarse");
-        NameBoxInicioSesion2.addActionListener(new java.awt.event.ActionListener() {
+        AnimalRecuperacion.setToolTipText("Ingrese el animal que ingresó al registrarse");
+        AnimalRecuperacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NameBoxInicioSesion2ActionPerformed(evt);
+                AnimalRecuperacionActionPerformed(evt);
             }
         });
 
@@ -114,8 +114,8 @@ public class RecuperacionCuenta extends javax.swing.JFrame {
                         .addGap(160, 160, 160)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TextUsuario1)
-                            .addComponent(NameBoxInicioSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NameBoxInicioSesion2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UsuarioRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AnimalRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TextUsuario2))))
                 .addContainerGap(236, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -136,11 +136,11 @@ public class RecuperacionCuenta extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(TextUsuario1)
                 .addGap(18, 18, 18)
-                .addComponent(NameBoxInicioSesion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(UsuarioRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(TextUsuario2)
                 .addGap(18, 18, 18)
-                .addComponent(NameBoxInicioSesion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(AnimalRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51)
                 .addComponent(ValidarRespuesta)
                 .addGap(35, 35, 35)
@@ -155,13 +155,13 @@ public class RecuperacionCuenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NameBoxInicioSesionActionPerformed
 
-    private void NameBoxInicioSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameBoxInicioSesion1ActionPerformed
+    private void UsuarioRecuperacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioRecuperacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NameBoxInicioSesion1ActionPerformed
+    }//GEN-LAST:event_UsuarioRecuperacionActionPerformed
 
-    private void NameBoxInicioSesion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameBoxInicioSesion2ActionPerformed
+    private void AnimalRecuperacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnimalRecuperacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NameBoxInicioSesion2ActionPerformed
+    }//GEN-LAST:event_AnimalRecuperacionActionPerformed
 
     private void IngresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresarButtonActionPerformed
 
@@ -253,13 +253,13 @@ public class RecuperacionCuenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField AnimalRecuperacion;
     private javax.swing.JButton IngresarButton;
     private javax.swing.JTextField NameBoxInicioSesion;
-    private javax.swing.JTextField NameBoxInicioSesion1;
-    private javax.swing.JTextField NameBoxInicioSesion2;
     private javax.swing.JLabel TextUsuario;
     private javax.swing.JLabel TextUsuario1;
     private javax.swing.JLabel TextUsuario2;
+    private javax.swing.JTextField UsuarioRecuperacion;
     private javax.swing.JButton ValidarRespuesta;
     private javax.swing.JButton VentanaRegistro;
     private javax.swing.JLabel jLabel1;
