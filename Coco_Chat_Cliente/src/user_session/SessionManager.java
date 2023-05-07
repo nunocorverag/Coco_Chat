@@ -10,8 +10,8 @@ package user_session;
 public class SessionManager {
     private static SessionData sessionData;
 
-    public static void createSession(int idUsuario) {
-        sessionData = new SessionData(idUsuario);
+    public static void createSession(String username) {
+        sessionData = new SessionData(username);
     }
 
     public static SessionData getSession() {

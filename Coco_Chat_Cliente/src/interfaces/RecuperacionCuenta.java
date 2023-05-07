@@ -1,15 +1,16 @@
 package interfaces;
 
 import db_conection_package.Usuario;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import returned_models.RespuestaRecuperarCuenta;
 import user_session.SessionData;
 import user_session.SessionManager;
 
@@ -189,19 +190,27 @@ public class RecuperacionCuenta extends javax.swing.JFrame {
             ObjectOutputStream salidaObjeto = new ObjectOutputStream(s.getOutputStream());
             salidaObjeto.writeObject(userRecuperacion);
             
-            DataInputStream idUsuarioRecuperacion = new DataInputStream(s.getInputStream());
-            int idUsuario = idUsuarioRecuperacion.readInt();
-            System.out.println(idUsuario);
-            SessionManager.createSession(idUsuario);
+            ObjectInputStream inputStream = new ObjectInputStream(s.getInputStream());
+            RespuestaRecuperarCuenta respuesta;
+            
+            String username = "";
+            String Redirigir = "";
+            try {
+                respuesta = (RespuestaRecuperarCuenta) inputStream.readObject();
+                Redirigir = respuesta.resultadoFuncion;
+                username = respuesta.username;
+                
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(RecuperacionCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            SessionManager.createSession(username);
             SessionData sessionData = SessionManager.getSession();
             
             if(sessionData != null)
             {
-                System.out.println("Id de usuario: " + sessionData.getIdUsuario());
+                System.out.println("Id de usuario: " + sessionData.getUsername());
             }
-            
-            DataInputStream salidaRedirigir = new DataInputStream(s.getInputStream());
-            String Redirigir = salidaRedirigir.readUTF();
             
             System.out.println(Redirigir);
             s.close();
