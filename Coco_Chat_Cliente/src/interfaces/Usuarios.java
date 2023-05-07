@@ -12,6 +12,7 @@ public class Usuarios extends javax.swing.JFrame {
      */
     public Usuarios() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -21,7 +22,7 @@ public class Usuarios extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
+        UsuariosMenu = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
@@ -31,11 +32,17 @@ public class Usuarios extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu2.setText("Usuarios");
-        jMenu2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jMenu2.setIconTextGap(5);
-        jMenu2.setMargin(new java.awt.Insets(5, 90, 5, 90));
-        jMenuBar1.add(jMenu2);
+        UsuariosMenu.setText("Usuarios");
+        UsuariosMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuariosMenu.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        UsuariosMenu.setIconTextGap(5);
+        UsuariosMenu.setMargin(new java.awt.Insets(5, 90, 5, 90));
+        UsuariosMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuariosMenuActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(UsuariosMenu);
 
         jMenu7.setText("Grupos");
         jMenu7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -64,6 +71,13 @@ public class Usuarios extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void UsuariosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosMenuActionPerformed
+        //---------------------------
+        Amigos a = new Amigos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_UsuariosMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -102,7 +116,7 @@ public class Usuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu UsuariosMenu;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu7;
