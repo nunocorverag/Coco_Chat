@@ -194,6 +194,7 @@ public class RecuperacionCuenta extends javax.swing.JFrame {
             
             if(Redirigir.equals("redirigir_recuperar_contrasena"))
             {
+                setVisible(false);
                 NuevaContrasena a = new NuevaContrasena();
                 a.setVisible(true);
                 this.setVisible(false);
@@ -206,9 +207,6 @@ public class RecuperacionCuenta extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        NuevaContrasena a = new NuevaContrasena();
-        a.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_ValidarRespuestaActionPerformed
 
     private void VentanaRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaRegistroActionPerformed
