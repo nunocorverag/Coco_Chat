@@ -55,6 +55,8 @@ public class Registro extends javax.swing.JFrame {
         NameBoxRegistro = new javax.swing.JTextField();
         VentanaInicioSesionButton = new javax.swing.JButton();
         VentanaRecuperarCuentaButton = new javax.swing.JButton();
+        passText4 = new javax.swing.JLabel();
+        CorreoRegistro = new javax.swing.JTextField();
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -191,85 +193,97 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
+        passText4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        passText4.setText("Correo");
+
+        CorreoRegistro.setToolTipText("Ingresa tu correo electrónico");
+        CorreoRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CorreoRegistroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(VentanaRecuperarCuentaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(374, 374, 374))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(VentanaInicioSesionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(410, 410, 410))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(VentanaRecuperarCuentaButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(VentanaInicioSesionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(IngresarButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)))
+                        .addGap(266, 266, 266))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(TextUsuario3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(IngresarButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(ApellidoMRegistro)
-                                .addGap(215, 215, 215)))
-                        .addGap(423, 423, 423))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(NameBoxRegistro)
                             .addComponent(TextUsuario2)
                             .addComponent(TextUsuario4)
-                            .addComponent(ApellidoPRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
+                            .addComponent(ApellidoPRegistro)
+                            .addComponent(TextUsuario3)
+                            .addComponent(ApellidoMRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 291, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(passText3)
-                            .addComponent(passText2)
                             .addComponent(AnimalRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ContrasenaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(107, 107, 107))))
+                            .addComponent(passText4)
+                            .addComponent(CorreoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passText2)
+                            .addComponent(ContrasenaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(107, 107, 107))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(435, 435, 435))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(passText3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(89, 89, 89)
+                                .addComponent(passText4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(passText3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(AnimalRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(12, 12, 12)
+                        .addComponent(CorreoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(passText2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(AnimalRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ContrasenaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(TextUsuario2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(NameBoxRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(NameBoxRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addComponent(TextUsuario4)
                         .addGap(12, 12, 12)
-                        .addComponent(ApellidoPRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(passText2)
-                        .addGap(26, 26, 26)
-                        .addComponent(ContrasenaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(TextUsuario3)
-                .addGap(8, 8, 8)
-                .addComponent(ApellidoMRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(ApellidoPRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(TextUsuario3)
+                        .addGap(8, 8, 8)
+                        .addComponent(ApellidoMRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(IngresarButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(VentanaRecuperarCuentaButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(VentanaInicioSesionButton)
-                .addGap(24, 24, 24))
+                .addGap(42, 42, 42))
         );
 
         pack();
@@ -310,20 +324,28 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_ApellidoPRegistroActionPerformed
 
     private void IngresarButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresarButton3ActionPerformed
+        //Jala los datos ingresados en el formulario del registro        
         String nombre = NameBoxRegistro.getText();
         String apellidoM = ApellidoMRegistro.getText(); 
         String apellidoP = ApellidoPRegistro.getText();
         String animal = AnimalRegistro.getText();
+        String correo = CorreoRegistro.getText();
         
         char[] obtenerContrasena = ContrasenaRegistro.getPassword();
         String contrasena = new String(obtenerContrasena);
-                
+        
+        //Genera nombre de usuario
+        String usuario = nombre + " " + apellidoM + " " + apellidoP;
+         
+        //Muestra en la consola los datos del formulario
         System.out.println("Nombre: " + nombre);
         System.out.println("Apellido paterno: " + apellidoP);
         System.out.println("Apellido materno: " + apellidoM);
-        System.out.println("Animal favorito: " + animal);      
-        System.out.println("Contraseña: " + contrasena);
+        System.out.println("Animal favorito: " + animal);   
+        System.out.println("Correo: " + correo);
+        System.out.println("Contrasena: " + contrasena);
 
+        System.out.println("Usuario: " + usuario);
     }//GEN-LAST:event_IngresarButton3ActionPerformed
 
     private void NameBoxRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameBoxRegistroActionPerformed
@@ -339,6 +361,10 @@ public class Registro extends javax.swing.JFrame {
     private void VentanaRecuperarCuentaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaRecuperarCuentaButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_VentanaRecuperarCuentaButtonActionPerformed
+
+    private void CorreoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CorreoRegistroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CorreoRegistroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,6 +407,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JTextField ApellidoMRegistro;
     private javax.swing.JTextField ApellidoPRegistro;
     private javax.swing.JPasswordField ContrasenaRegistro;
+    private javax.swing.JTextField CorreoRegistro;
     private javax.swing.JButton IngresarButton;
     private javax.swing.JButton IngresarButton1;
     private javax.swing.JButton IngresarButton3;
@@ -405,5 +432,6 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel passText1;
     private javax.swing.JLabel passText2;
     private javax.swing.JLabel passText3;
+    private javax.swing.JLabel passText4;
     // End of variables declaration//GEN-END:variables
 }
