@@ -1,14 +1,14 @@
 package interfaces;
 
 import db_conection_package.Usuario;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  * @author Nancy
  */
@@ -198,14 +198,25 @@ public class InicioSesion extends javax.swing.JFrame {
             InetAddress direccion = InetAddress.getByName(direccionServidor);
             s = new Socket(direccion, 1234);
             
-            OutputStream outputStream = s.getOutputStream();
-            outputStream.write("login".getBytes());
+            DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+            funcion.writeUTF("login");
             
             ObjectOutputStream salidaObjeto = new ObjectOutputStream(s.getOutputStream());
             salidaObjeto.writeObject(userLogin);
             
+            DataInputStream salidaRedirigir = new DataInputStream(s.getInputStream());
+            String Redirigir = salidaRedirigir.readUTF();
             
+            System.out.println(Redirigir);
             s.close();
+            
+            if(Redirigir.equals("redirigir"))
+            {
+                Registro a = new Registro();
+                a.setVisible(true);
+                this.setVisible(false);
+            }
+            
         } catch (IOException ex) {
             Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -216,7 +227,7 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_IngresarButtonActionPerformed
 
     private void VentanaRegistrarseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaRegistrarseButtonActionPerformed
-        Registro a = new Registro();
+        RegistroSinRecuperarCuenta a = new RegistroSinRecuperarCuenta();
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_VentanaRegistrarseButtonActionPerformed
