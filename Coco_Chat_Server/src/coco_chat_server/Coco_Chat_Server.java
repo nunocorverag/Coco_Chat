@@ -27,20 +27,7 @@ public class Coco_Chat_Server {
                Thread clientThread = new Thread(cliente);
                clientThread.start();
             }
-            
-            
-            
 
-            /*BufferedReader reader = new BufferedReader(new InputStreamReader(c.getInputStream(), "UTF-8"));
-
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(c.getOutputStream(), "UTF-8"), true);
-            String mensaje = reader.readLine();
-
-            writer.println(mensaje);
-            System.out.println("El mensaje del cliente es: " + mensaje);
-
-            writer.close();
-            */
         } catch (IOException ex) {
             Logger.getLogger(Socket.class.getName()).log(Level.SEVERE, null, ex);
         }
