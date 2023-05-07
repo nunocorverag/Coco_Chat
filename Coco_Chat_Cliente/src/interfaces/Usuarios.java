@@ -31,9 +31,9 @@ public class Usuarios extends javax.swing.JFrame {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        ListaUsuariosConectados = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        ListaUsuariosNoConectados = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         UsuariosMenu = new javax.swing.JMenu();
@@ -60,7 +60,7 @@ public class Usuarios extends javax.swing.JFrame {
         jFormattedTextField1.setText("jFormattedTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(434, 434));
+        setPreferredSize(new java.awt.Dimension(426, 462));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -69,12 +69,18 @@ public class Usuarios extends javax.swing.JFrame {
         gridBagConstraints.weighty = 0.05;
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        ListaUsuariosConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        ListaUsuariosConectados.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Usuario 1", "Usuario 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        ListaUsuariosConectados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ListaUsuariosConectadosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(ListaUsuariosConectados);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -84,12 +90,18 @@ public class Usuarios extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        ListaUsuariosNoConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        ListaUsuariosNoConectados.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Usuario 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        ListaUsuariosNoConectados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ListaUsuariosNoConectadosMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(ListaUsuariosNoConectados);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -177,6 +189,16 @@ public class Usuarios extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_GruposMenuMenuSelected
 
+    private void ListaUsuariosConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosConectadosMouseClicked
+        Chat a = new Chat();
+        a.setVisible(true);
+    }//GEN-LAST:event_ListaUsuariosConectadosMouseClicked
+
+    private void ListaUsuariosNoConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosNoConectadosMouseClicked
+        Chat a = new Chat();
+        a.setVisible(true);
+    }//GEN-LAST:event_ListaUsuariosNoConectadosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -216,13 +238,13 @@ public class Usuarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AmigosMenu;
     private javax.swing.JMenu GruposMenu;
+    private javax.swing.JList<String> ListaUsuariosConectados;
+    private javax.swing.JList<String> ListaUsuariosNoConectados;
     private javax.swing.JMenu UsuariosMenu;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
