@@ -332,13 +332,15 @@ public class Registro extends javax.swing.JFrame {
         String animal = AnimalRegistro.getText();
         String correo = CorreoRegistro.getText();
         
-        Usuario userRegister = new Usuario(aqui pon todo puajajaja)
-        
         char[] obtenerContrasena = ContrasenaRegistro.getPassword();
         String contrasena = new String(obtenerContrasena);
         
         //Genera nombre de usuario
         String usuario = nombre + " " + apellidoM + " " + apellidoP;
+        
+        //Asigna el objeto usuario con los campos ingresados
+        Usuario userRegister = new Usuario(nombre, usuario, contrasena, correo, animal);
+        
          
         //Muestra en la consola los datos del formulario
         System.out.println("Nombre: " + nombre);
@@ -349,6 +351,8 @@ public class Registro extends javax.swing.JFrame {
         System.out.println("Contrasena: " + contrasena);
 
         System.out.println("Usuario: " + usuario);
+        
+        
     }//GEN-LAST:event_IngresarButton3ActionPerformed
 
     private void NameBoxRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameBoxRegistroActionPerformed
@@ -367,6 +371,7 @@ public class Registro extends javax.swing.JFrame {
 
     private void CorreoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CorreoRegistroActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_CorreoRegistroActionPerformed
 
     /**
