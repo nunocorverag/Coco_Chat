@@ -166,7 +166,7 @@ public class Registro extends javax.swing.JFrame {
         passText3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         passText3.setText("¿Cuál es tu animal favorito?");
 
-        IngresarButton3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        IngresarButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         IngresarButton3.setText("Ingresar");
         IngresarButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,10 +301,7 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_NameBoxActionPerformed
 
     private void IngresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresarButtonActionPerformed
-        // TODO add your handling code here:
-        String nombre = NameBox.getText();
-        passText.setText(nombre);
-        passText.setVisible(true);
+       
     }//GEN-LAST:event_IngresarButtonActionPerformed
 
     private void NameBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameBox1ActionPerformed
@@ -312,10 +309,7 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_NameBox1ActionPerformed
 
     private void IngresarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresarButton1ActionPerformed
-        // TODO add your handling code here:
-        String nombre = NameBox.getText();
-        passText.setText(nombre);
-        passText.setVisible(true);
+        
     }//GEN-LAST:event_IngresarButton1ActionPerformed
 
     private void AnimalRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnimalRegistroActionPerformed
@@ -386,7 +380,9 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_VentanaInicioSesionButtonActionPerformed
 
     private void VentanaRecuperarCuentaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaRecuperarCuentaButtonActionPerformed
-        // TODO add your handling code here:
+        RecuperacionCuenta a = new RecuperacionCuenta();
+        a.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_VentanaRecuperarCuentaButtonActionPerformed
 
     private void CorreoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CorreoRegistroActionPerformed
