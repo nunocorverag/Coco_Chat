@@ -10,6 +10,8 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import user_session.SessionData;
+import user_session.SessionManager;
 
 /**
  *
@@ -186,6 +188,17 @@ public class RecuperacionCuenta extends javax.swing.JFrame {
             
             ObjectOutputStream salidaObjeto = new ObjectOutputStream(s.getOutputStream());
             salidaObjeto.writeObject(userRecuperacion);
+            
+            DataInputStream idUsuarioRecuperacion = new DataInputStream(s.getInputStream());
+            int idUsuario = idUsuarioRecuperacion.readInt();
+            System.out.println(idUsuario);
+            SessionManager.createSession(idUsuario);
+            SessionData sessionData = SessionManager.getSession();
+            
+            if(sessionData != null)
+            {
+                System.out.println("Id de usuario: " + sessionData.getIdUsuario());
+            }
             
             DataInputStream salidaRedirigir = new DataInputStream(s.getInputStream());
             String Redirigir = salidaRedirigir.readUTF();
