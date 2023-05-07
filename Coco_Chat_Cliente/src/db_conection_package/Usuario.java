@@ -38,4 +38,10 @@ public class Usuario implements Serializable {
         this.pregunta_respaldo = pregunta_respaldo;
         this.estado = 0;
     }
+    
+    public Usuario(String username, String password)
+    {
+        this.username = username;
+        this.password = password;
+    }
 }
