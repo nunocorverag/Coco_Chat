@@ -1,0 +1,58 @@
+[33mb9d4da4[m[33m ([m[1;36mHEAD -> [m[1;32mdeveloping[m[33m, [m[1;31morigin/developing[m[33m)[m Descargue el pull
+[33md22206b[m aaa
+[33m2f2a353[m al seleccionar un chat, abre una ventana para cada seleccion
+[33m315011b[m ventana con las listas de usuarios conecados y desconectados
+[33m44e9d68[m ventanas pros de amigos, grupos y usuarios c:
+[33m39ca619[m correcion de conexion de interfaces de usuarios, amigos y grupos y labels temporales para identificarlos
+[33m3948960[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m604cc99[m creacion de ventanas interconectadas de grupos, usuarios y amigos
+[33md85a756[m[33m ([m[1;32mmain[m[33m)[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m7410992[m Termino de recuperacion de cuenta y nueva contraseña
+[33m4453765[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m85c11ac[m Ya funciona recuperar cuenta
+[33ma4ed495[m iconitos y menu ya medio hecho de los listados una vez iniciada la sesion
+[33mdde4f8b[m Correccion de NuevaContrasena
+[33m017e2be[m Creacion de user_session; clases de proposito de almacenamiento de id global
+[33m3fc5c53[m Se agrego el paquete returned models a clientes
+[33m502d775[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33mcb90aa6[m Se agrego el retorno de un objeto al validar las credenciales correctas
+[33m220abbb[m alerta en inicio de sesion erroneo
+[33m9f8e764[m Nueva Contraseña modificacion
+[33ma32f611[m Avance front end de Nueva Contraseña declaracion de objeto
+[33m5c39e7a[m mensaje de error en recuperacion de cuenta al responder mal
+[33mc23f7a3[m mostrar datos ingresados en nueva contrasena
+[33m5b835be[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m61f060a[m Funcionalidad front end recuperar cuenta
+[33m0049c72[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33mcfbe0cb[m Se agregaron metodos para cambiar password y para preguntar cual es el animal
+[33mec8d2a9[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m7ab8ba9[m cambio en los nombres de los cuadros de texto
+[33m51e7e45[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m3749caf[m Eliminacion de imports innecesarios
+[33m9dbe806[m correcion de conexion de interfaces
+[33m79099d8[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m87a1d59[m creacion de interfaz para el registro sin el boton de recuperar cuenta y creo que ligreo avance en la de mostrar los usuarios
+[33mff4ac42[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m9bae0f0[m Redireccionamiento de inicio de sesion despues de 3 intentos front end
+[33m12f532a[m Se manda respuesta del servidor al cliente en el login
+[33m0edc03f[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m9813fed[m Inicio de sesion funcionalidad terminada
+[33ma1daf33[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33mc6c8381[m Funcion basica del login en sv
+[33m6c8c0d7[m interfaz de recuperar cuenta y poner nueva contrasena
+[33mac53555[m muestra los datos ingresados en el formulario en la consola
+[33mefd4df4[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33mec5481a[m Ya jala el envio de datos register al server
+[33mf5c37b2[m Ya jala el register en el sv
+[33mdd4a666[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m9563c3a[m Se agrego el insertar los datos a la bd desde el sv
+[33mab53c38[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m9ccd287[m Ahora si envio de objeto al servidor
+[33m18eadf7[m actualizacion de pp
+[33mc2957ee[m actualizacion de pp
+[33mf479e96[m Creacion de objeto usuario en interfaz de registro y envio de objeto al servidor
+[33mfbce6c4[m Merge branch 'developing' of https://github.com/gnuno2003/Coco_Chat into developing
+[33m7ecd1e6[m agregue comentarios a la funcionalidad del boton de ingresar, el campo de email y la creacion del nombre de usuario
+[33m31995e5[m Preparacion para el login
+[33m41bf60f[m[33m ([m[1;32mserver[m[33m)[m cree un paquete llamado interfaces y agrege las interfaces de inicio de sesion y registro
+[33ma2d9687[m[33m ([m[1;31morigin/server[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/client[m[33m, [m[1;32mclient[m[33m)[m Se creo un nuevo repositorio, se agregaron los cambios ya realizados en las carpetas cliente y server. Se va a crear una branch llamada Cliente, Server y que el usuario le ponga su nombre a la rama

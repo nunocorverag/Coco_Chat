@@ -135,4 +135,29 @@ public class UsuarioDAO extends Db_Conection{
         }
         return -1;
     }
+    
+public ArrayList<Usuario> obtenerUsuarios()
+{
+        ArrayList<Usuario> listaUsuarios = new ArrayList();
+        try 
+        {
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM usuario");
+            ResultSet rs;
+            Usuario usuario;
+            rs = ps.executeQuery(); 
+                        
+            while (rs.next())
+            {
+                usuario = new Usuario();
+                usuario.nombre = rs.getString("nombre");
+                usuario.username = rs.getString("username");
+                listaUsuarios.add(usuario);
+            }            
+        }
+        catch(SQLException es)
+        {
+            System.out.println(es.getMessage());
+        }
+        return listaUsuarios;
+    }
 }
