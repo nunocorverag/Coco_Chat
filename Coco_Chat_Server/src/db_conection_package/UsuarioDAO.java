@@ -136,8 +136,8 @@ public class UsuarioDAO extends Db_Conection{
         return -1;
     }
     
-public ArrayList<Usuario> obtenerUsuarios()
-{
+    public ArrayList<Usuario> obtenerUsuarios()
+    {
         ArrayList<Usuario> listaUsuarios = new ArrayList();
         try 
         {
@@ -160,4 +160,45 @@ public ArrayList<Usuario> obtenerUsuarios()
         }
         return listaUsuarios;
     }
+    
+    public boolean ConectarUsuario(String username)
+    {
+        int res = 0;
+        try 
+        {
+            PreparedStatement ps = getConnection()
+                                .prepareStatement
+                                ("UPDATE usuario SET estado = 1 WHERE username = ?");
+            
+            ps.setString(1, username);
+            
+            res = ps.executeUpdate();
+        }
+        catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        return res>0;
+    }
+   
+    public boolean DesconectarUsuario(String username)
+    {
+        int res = 0;
+        try 
+        {
+            PreparedStatement ps = getConnection()
+                                .prepareStatement
+                                ("UPDATE usuario SET estado = 0 WHERE username = ?");
+            
+            ps.setString(1, username);
+            
+            res = ps.executeUpdate();
+        }
+        catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        return res>0;
+    }
 }
+
