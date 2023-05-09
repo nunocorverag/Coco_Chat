@@ -14,116 +14,190 @@ public class Usuarios extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+    /*
+    public Chat(String usuario){
+        initComponents();
+        this.setLocationRelativeTo(null);
+    }*/
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jInternalFrame1 = new javax.swing.JInternalFrame();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ListaUsuariosConectados = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ListaUsuariosNoConectados = new javax.swing.JList<>();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         UsuariosMenu = new javax.swing.JMenu();
-        UsuariosConectadosMenu = new javax.swing.JMenuItem();
-        UsuariosDeconectadosMenu = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        AmigosConectadosMenu = new javax.swing.JMenuItem();
-        AmigosDesconectadosMenu = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
+        AmigosMenu = new javax.swing.JMenu();
+        GruposMenu = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
         jMenu3.setText("jMenu3");
 
+        jInternalFrame1.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jFormattedTextField1.setText("jFormattedTextField1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(426, 462));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jLabel1.setText("Conectados");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.weighty = 0.05;
+        getContentPane().add(jLabel1, gridBagConstraints);
+
+        ListaUsuariosConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        ListaUsuariosConectados.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Usuario 1", "Usuario 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        ListaUsuariosConectados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ListaUsuariosConectadosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(ListaUsuariosConectados);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(jScrollPane1, gridBagConstraints);
+
+        ListaUsuariosNoConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        ListaUsuariosNoConectados.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Usuario 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        ListaUsuariosNoConectados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ListaUsuariosNoConectadosMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(ListaUsuariosNoConectados);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(jScrollPane2, gridBagConstraints);
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jLabel2.setText("Desconectados");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.weighty = 0.05;
+        getContentPane().add(jLabel2, gridBagConstraints);
 
         UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
         UsuariosMenu.setText("Usuarios");
         UsuariosMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UsuariosMenu.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        UsuariosMenu.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         UsuariosMenu.setIconTextGap(5);
-        UsuariosMenu.setMargin(new java.awt.Insets(5, 90, 5, 90));
-        UsuariosMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UsuariosMenuActionPerformed(evt);
+        UsuariosMenu.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        UsuariosMenu.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                UsuariosMenuMenuSelected(evt);
             }
         });
-
-        UsuariosConectadosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        UsuariosConectadosMenu.setText("Conectados");
-        UsuariosConectadosMenu.setMargin(new java.awt.Insets(2, 60, 2, 60));
-        UsuariosConectadosMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UsuariosConectadosMenuActionPerformed(evt);
-            }
-        });
-        UsuariosMenu.add(UsuariosConectadosMenu);
-
-        UsuariosDeconectadosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        UsuariosDeconectadosMenu.setText("Desconectados");
-        UsuariosDeconectadosMenu.setMargin(new java.awt.Insets(2, 60, 2, 60));
-        UsuariosDeconectadosMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UsuariosDeconectadosMenuActionPerformed(evt);
-            }
-        });
-        UsuariosMenu.add(UsuariosDeconectadosMenu);
-
         jMenuBar1.add(UsuariosMenu);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/amigos.png"))); // NOI18N
-        jMenu4.setText("Amigos");
-        jMenu4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jMenu4.setIconTextGap(5);
-        jMenu4.setMargin(new java.awt.Insets(5, 90, 5, 90));
+        AmigosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/amigos.png"))); // NOI18N
+        AmigosMenu.setText("Amigos");
+        AmigosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        AmigosMenu.setIconTextGap(5);
+        AmigosMenu.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        AmigosMenu.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                AmigosMenuMenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(AmigosMenu);
 
-        AmigosConectadosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        AmigosConectadosMenu.setText("Conectados");
-        AmigosConectadosMenu.setMargin(new java.awt.Insets(2, 60, 2, 60));
-        jMenu4.add(AmigosConectadosMenu);
-
-        AmigosDesconectadosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        AmigosDesconectadosMenu.setText("Desconectados");
-        AmigosDesconectadosMenu.setMargin(new java.awt.Insets(2, 60, 2, 60));
-        jMenu4.add(AmigosDesconectadosMenu);
-
-        jMenuBar1.add(jMenu4);
-
-        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/grupos.png"))); // NOI18N
-        jMenu7.setText("Grupos");
-        jMenu7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jMenu7.setIconTextGap(5);
-        jMenu7.setMargin(new java.awt.Insets(5, 80, 5, 80));
-        jMenuBar1.add(jMenu7);
+        GruposMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/grupos.png"))); // NOI18N
+        GruposMenu.setText("Grupos");
+        GruposMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        GruposMenu.setIconTextGap(5);
+        GruposMenu.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        GruposMenu.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                GruposMenuMenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(GruposMenu);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 726, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UsuariosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosMenuActionPerformed
-       
-    }//GEN-LAST:event_UsuariosMenuActionPerformed
+    private void UsuariosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_UsuariosMenuMenuSelected
+        Usuarios a = new Usuarios();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_UsuariosMenuMenuSelected
 
-    private void UsuariosDeconectadosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosDeconectadosMenuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuariosDeconectadosMenuActionPerformed
-
-    private void UsuariosConectadosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosConectadosMenuActionPerformed
+    private void AmigosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_AmigosMenuMenuSelected
         Amigos a = new Amigos();
         a.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_UsuariosConectadosMenuActionPerformed
+    }//GEN-LAST:event_AmigosMenuMenuSelected
+
+    private void GruposMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_GruposMenuMenuSelected
+        Grupos a = new Grupos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_GruposMenuMenuSelected
+
+    private void ListaUsuariosConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosConectadosMouseClicked
+        Chat a = new Chat();
+        a.setVisible(true);
+    }//GEN-LAST:event_ListaUsuariosConectadosMouseClicked
+
+    private void ListaUsuariosNoConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosNoConectadosMouseClicked
+        Chat a = new Chat();
+        a.setVisible(true);
+    }//GEN-LAST:event_ListaUsuariosNoConectadosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -162,15 +236,19 @@ public class Usuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem AmigosConectadosMenu;
-    private javax.swing.JMenuItem AmigosDesconectadosMenu;
-    private javax.swing.JMenuItem UsuariosConectadosMenu;
-    private javax.swing.JMenuItem UsuariosDeconectadosMenu;
+    private javax.swing.JMenu AmigosMenu;
+    private javax.swing.JMenu GruposMenu;
+    private javax.swing.JList<String> ListaUsuariosConectados;
+    private javax.swing.JList<String> ListaUsuariosNoConectados;
     private javax.swing.JMenu UsuariosMenu;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
