@@ -210,9 +210,14 @@ public class InicioSesion extends javax.swing.JFrame {
             System.out.println(Redirigir);
             s.close();
             
+            if(Redirigir.equals("credenciales_validas"))
+            {
+                Amigos a = new Amigos();
+                a.setVisible(true);
+                this.setVisible(false);
+            }
             if(Redirigir.equals("redirigir"))
             {
-                setVisible(false);
                 Registro a = new Registro();
                 a.setVisible(true);
                 this.setVisible(false);
