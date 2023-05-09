@@ -16,6 +16,7 @@ import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import returned_models.*;
@@ -44,6 +45,8 @@ public class Coco_Chat_Server {
                     intentosInicioSesion.put(clienteConectado, 0);
                 }
                 DataInputStream salidaFuncion = new DataInputStream(clientSocket.getInputStream());
+                System.out.println("Salida Funcion: " + salidaFuncion);
+
                 String funcion = salidaFuncion.readUTF();
                 System.out.println("Funcion: " + funcion);
                
@@ -71,15 +74,16 @@ public class Coco_Chat_Server {
                       UsuarioDAO usuarioDAO = new UsuarioDAO();
                       if(usuarioDAO.IniciarSesion(loginDetails.username, loginDetails.password))
                       {
-                          //chido
+                          //Exito al iniciar sesion
                           System.out.println("Credenciales validas");
                           intentosInicioSesion.put(clienteConectado, 0);
                           DataOutputStream respuestaCredencialesValidas = new DataOutputStream(clientSocket.getOutputStream());
                           respuestaCredencialesValidas.writeUTF("credenciales_validas");
+                          usuarioDAO.ConectarUsuario(loginDetails.username);
                       }
                       else
                       {
-                          //chafa
+                          //Hubo un fallo en las credenciales
                           System.out.println("Credenciales NO validas");
                           int cantidad_intentos = intentosInicioSesion.get(clienteConectado);
                           cantidad_intentos ++;
@@ -156,6 +160,26 @@ public class Coco_Chat_Server {
                         Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                     }
                }
+
+               if(funcion.equals("mostrar_usuarios"))
+               {
+                   UsuarioDAO usuarioDAO = new UsuarioDAO();
+                   ArrayList<Usuario> listaUsuarios = usuarioDAO.obtenerUsuarios();
+                   ObjectOutputStream respuestaCredencialesCorrectas = new ObjectOutputStream(clientSocket.getOutputStream());
+                   respuestaCredencialesCorrectas.writeObject(listaUsuarios);
+               }
+
+               if(funcion.equals("cerrar_sesion"))
+               {
+                      DataInputStream informacionUsuarioCliente = new DataInputStream(clientSocket.getInputStream());
+                      String nombre_usuario = informacionUsuarioCliente.readUTF();
+                      System.out.println("Desconectar usuario:");
+                      System.out.println(nombre_usuario);
+                      UsuarioDAO usuarioDAO = new UsuarioDAO();
+                      usuarioDAO.DesconectarUsuario(nombre_usuario);
+               }
+
+
 
             } //Fin del while
 
