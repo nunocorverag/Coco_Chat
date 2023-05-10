@@ -212,7 +212,7 @@ public class InicioSesion extends javax.swing.JFrame {
             
             if(Redirigir.equals("credenciales_validas"))
             {
-                Amigos a = new Amigos();
+                Usuarios a = new Usuarios();
                 a.setVisible(true);
                 this.setVisible(false);
             }

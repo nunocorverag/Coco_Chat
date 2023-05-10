@@ -23,6 +23,43 @@ public class Usuarios extends javax.swing.JFrame {
     public Usuarios() {
         initComponents();
         this.setLocationRelativeTo(null);
+        Socket s;
+                try {
+                    String direccionServidor = "10.147.17.147";
+                    InetAddress direccion = InetAddress.getByName(direccionServidor);
+                    s = new Socket(direccion, 1234);
+                    
+                    DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+                    funcion.writeUTF("mostrar_usuarios");
+                    
+                    ObjectInputStream usuariosList = new ObjectInputStream(s.getInputStream());
+                    try {
+                        ArrayList<Usuario> usuarios = (ArrayList<Usuario>)usuariosList.readObject();
+                        
+                        ArrayList<Usuario> UserConnected = new ArrayList<Usuario>();
+                        ArrayList<Usuario> UserDisconnected = new ArrayList<Usuario>();
+                        
+                        for(Usuario user: usuarios)
+                        {
+                            if(user.estado == 1)
+                            {
+                                UserConnected.add(user);
+                            }
+                            else
+                            {
+                                UserDisconnected.add(user);
+                            }
+                        }
+                        
+                        
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
         //exitonclose
         
     }
@@ -194,6 +231,16 @@ public class Usuarios extends javax.swing.JFrame {
         public ListaUsuariosOnline(){
             usuariosOn = new String[]{"Marta", "Jose", "Felipe", "Manuel"};
         }
+        
+        public ListaUsuariosOnline(ArrayList<Usuario> usuariosOnline)
+        {
+            int i = 0;
+            for(Usuario user: usuariosOnline)
+            {
+                usuariosOn[i] = user.username;
+                i++;
+            }
+        }
 
         public String[] obtenerUsuarios(){
             return usuariosOn;
@@ -205,6 +252,15 @@ public class Usuarios extends javax.swing.JFrame {
         
         public ListaUsuariosOffline(){
             usuariosOff = new String[]{"Pedro", "Cosa", "kkita", ":P"};
+        }
+        
+        public ListaUsuariosOffline(ArrayList<Usuario> usuariosOffline){
+            int i = 0;
+            for(Usuario user: usuariosOffline)
+            {
+                usuariosOff[i] = user.username;
+                i++;
+            }
         }
         
         public String[] obtenerUsuarios(){
@@ -271,32 +327,7 @@ public class Usuarios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Usuarios().setVisible(true);
-                
-                Socket s;
-                try {
-                    String direccionServidor = "10.147.17.147";
-                    InetAddress direccion = InetAddress.getByName(direccionServidor);
-                    s = new Socket(direccion, 1234);
-                    
-                    DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
-                    funcion.writeUTF("obtener_usuarios");
-                    
-                    ObjectInputStream usuariosList = new ObjectInputStream(s.getInputStream());
-                    try {
-                        ArrayList<Usuario> usuarios = (ArrayList<Usuario>)usuariosList.readObject();
-                        for(Usuario user: usuarios)
-                        {
-                            System.out.println(user);
-                        }
-                        
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
+                new Usuarios().setVisible(true);              
             }
         });
     }
