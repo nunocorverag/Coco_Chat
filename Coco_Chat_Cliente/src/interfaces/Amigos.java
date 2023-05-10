@@ -236,8 +236,7 @@ public class Amigos extends javax.swing.JFrame {
     }//GEN-LAST:event_ListaAmigosConectadosMouseClicked
 
     private void ListaAmigosNoConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaAmigosNoConectadosMouseClicked
-        Chat a = new Chat();
-        a.setVisible(true);
+        
     }//GEN-LAST:event_ListaAmigosNoConectadosMouseClicked
 
     /**
