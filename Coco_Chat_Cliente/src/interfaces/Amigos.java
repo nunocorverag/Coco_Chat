@@ -70,10 +70,11 @@ public class Amigos extends javax.swing.JFrame {
         getContentPane().add(jLabel1, gridBagConstraints);
 
         ListaAmigosConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        ListaAmigos listaAmigos = new ListaAmigos();
+        String[] amigos = listaAmigos.obtenerAmigos();
         ListaAmigosConectados.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Amigo 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public int getSize() { return amigos.length; }
+            public String getElementAt(int i) { return amigos[i]; }
         });
         ListaAmigosConectados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -120,7 +121,7 @@ public class Amigos extends javax.swing.JFrame {
         UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
         UsuariosMenu.setText("Usuarios");
         UsuariosMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UsuariosMenu.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        UsuariosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         UsuariosMenu.setIconTextGap(5);
         UsuariosMenu.setMargin(new java.awt.Insets(2, 10, 2, 10));
         UsuariosMenu.addMenuListener(new javax.swing.event.MenuListener() {
@@ -136,7 +137,8 @@ public class Amigos extends javax.swing.JFrame {
 
         AmigosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/amigos.png"))); // NOI18N
         AmigosMenu.setText("Amigos");
-        AmigosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        AmigosMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AmigosMenu.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         AmigosMenu.setIconTextGap(5);
         AmigosMenu.setMargin(new java.awt.Insets(2, 10, 2, 10));
         AmigosMenu.addMenuListener(new javax.swing.event.MenuListener() {
@@ -152,6 +154,7 @@ public class Amigos extends javax.swing.JFrame {
 
         GruposMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/grupos.png"))); // NOI18N
         GruposMenu.setText("Grupos");
+        GruposMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GruposMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         GruposMenu.setIconTextGap(5);
         GruposMenu.setMargin(new java.awt.Insets(2, 10, 2, 10));
@@ -171,6 +174,18 @@ public class Amigos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public class ListaAmigos{
+        private String[] amigos;
+        
+        public ListaAmigos(){
+            amigos = new String[]{"Marta", "Jose", "Felipe", "Manuel"};
+        }
+        
+        public String[] obtenerAmigos(){
+            return amigos;
+        }
+    }
+     
     private void UsuariosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_UsuariosMenuMenuSelected
         Usuarios a = new Usuarios();
         a.setVisible(true);
