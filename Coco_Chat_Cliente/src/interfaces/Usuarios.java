@@ -63,6 +63,7 @@ public class Usuarios extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(426, 462));
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -72,10 +73,11 @@ public class Usuarios extends javax.swing.JFrame {
         getContentPane().add(jLabel1, gridBagConstraints);
 
         ListaUsuariosConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        ListaUsuariosOnline listaUsuariosOnline = new ListaUsuariosOnline();
+        String[] usuariosOn = listaUsuariosOnline.obtenerUsuarios();
         ListaUsuariosConectados.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Usuario 1", "Usuario 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public int getSize() { return usuariosOn.length; }
+            public String getElementAt(int i) { return usuariosOn[i]; }
         });
         ListaUsuariosConectados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -93,10 +95,11 @@ public class Usuarios extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         ListaUsuariosNoConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        ListaUsuariosOffline listaUsuariosOffline = new ListaUsuariosOffline();
+        String[] usuariosOff = listaUsuariosOffline.obtenerUsuarios();
         ListaUsuariosNoConectados.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Usuario 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public int getSize() { return usuariosOff.length; }
+            public String getElementAt(int i) { return usuariosOff[i]; }
         });
         ListaUsuariosNoConectados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -175,6 +178,30 @@ public class Usuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+        public class ListaUsuariosOnline{
+        private String[] usuariosOn;
+        
+        public ListaUsuariosOnline(){
+            usuariosOn = new String[]{"Marta", "Jose", "Felipe", "Manuel"};
+        }
+        
+        public String[] obtenerUsuarios(){
+            return usuariosOn;
+        }
+    }
+    
+    public class ListaUsuariosOffline{
+        private String[] usuariosOff;
+        
+        public ListaUsuariosOffline(){
+            usuariosOff = new String[]{"Pedro", "Cosa", "kkita", ":P"};
+        }
+        
+        public String[] obtenerUsuarios(){
+            return usuariosOff;
+        }
+    }
+    
     private void UsuariosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_UsuariosMenuMenuSelected
         Usuarios a = new Usuarios();
         a.setVisible(true);
@@ -196,18 +223,11 @@ public class Usuarios extends javax.swing.JFrame {
     private void ListaUsuariosConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosConectadosMouseClicked
         Chat a = new Chat();
         a.setVisible(true);
-        
-<<<<<<< HEAD
-=======
-        
->>>>>>> 7d425e684fa6832e7cce433d185e50e614b888db
     }//GEN-LAST:event_ListaUsuariosConectadosMouseClicked
 
     private void ListaUsuariosNoConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosNoConectadosMouseClicked
         Chat a = new Chat();
         a.setVisible(true);
-        
-
     }//GEN-LAST:event_ListaUsuariosNoConectadosMouseClicked
 
     /**
