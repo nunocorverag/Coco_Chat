@@ -13,6 +13,8 @@ public class Usuarios extends javax.swing.JFrame {
     public Usuarios() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //exitonclose
+        
     }
     /*
     public Chat(String usuario){
@@ -136,6 +138,7 @@ public class Usuarios extends javax.swing.JFrame {
 
         AmigosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/amigos.png"))); // NOI18N
         AmigosMenu.setText("Amigos");
+        AmigosMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         AmigosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         AmigosMenu.setIconTextGap(5);
         AmigosMenu.setMargin(new java.awt.Insets(2, 10, 2, 10));
@@ -152,6 +155,7 @@ public class Usuarios extends javax.swing.JFrame {
 
         GruposMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/grupos.png"))); // NOI18N
         GruposMenu.setText("Grupos");
+        GruposMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GruposMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         GruposMenu.setIconTextGap(5);
         GruposMenu.setMargin(new java.awt.Insets(2, 10, 2, 10));
@@ -193,12 +197,17 @@ public class Usuarios extends javax.swing.JFrame {
         Chat a = new Chat();
         a.setVisible(true);
         
+<<<<<<< HEAD
+=======
         
+>>>>>>> 7d425e684fa6832e7cce433d185e50e614b888db
     }//GEN-LAST:event_ListaUsuariosConectadosMouseClicked
 
     private void ListaUsuariosNoConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosNoConectadosMouseClicked
         Chat a = new Chat();
         a.setVisible(true);
+        
+
     }//GEN-LAST:event_ListaUsuariosNoConectadosMouseClicked
 
     /**

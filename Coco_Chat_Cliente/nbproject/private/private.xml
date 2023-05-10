@@ -6,12 +6,10 @@
         <group/>
 =======
         <group>
-            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/UsuariosDesconectados.java</file>
             <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/Grupos.java</file>
-            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/UsuariosConectados.java</file>
-            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/CrearGrupos.java</file>
-            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/AmigosConectados.java</file>
-            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/AmigosDesconectados.java</file>
+            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/Amigos.java</file>
+            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/Usuarios.java</file>
+            <file>file:/C:/Users/Nancy/Documents/8D/prograAvanzada/Coco_Chat/Coco_Chat_Cliente/src/interfaces/Chat.java</file>
         </group>
 >>>>>>> 2f2a35395b29f65420fb55730d2ccd331dfca21c
     </open-files>
