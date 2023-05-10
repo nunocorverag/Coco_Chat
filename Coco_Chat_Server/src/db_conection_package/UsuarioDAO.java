@@ -196,7 +196,7 @@ public class UsuarioDAO extends Db_Conection{
         ArrayList<Usuario> listaNoAmigos = new ArrayList();
         try 
         {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM usuario WHERE id_usuario <> ? AND id NOT IN (SELECT amigo2 FROM amistad WHERE amigo1 = ? UNION SELECT amigo1 FROM amistad WHERE amigo2 = ?)");
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM usuario WHERE id_usuario <> ? AND id_usuario NOT IN (SELECT amigo2 FROM amistad WHERE amigo1 = ? UNION SELECT amigo1 FROM amistad WHERE amigo2 = ?)");
             ps.setInt(1, usuario);
             ps.setInt(2, usuario);
             ps.setInt(3, usuario);
