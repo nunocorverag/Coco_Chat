@@ -188,13 +188,13 @@ public class Usuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-        public class ListaUsuariosOnline{
+    public class ListaUsuariosOnline{
         private String[] usuariosOn;
-        
+
         public ListaUsuariosOnline(){
             usuariosOn = new String[]{"Marta", "Jose", "Felipe", "Manuel"};
         }
-        
+
         public String[] obtenerUsuarios(){
             return usuariosOn;
         }

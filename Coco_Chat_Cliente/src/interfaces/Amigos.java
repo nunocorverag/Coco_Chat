@@ -1,6 +1,9 @@
 
 package interfaces;
 
+import java.awt.Font;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Nancy
@@ -60,7 +63,7 @@ public class Amigos extends javax.swing.JFrame {
         jFormattedTextField1.setText("jFormattedTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(426, 462));
+        setPreferredSize(new java.awt.Dimension(626, 562));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -198,6 +201,8 @@ public class Amigos extends javax.swing.JFrame {
             return amigosOff;
         }
     }
+    
+    
      
     private void UsuariosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_UsuariosMenuMenuSelected
         Usuarios a = new Usuarios();
@@ -218,7 +223,13 @@ public class Amigos extends javax.swing.JFrame {
     }//GEN-LAST:event_GruposMenuMenuSelected
 
     private void ListaAmigosConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaAmigosConectadosMouseClicked
+        String nombreSeleccionado = ListaAmigosConectados.getSelectedValue();
         Chat a = new Chat();
+        a.setTitle(nombreSeleccionado);
+        JLabel label = new JLabel(nombreSeleccionado);
+        label.setFont(new Font("Dialog", Font.BOLD, 18));
+        a.add(label);
+        
         a.setVisible(true);
     }//GEN-LAST:event_ListaAmigosConectadosMouseClicked
 

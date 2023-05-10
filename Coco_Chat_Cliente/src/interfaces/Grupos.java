@@ -61,10 +61,11 @@ public class Grupos extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         ListaGrupos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        ListaGrupos listaGrupos = new ListaGrupos();
+        String[] grupos = listaGrupos.obtenerGrupos();
         ListaGrupos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Grupo 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public int getSize() { return grupos.length; }
+            public String getElementAt(int i) { return grupos[i]; }
         });
         ListaGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -140,6 +141,18 @@ public class Grupos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public class ListaGrupos{
+        private String[] grupos;
+
+        public ListaGrupos(){
+            grupos = new String[]{"Los Kks", "Equipo Dinamita", "Los chidos como no", "Cocotaxo"};
+        }
+
+        public String[] obtenerGrupos(){
+            return grupos;
+        }
+    }
+    
     private void UsuariosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_UsuariosMenuMenuSelected
         Usuarios a = new Usuarios();
         a.setVisible(true);
