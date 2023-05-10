@@ -1,19 +1,17 @@
 package coco_chat_cliente;
 
-import java.io.BufferedReader;
+import interfaces.Registro;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.Socket;
-
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Coco_Chat_Cliente {
-
-
+    private static final AtomicInteger windowCount = new AtomicInteger(0);
+    
 public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        Socket s = new Socket("10.147.17.231", 1234);
+        /*Socket s = new Socket("10.147.17.231", 1234);
 
         PrintWriter writer = new PrintWriter(new OutputStreamWriter(s.getOutputStream(), "UTF-8"), true);
         String mensaje = "¡Hola, mundo! ¿Cómo estás?";
@@ -24,8 +22,19 @@ public static void main(String[] args) throws IOException {
         String mensajeRecibido = reader.readLine();
         System.out.println("El mensaje del servidor es: " + mensajeRecibido);
         writer.close();
-        s.close();
-    }
+        s.close();*/
+        
+        
+        Registro frame = new Registro();
+        
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowOpened(WindowEvent e) {
+            System.exit(0);
+        }
+        });
+        
+        frame.setVisible(true);
+}
 
     
 }

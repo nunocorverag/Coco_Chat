@@ -4,9 +4,9 @@
  */
 package interfaces;
 import db_conection_package.Usuario;
+import java.io.DataOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -347,8 +347,8 @@ public class Registro extends javax.swing.JFrame {
             InetAddress direccion = InetAddress.getByName(direccionServidor);
             s = new Socket(direccion, 1234);
             
-            OutputStream outputStream = s.getOutputStream();
-            outputStream.write("register".getBytes());
+            DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+            funcion.writeUTF("register");
             
             ObjectOutputStream salidaObjeto = new ObjectOutputStream(s.getOutputStream());
             salidaObjeto.writeObject(userRegister);

@@ -13,6 +13,14 @@ public class SessionManager {
     public static void createSession(String username) {
         sessionData = new SessionData(username);
     }
+    
+    public static void closeSession()
+    {
+        if(sessionData != null)
+        {
+            invalidateSession();
+        }
+    }
 
     public static SessionData getSession() {
         return sessionData;
@@ -21,6 +29,7 @@ public class SessionManager {
     public static void invalidateSession() {
         sessionData = null;
     }
+    
 }
 
 

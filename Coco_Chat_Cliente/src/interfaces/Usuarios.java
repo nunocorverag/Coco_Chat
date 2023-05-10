@@ -197,6 +197,10 @@ public class Usuarios extends javax.swing.JFrame {
         Chat a = new Chat();
         a.setVisible(true);
         
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 7d425e684fa6832e7cce433d185e50e614b888db
     }//GEN-LAST:event_ListaUsuariosConectadosMouseClicked
 
     private void ListaUsuariosNoConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosNoConectadosMouseClicked
