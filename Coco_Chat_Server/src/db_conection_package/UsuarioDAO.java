@@ -162,6 +162,61 @@ public class UsuarioDAO extends Db_Conection{
         return listaUsuarios;
     }
     
+    public ArrayList<Usuario> obtenerAmigos(int usuario)
+    {
+        ArrayList<Usuario> listaAmigos = new ArrayList();
+        try 
+        {
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM amistad where (amigo1 = ? OR amigo2 = ?)");
+            ps.setInt(1, usuario);
+            ps.setInt(2, usuario);
+
+            ResultSet rs;
+            Usuario infoAmigo;
+            rs = ps.executeQuery(); 
+                        
+            while (rs.next())
+            {
+                infoAmigo = new Usuario();
+                infoAmigo.nombre = rs.getString("nombre");
+                infoAmigo.username = rs.getString("username");
+                infoAmigo.estado = rs.getInt("estado");
+                listaAmigos.add(infoAmigo);
+            }            
+        }
+        catch(SQLException es)
+        {
+            System.out.println(es.getMessage());
+        }
+        return listaAmigos;
+    }
+    
+    public ArrayList<Grupo> obtenerGrupos(int usuario)
+    {
+        ArrayList<Grupo> listaGrupos = new ArrayList();
+        try 
+        {
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM pertenencias_grupo where usuario_perteneciente = ?");
+            ps.setInt(1, usuario);
+
+            ResultSet rs;
+            Grupo infoGrupo;
+            rs = ps.executeQuery(); 
+                        
+            while (rs.next())
+            {
+                infoGrupo = new Grupo();
+                infoGrupo.nombre_grupo = rs.getString("nombre_grupo");
+                listaGrupos.add(infoGrupo);
+            }            
+        }
+        catch(SQLException es)
+        {
+            System.out.println(es.getMessage());
+        }
+        return listaGrupos;
+    }
+    
     public boolean ConectarUsuario(String username)
     {
         int res = 0;
