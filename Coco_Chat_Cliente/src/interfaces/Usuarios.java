@@ -332,7 +332,7 @@ public class Usuarios extends javax.swing.JFrame {
             Chat a = new Chat();
             a.setTitle(nombreSeleccionado);
             int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
-            int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight();
+            int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight()-30;
             a.setLocation(posX, posY);
             
             windowopen = true;
