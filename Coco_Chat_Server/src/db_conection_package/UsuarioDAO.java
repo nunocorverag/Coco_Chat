@@ -151,6 +151,7 @@ public class UsuarioDAO extends Db_Conection{
                 usuario = new Usuario();
                 usuario.nombre = rs.getString("nombre");
                 usuario.username = rs.getString("username");
+                usuario.estado = rs.getInt("estado");
                 listaUsuarios.add(usuario);
             }            
         }
@@ -200,5 +201,6 @@ public class UsuarioDAO extends Db_Conection{
         }
         return res>0;
     }
+   
 }
 

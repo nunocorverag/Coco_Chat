@@ -163,6 +163,7 @@ public class Coco_Chat_Server {
 
                if(funcion.equals("mostrar_usuarios"))
                {
+                   System.out.println("Mostrar Usuarios");
                    UsuarioDAO usuarioDAO = new UsuarioDAO();
                    ArrayList<Usuario> listaUsuarios = usuarioDAO.obtenerUsuarios();
                    ObjectOutputStream respuestaCredencialesCorrectas = new ObjectOutputStream(clientSocket.getOutputStream());
