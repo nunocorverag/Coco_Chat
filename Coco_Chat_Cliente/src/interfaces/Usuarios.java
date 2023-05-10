@@ -4,6 +4,7 @@ package interfaces;
 import db_conection_package.Usuario;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Toolkit;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -24,6 +25,7 @@ public class Usuarios extends javax.swing.JFrame {
     /**
      * Creates new form UsuariosConectados
      */
+    boolean windowopen = false;
     public Usuarios() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -324,8 +326,26 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_GruposMenuMenuSelected
 
     private void ListaUsuariosConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosConectadosMouseClicked
-        Chat a = new Chat();
-        a.setVisible(true);
+        String nombreSeleccionado = ListaUsuariosConectados.getSelectedValue();
+        if (windowopen == false)
+        {
+            Chat a = new Chat();
+            a.setTitle(nombreSeleccionado);
+            int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
+            int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight();
+            a.setLocation(posX, posY);
+            
+            windowopen = true;
+            a.addWindowListener(new java.awt.event.WindowAdapter() 
+            {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent windowEvent) 
+                {
+            windowopen = false;
+                }
+            });
+            a.setVisible(true);
+        }
     }//GEN-LAST:event_ListaUsuariosConectadosMouseClicked
 
     private void ListaUsuariosNoConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosNoConectadosMouseClicked
