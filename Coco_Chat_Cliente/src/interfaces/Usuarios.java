@@ -1,6 +1,16 @@
 
 package interfaces;
 
+import db_conection_package.Usuario;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Nancy
@@ -262,6 +272,31 @@ public class Usuarios extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Usuarios().setVisible(true);
+                
+                Socket s;
+                try {
+                    String direccionServidor = "10.147.17.147";
+                    InetAddress direccion = InetAddress.getByName(direccionServidor);
+                    s = new Socket(direccion, 1234);
+                    
+                    DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+                    funcion.writeUTF("obtener_usuarios");
+                    
+                    ObjectInputStream usuariosList = new ObjectInputStream(s.getInputStream());
+                    try {
+                        ArrayList<Usuario> usuarios = (ArrayList<Usuario>)usuariosList.readObject();
+                        for(Usuario user: usuarios)
+                        {
+                            System.out.println(user);
+                        }
+                        
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         });
     }
