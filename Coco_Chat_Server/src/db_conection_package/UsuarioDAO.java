@@ -191,6 +191,36 @@ public class UsuarioDAO extends Db_Conection{
         return listaAmigos;
     }
     
+    public ArrayList<Usuario> obtenerNoAmigos(int usuario)
+    {
+        ArrayList<Usuario> listaNoAmigos = new ArrayList();
+        try 
+        {
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM usuario WHERE id_usuario <> ? AND id NOT IN (SELECT amigo2 FROM amistad WHERE amigo1 = ? UNION SELECT amigo1 FROM amistad WHERE amigo2 = ?)");
+            ps.setInt(1, usuario);
+            ps.setInt(2, usuario);
+            ps.setInt(3, usuario);
+
+            ResultSet rs;
+            Usuario infoNoAmigo;
+            rs = ps.executeQuery(); 
+
+            while (rs.next())
+            {
+                infoNoAmigo = new Usuario();
+                infoNoAmigo.nombre = rs.getString("nombre");
+                infoNoAmigo.username = rs.getString("username");
+                infoNoAmigo.estado = rs.getInt("estado");
+                listaNoAmigos.add(infoNoAmigo);
+            }            
+        }
+        catch(SQLException es)
+        {
+            System.out.println(es.getMessage());
+        }
+        return listaNoAmigos;
+    }
+    
     public ArrayList<Grupo> obtenerGrupos(int usuario)
     {
         ArrayList<Grupo> listaGrupos = new ArrayList();
