@@ -25,6 +25,17 @@ public class SessionManager {
     public static SessionData getSession() {
         return sessionData;
     }
+    
+    public static String getUsername()
+    {
+        if(sessionData != null) {
+            return sessionData.getUsername();
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     public static void invalidateSession() {
         sessionData = null;

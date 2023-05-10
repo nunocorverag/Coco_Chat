@@ -2,6 +2,8 @@
 package interfaces;
 
 import db_conection_package.Usuario;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
+import user_session.SessionManager;
 
 /**
  *
@@ -25,6 +27,30 @@ public class Usuarios extends javax.swing.JFrame {
     public Usuarios() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.addWindowListener(new WindowAdapter()
+                {
+                    public void windowClosing(WindowEvent e)
+                    {
+                        Socket s;      
+                        try {
+                            String direccionServidor = "10.147.17.147";
+                            InetAddress direccion = InetAddress.getByName(direccionServidor);
+                            s = new Socket(direccion, 1234);
+                            
+                            DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+                            funcion.writeUTF("cerrar_sesion");
+                            
+                            String username = SessionManager.getUsername();
+                            DataOutputStream objectOS = new DataOutputStream(s.getOutputStream());
+                            objectOS.writeUTF(username);
+                           
+                            s.close();
+                        } catch (IOException ex) {
+                            Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+        );
     }
     /*
     public Chat(String usuario){

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Coco_Chat_Cliente {
-    private static final AtomicInteger windowCount = new AtomicInteger(0);
     
 public static void main(String[] args) throws IOException {
         // TODO code application logic here
@@ -25,14 +24,7 @@ public static void main(String[] args) throws IOException {
         s.close();*/
         
         
-        Registro frame = new Registro();
-        
-        frame.addWindowListener(new WindowAdapter() {
-            public void windowOpened(WindowEvent e) {
-            System.exit(0);
-        }
-        });
-        
+        Registro frame = new Registro();        
         frame.setVisible(true);
 }
 

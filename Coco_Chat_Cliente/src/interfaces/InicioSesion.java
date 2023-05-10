@@ -1,6 +1,8 @@
 package interfaces;
 
 import db_conection_package.Usuario;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import user_session.SessionManager;
 /**
  * @author Nancy
  */
@@ -212,6 +215,7 @@ public class InicioSesion extends javax.swing.JFrame {
             
             if(Redirigir.equals("credenciales_validas"))
             {
+                SessionManager.createSession(userLogin.username);
                 Usuarios a = new Usuarios();
                 a.setVisible(true);
                 this.setVisible(false);
