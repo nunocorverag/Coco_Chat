@@ -2,6 +2,7 @@
 package interfaces;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import javax.swing.JLabel;
 
 /**
@@ -226,9 +227,12 @@ public class Amigos extends javax.swing.JFrame {
         String nombreSeleccionado = ListaAmigosConectados.getSelectedValue();
         Chat a = new Chat();
         a.setTitle(nombreSeleccionado);
-        JLabel label = new JLabel(nombreSeleccionado);
-        label.setFont(new Font("Dialog", Font.BOLD, 18));
-        a.add(label);
+        /*JLabel label = new JLabel(nombreSeleccionado);
+        label.setFont(new Font("Dialog", Font.BOLD, 18));*/
+        int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
+        int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight();
+        a.setLocation(posX, posY);
+        //a.add(label);
         
         a.setVisible(true);
     }//GEN-LAST:event_ListaAmigosConectadosMouseClicked
