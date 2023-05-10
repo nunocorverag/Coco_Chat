@@ -31,7 +31,6 @@ public class Chat extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jButton1 = new javax.swing.JButton();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
 
@@ -49,9 +48,6 @@ public class Chat extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
         getContentPane().add(jButton1, gridBagConstraints);
-
-        jInternalFrame1.setVisible(true);
-        getContentPane().add(jInternalFrame1, new java.awt.GridBagConstraints());
 
         jTextArea2.setColumns(5);
         jTextArea2.setRows(1);
@@ -103,7 +99,6 @@ public class Chat extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables

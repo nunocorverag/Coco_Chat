@@ -7,11 +7,13 @@ import java.awt.Toolkit;
  *
  * @author Nancy
  */
+
 public class Amigos extends javax.swing.JFrame {
 
     /**
      * Creates new form UsuariosConectados
      */
+    boolean windowopen = false;
     public Amigos() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -223,16 +225,25 @@ public class Amigos extends javax.swing.JFrame {
 
     private void ListaAmigosConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaAmigosConectadosMouseClicked
         String nombreSeleccionado = ListaAmigosConectados.getSelectedValue();
-        Chat a = new Chat();
-        a.setTitle(nombreSeleccionado);
-        /*JLabel label = new JLabel(nombreSeleccionado);
-        label.setFont(new Font("Dialog", Font.BOLD, 18));*/
-        int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
-        int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight();
-        a.setLocation(posX, posY);
-        //a.add(label);
-        
-        a.setVisible(true);
+        if (windowopen == false)
+        {
+            Chat a = new Chat();
+            a.setTitle(nombreSeleccionado);
+            int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
+            int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight();
+            a.setLocation(posX, posY);
+            
+            windowopen = true;
+            a.addWindowListener(new java.awt.event.WindowAdapter() 
+            {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent windowEvent) 
+                {
+            windowopen = false;
+                }
+            });
+            a.setVisible(true);
+        }
     }//GEN-LAST:event_ListaAmigosConectadosMouseClicked
 
     private void ListaAmigosNoConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaAmigosNoConectadosMouseClicked
