@@ -70,11 +70,11 @@ public class Amigos extends javax.swing.JFrame {
         getContentPane().add(jLabel1, gridBagConstraints);
 
         ListaAmigosConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        ListaAmigos listaAmigos = new ListaAmigos();
-        String[] amigos = listaAmigos.obtenerAmigos();
+        ListaAmigosOnline listaAmigosOn = new ListaAmigosOnline();
+        String[] amigosOn = listaAmigosOn.obtenerAmigos();
         ListaAmigosConectados.setModel(new javax.swing.AbstractListModel<String>() {
-            public int getSize() { return amigos.length; }
-            public String getElementAt(int i) { return amigos[i]; }
+            public int getSize() { return amigosOn.length; }
+            public String getElementAt(int i) { return amigosOn[i]; }
         });
         ListaAmigosConectados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -92,10 +92,11 @@ public class Amigos extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         ListaAmigosNoConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        ListaAmigosOffline listaAmigosOffline = new ListaAmigosOffline();
+        String[] amigosOff = listaAmigosOffline.obtenerAmigos();
         ListaAmigosNoConectados.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Amigo 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public int getSize() { return amigosOff.length; }
+            public String getElementAt(int i) { return amigosOff[i]; }
         });
         ListaAmigosNoConectados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -174,15 +175,27 @@ public class Amigos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public class ListaAmigos{
-        private String[] amigos;
+    public class ListaAmigosOnline{
+        private String[] amigosOn;
         
-        public ListaAmigos(){
-            amigos = new String[]{"Marta", "Jose", "Felipe", "Manuel"};
+        public ListaAmigosOnline(){
+            amigosOn = new String[]{"Marta", "Jose", "Felipe", "Manuel"};
         }
         
         public String[] obtenerAmigos(){
-            return amigos;
+            return amigosOn;
+        }
+    }
+    
+    public class ListaAmigosOffline{
+        private String[] amigosOff;
+        
+        public ListaAmigosOffline(){
+            amigosOff = new String[]{"Pedro", "Cosa", "kkita", ":P"};
+        }
+        
+        public String[] obtenerAmigos(){
+            return amigosOff;
         }
     }
      
