@@ -272,7 +272,7 @@ public class Amigos extends javax.swing.JFrame {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent windowEvent) 
                 {
-            windowopen = false;
+                    windowopen = false;
                 }
             });
             a.setVisible(true);

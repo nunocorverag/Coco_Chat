@@ -31,6 +31,7 @@
         <Property name="text" type="java.lang.String" value="Enviar"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EnviarMsgButtonMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EnviarMsgButtonActionPerformed"/>
       </Events>
       <Constraints>
@@ -69,6 +70,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="CampoChat">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="15"/>
             <Property name="rows" type="int" value="15"/>
           </Properties>

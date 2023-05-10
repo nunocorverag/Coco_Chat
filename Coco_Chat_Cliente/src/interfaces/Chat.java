@@ -4,8 +4,10 @@
  */
 package interfaces;
 
-import java.awt.Dimension;
+import java.awt.ComponentOrientation;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 
 /**
  *
@@ -19,8 +21,7 @@ public class Chat extends javax.swing.JFrame {
      */
     public Chat() {
         initComponents();
-        
-        
+
     }
 
     /**
@@ -43,6 +44,11 @@ public class Chat extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         EnviarMsgButton.setText("Enviar");
+        EnviarMsgButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EnviarMsgButtonMouseClicked(evt);
+            }
+        });
         EnviarMsgButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EnviarMsgButtonActionPerformed(evt);
@@ -61,6 +67,7 @@ public class Chat extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         getContentPane().add(campoMsg, gridBagConstraints);
 
+        CampoChat.setEditable(false);
         CampoChat.setColumns(15);
         CampoChat.setRows(15);
         jScrollPane1.setViewportView(CampoChat);
@@ -73,6 +80,13 @@ public class Chat extends javax.swing.JFrame {
     private void EnviarMsgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarMsgButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EnviarMsgButtonActionPerformed
+
+    private void EnviarMsgButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnviarMsgButtonMouseClicked
+        String mensaje = campoMsg.getText();
+        CampoChat.setText(mensaje);
+        CampoChat.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        
+    }//GEN-LAST:event_EnviarMsgButtonMouseClicked
 
     /**
      * @param args the command line arguments
