@@ -10,6 +10,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 /**
  *
@@ -81,11 +83,20 @@ public class Usuarios extends javax.swing.JFrame {
 
         ListaUsuariosConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         ListaUsuariosOnline listaUsuariosOnline = new ListaUsuariosOnline();
-        String[] usuariosOn = listaUsuariosOnline.obtenerUsuarios();
-        ListaUsuariosConectados.setModel(new javax.swing.AbstractListModel<String>() {
-            public int getSize() { return usuariosOn.length; }
+        ArrayList<Usuario> usuariosOn = listaUsuariosOnline.obtenerUsuariosOn();
+
+        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+        for(Usuario user: usuariosOn)
+        {
+            modeloLista.addElement(user.username);
+        }
+        ListaUsuariosConectados.setModel(modeloLista);
+        /*
+        ListaUsuariosConectados.setModel(new javax.swing.AbstractListModel<modeloLista>() {
+            /*public int getSize() { return usuariosOn.length; }
             public String getElementAt(int i) { return usuariosOn[i]; }
         });
+        */
         ListaUsuariosConectados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ListaUsuariosConectadosMouseClicked(evt);
@@ -103,11 +114,14 @@ public class Usuarios extends javax.swing.JFrame {
 
         ListaUsuariosNoConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         ListaUsuariosOffline listaUsuariosOffline = new ListaUsuariosOffline();
-        String[] usuariosOff = listaUsuariosOffline.obtenerUsuarios();
-        ListaUsuariosNoConectados.setModel(new javax.swing.AbstractListModel<String>() {
-            public int getSize() { return usuariosOff.length; }
-            public String getElementAt(int i) { return usuariosOff[i]; }
-        });
+        ArrayList<Usuario> usuariosOff = listaUsuariosOffline.obtenerUsuariosOff();
+
+        DefaultListModel<String> modeloListaOff = new DefaultListModel<>();
+        for(Usuario user: usuariosOff)
+        {
+            modeloListaOff.addElement(user.username);
+        }
+        ListaUsuariosNoConectados.setModel(modeloListaOff);
         ListaUsuariosNoConectados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ListaUsuariosNoConectadosMouseClicked(evt);
@@ -186,10 +200,11 @@ public class Usuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public class ListaUsuariosOnline{
-        private String[] usuariosOn;
+        private ArrayList<Usuario> usuariosOn;
 
         public ListaUsuariosOnline(){
-                    Socket s;
+                this.usuariosOn = new ArrayList<Usuario>();
+                Socket s;
                 try {
                     String direccionServidor = "10.147.17.147";
                     InetAddress direccion = InetAddress.getByName(direccionServidor);
@@ -201,25 +216,13 @@ public class Usuarios extends javax.swing.JFrame {
                     ObjectInputStream usuariosList = new ObjectInputStream(s.getInputStream());
                     try {
                         ArrayList<Usuario> usuarios = (ArrayList<Usuario>)usuariosList.readObject();
-                        
-                        ArrayList<Usuario> UserConnected = new ArrayList<Usuario>();
-                        ArrayList<Usuario> UserDisconnected = new ArrayList<Usuario>();
-                        
+
                         for(Usuario user: usuarios)
                         {
                             if(user.estado == 1)
                             {
-                                UserConnected.add(user);
+                                this.usuariosOn.add(user);
                             }
-                            else
-                            {
-                                UserDisconnected.add(user);
-                            }
-                        }
-                        int i = 0;
-                        for(Usuario user: UserConnected){
-                            usuariosOn[i] = user.username;
-                            i++;
                         }
                         
                     } catch (ClassNotFoundException ex) {
@@ -231,29 +234,48 @@ public class Usuarios extends javax.swing.JFrame {
         }
   
 
-        public String[] obtenerUsuarios(){
-            return usuariosOn;
+        public ArrayList<Usuario> obtenerUsuariosOn(){
+            return this.usuariosOn;
         }
     }
     
     public class ListaUsuariosOffline{
-        private String[] usuariosOff;
-        
+        private ArrayList<Usuario> usuariosOff;
+
         public ListaUsuariosOffline(){
-            usuariosOff = new String[]{"Pedro", "Cosa", "kkita", ":P"};
+                this.usuariosOff = new ArrayList<Usuario>();
+                Socket s;
+                try {
+                    String direccionServidor = "10.147.17.147";
+                    InetAddress direccion = InetAddress.getByName(direccionServidor);
+                    s = new Socket(direccion, 1234);
+                    
+                    DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+                    funcion.writeUTF("mostrar_usuarios");
+                    
+                    ObjectInputStream usuariosList = new ObjectInputStream(s.getInputStream());
+                    try {
+                        ArrayList<Usuario> usuarios = (ArrayList<Usuario>)usuariosList.readObject();
+
+                        for(Usuario user: usuarios)
+                        {
+                            if(user.estado == 0)
+                            {
+                                this.usuariosOff.add(user);
+                            }
+                        }
+                        
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
         }
-        
-        public ListaUsuariosOffline(ArrayList<Usuario> usuariosOffline){
-            int i = 0;
-            for(Usuario user: usuariosOffline)
-            {
-                usuariosOff[i] = user.username;
-                i++;
-            }
-        }
-        
-        public String[] obtenerUsuarios(){
-            return usuariosOff;
+  
+
+        public ArrayList<Usuario> obtenerUsuariosOff(){
+            return this.usuariosOff;
         }
     }
     
