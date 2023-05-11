@@ -51,9 +51,13 @@ public class Chat extends javax.swing.JFrame {
                 
                 for(Mensaje_Usuario msg: chatRecibido)
                 {
-                    if(msg.destinatario_usuario.equals(remitente))
+                    if(msg.username_destinatario.equals(remitente))
                     {
-                        
+                        CampoChat.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+                    }
+                    else
+                    {
+                        CampoChat.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
                     }
                 }
             } catch (ClassNotFoundException ex) {
