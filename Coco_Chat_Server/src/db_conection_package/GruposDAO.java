@@ -195,30 +195,26 @@ public class GruposDAO extends Db_Conection{
         return false;
     }
 
-//    public ArrayList<Usuario> obtenerNoMiembros(int usuario, int idGrupo, int creadorGrupo) {
-//        ArrayList<Usuario> listaNoMiembros = new ArrayList();
-//        try {
-//            // Obtener lista de usuarios que no son miembros del grupo
-//            PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM usuario WHERE id_usuario NOT IN (SELECT usuario_perteneciente FROM pertenencias_grupo WHERE grupo = ?)");
-//            ps.setInt(1, idGrupo);
-//            ResultSet rs = ps.executeQuery();
-//
-//            // Filtrar lista para obtener solo los usuarios que no son amigos del creador del grupo
-//            while (rs.next()) {
-//                int idUsuario = rs.getInt("id_usuario");
-//                if (idUsuario != usuario && !esAmigo(idUsuario, creadorGrupo)) {
-//                    Usuario infoNoMiembro = new Usuario();
-//                    infoNoMiembro.nombre = rs.getString("nombre");
-//                    infoNoMiembro.username = rs.getString("username");
-//                    infoNoMiembro.estado = rs.getInt("estado");
-//                    listaNoMiembros.add(infoNoMiembro);
-//                }
-//            }
-//        } catch (SQLException es) {
-//            System.out.println(es.getMessage());
-//        }
-//        return listaNoMiembros;
-//    }
+    public ArrayList<Usuario> obtenerNoMiembros(int idGrupo, int creadorGrupo) {
+        ArrayList<Usuario> listaNoMiembros = new ArrayList();
+        try {
+            // Obtener lista de usuarios que no son miembros del grupo
+            PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM usuario WHERE id_usuario NOT IN (SELECT usuario_perteneciente FROM pertenencias_grupo WHERE grupo = ?)");
+            ps.setInt(1, idGrupo);
+            ResultSet rs = ps.executeQuery();
+
+            // Filtrar lista para obtener solo los usuarios que no son amigos del creador del grupo
+            while (rs.next()) {
+                Usuario infoNoMiembro = new Usuario();
+                infoNoMiembro.nombre = rs.getString("nombre");
+                infoNoMiembro.username = rs.getString("username");
+                listaNoMiembros.add(infoNoMiembro);
+            }
+        } catch (SQLException es) {
+            System.out.println(es.getMessage());
+        }
+        return listaNoMiembros;
+    }
 
 }
 

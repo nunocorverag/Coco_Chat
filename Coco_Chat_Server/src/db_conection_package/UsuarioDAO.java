@@ -116,7 +116,7 @@ public class UsuarioDAO extends Db_Conection{
         return res>0;
     }
     
-    public String getUsernameUsuario(int id)
+    public String obtenerUsernameUsuario(int id)
     {
         try {
             PreparedStatement ps = getConnection().prepareStatement("SELECT username FROM usuario WHERE id_usuario=?");
