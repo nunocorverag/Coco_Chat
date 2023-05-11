@@ -11,6 +11,8 @@ public class Mensaje_Usuario {
     public int  destinatario_usuario;
     public Date fecha_mensaje_usuario;
     public String mensaje_usuario;
+    public String username_remitente;
+    public String username_destinatario;
     
     public Mensaje_Usuario()
     {
@@ -19,6 +21,8 @@ public class Mensaje_Usuario {
         destinatario_usuario = 0;
         fecha_mensaje_usuario = new Date();
         mensaje_usuario = "";
+        username_remitente = "";
+        username_destinatario = "";
     }
     
     public Mensaje_Usuario(int remitente_usuario, int destinatario_usuario, Date fecha_mensaje_usuario, String mensaje_usuario)
@@ -30,5 +34,11 @@ public class Mensaje_Usuario {
         this.destinatario_usuario = destinatario_usuario;
         this.fecha_mensaje_usuario = fecha_mensaje_usuario;
         this.mensaje_usuario = mensaje_usuario;
+        
+        UsuarioDAO usernameD = new UsuarioDAO();
+        this.username_destinatario = usernameD.getUsernameUsuario(destinatario_usuario);
+        
+        UsuarioDAO usernameR = new UsuarioDAO();
+        this.username_remitente = usernameR.getUsernameUsuario(remitente_usuario);
     }
 }

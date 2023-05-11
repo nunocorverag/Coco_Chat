@@ -1,9 +1,12 @@
 package db_conection_package;
 
+import static java.lang.String.valueOf;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -111,6 +114,28 @@ public class UsuarioDAO extends Db_Conection{
             System.out.println(ex.getMessage());
         }
         return res>0;
+    }
+    
+    public String getUsernameUsuario(int id)
+    {
+        String idString = valueOf(id);
+        try {
+            PreparedStatement ps = getConnection().prepareStatement("SELECT username FROM usuario WHERE id_usuario=?");
+            ps.setString(1,idString);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next())
+            {
+                String username = rs.getString("username");
+                return username;
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+        
     }
     
     public int ObtenerIDUsuario(String username)

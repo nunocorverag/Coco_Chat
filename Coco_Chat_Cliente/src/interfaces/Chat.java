@@ -4,12 +4,15 @@
  */
 package interfaces;
 
+import db_conection_package.Mensaje_Usuario;
 import java.awt.ComponentOrientation;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import returned_models.EnviarMensajesUsuario;
@@ -34,6 +37,31 @@ public class Chat extends javax.swing.JFrame {
     public Chat(String username) {
         this.destinatario = username;
         initComponents();
+        
+        Socket s;
+        try {
+            String direccionServidor = "10.147.17.147";
+            InetAddress direccion = InetAddress.getByName(direccionServidor);
+            s = new Socket(direccion, 1234);
+            
+            ObjectInputStream chat = new ObjectInputStream(s.getInputStream());
+            try {
+                ArrayList<Mensaje_Usuario> chatRecibido = (ArrayList<Mensaje_Usuario>)chat.readObject();
+                String remitente = SessionManager.getUsername();
+                
+                for(Mensaje_Usuario msg: chatRecibido)
+                {
+                    if(msg.destinatario_usuario.equals(remitente))
+                    {
+                        
+                    }
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
