@@ -1,16 +1,20 @@
 
 package interfaces;
 
+import db_conection_package.Usuario;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.Box.createHorizontalGlue;
+import javax.swing.DefaultListModel;
 import user_session.SessionManager;
 
 /**
@@ -99,7 +103,6 @@ public class Amigos extends javax.swing.JFrame {
         jFormattedTextField1.setText("jFormattedTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(626, 562));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -110,11 +113,20 @@ public class Amigos extends javax.swing.JFrame {
 
         ListaAmigosConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         ListaAmigosOnline listaAmigosOn = new ListaAmigosOnline();
-        String[] amigosOn = listaAmigosOn.obtenerAmigos();
+        ArrayList<Usuario> amigosOn = listaAmigosOn.obtenerAmigosOn();
+
+        DefaultListModel<String> modeloListaAmigosOn = new DefaultListModel<>();
+        for(Usuario amigo: amigosOn)
+        {
+            modeloListaAmigosOn.addElement(amigo.username);
+        }
+        ListaAmigosConectados.setModel(modeloListaAmigosOn);
+        /*
         ListaAmigosConectados.setModel(new javax.swing.AbstractListModel<String>() {
             public int getSize() { return amigosOn.length; }
             public String getElementAt(int i) { return amigosOn[i]; }
         });
+        */
         ListaAmigosConectados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ListaAmigosConectadosMouseClicked(evt);
@@ -132,11 +144,20 @@ public class Amigos extends javax.swing.JFrame {
 
         ListaAmigosNoConectados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         ListaAmigosOffline listaAmigosOffline = new ListaAmigosOffline();
-        String[] amigosOff = listaAmigosOffline.obtenerAmigos();
+        ArrayList<Usuario> amigosOff = listaAmigosOffline.obtenerAmigosOff();
+
+        DefaultListModel<String> modeloListaAmigosOff = new DefaultListModel<>();
+        for(Usuario amigo: amigosOff)
+        {
+            modeloListaAmigosOff.addElement(amigo.username);
+        }
+        ListaAmigosNoConectados.setModel(modeloListaAmigosOff);
+        /*
         ListaAmigosNoConectados.setModel(new javax.swing.AbstractListModel<String>() {
             public int getSize() { return amigosOff.length; }
             public String getElementAt(int i) { return amigosOff[i]; }
         });
+        */
         ListaAmigosNoConectados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ListaAmigosNoConectadosMouseClicked(evt);
@@ -221,25 +242,96 @@ public class Amigos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public class ListaAmigosOnline{
-        private String[] amigosOn;
+        private ArrayList<Usuario> amigosOn;
+        
         
         public ListaAmigosOnline(){
-            amigosOn = new String[]{"Marta", "Jose", "Felipe", "Manuel"};
+            /*amigosOn = new String[]{"Marta", "Jose", "Felipe", "Manuel"};*/
+            this.amigosOn = new ArrayList<Usuario>();
+            Socket s;
+            try {
+                String direccionServidor = "10.147.17.147";
+                InetAddress direccion = InetAddress.getByName(direccionServidor);
+                s = new Socket(direccion, 1234);
+
+                DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+                funcion.writeUTF("mostrar_amigos");
+
+                String username = SessionManager.getUsername();
+                DataOutputStream userLogged = new DataOutputStream(s.getOutputStream());
+                userLogged.writeUTF(username);
+
+                ObjectInputStream usuariosList = new ObjectInputStream(s.getInputStream());
+
+                try {
+                    ArrayList<Usuario> usuarios = (ArrayList<Usuario>)usuariosList.readObject();
+                    s.close();
+                    for(Usuario user: usuarios)
+                    {
+                        if(user.estado == 1)
+                        {
+                            this.amigosOn.add(user);
+                        }
+                    }
+
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
-        public String[] obtenerAmigos(){
+        public ArrayList<Usuario> obtenerAmigosOn(){
             return amigosOn;
         }
     }
     
     public class ListaAmigosOffline{
-        private String[] amigosOff;
+        private ArrayList<Usuario> amigosOff;
         
         public ListaAmigosOffline(){
-            amigosOff = new String[]{"Pedro", "Cosa", "kkita", ":P"};
+            /*amigosOff = new String[]{"Pedro", "Cosa", "kkita", ":P"};*/
+            this.amigosOff = new ArrayList<Usuario>();
+            Socket s;
+            try 
+            {
+                String direccionServidor = "10.147.17.147";
+                InetAddress direccion = InetAddress.getByName(direccionServidor);
+                s = new Socket(direccion, 1234);
+
+                DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+                funcion.writeUTF("mostrar_amigos");
+
+                String username = SessionManager.getUsername();
+                DataOutputStream userLogged = new DataOutputStream(s.getOutputStream());
+                userLogged.writeUTF(username);
+
+                ObjectInputStream usuariosList = new ObjectInputStream(s.getInputStream());
+
+                try {
+                    ArrayList<Usuario> usuarios = (ArrayList<Usuario>)usuariosList.readObject();
+                    s.close();
+                    for(Usuario user: usuarios)
+                    {
+                        if(user.estado == 1)
+                        {
+                            this.amigosOff.add(user);
+                        }
+                    }
+
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } 
+            catch (IOException ex) 
+            {
+                Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         
-        public String[] obtenerAmigos(){
+        public ArrayList<Usuario> obtenerAmigosOff(){
             return amigosOff;
         }
     }

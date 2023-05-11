@@ -167,7 +167,7 @@
       <SubComponents>
         <Component class="javax.swing.JList" name="ListaAmigosConectados">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="ListaAmigosOnline listaAmigosOn = new ListaAmigosOnline();&#xa;String[] amigosOn = listaAmigosOn.obtenerAmigos();">
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="ListaAmigosOnline listaAmigosOn = new ListaAmigosOnline();&#xa;ArrayList&lt;Usuario&gt; amigosOn = listaAmigosOn.obtenerAmigosOn();&#xa;&#xa;DefaultListModel&lt;String&gt; modeloListaAmigosOn = new DefaultListModel&lt;&gt;();&#xa;for(Usuario amigo: amigosOn)&#xa;{&#xa;    modeloListaAmigosOn.addElement(amigo.username);&#xa;}&#xa;ListaAmigosConectados.setModel(modeloListaAmigosOn);&#xa;/*">
               <Font name="Dialog" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -178,6 +178,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ListaAmigosConectadosMouseClicked"/>
           </Events>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="*/"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
@@ -197,7 +198,7 @@
       <SubComponents>
         <Component class="javax.swing.JList" name="ListaAmigosNoConectados">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="ListaAmigosOffline listaAmigosOffline = new ListaAmigosOffline();&#xa;String[] amigosOff = listaAmigosOffline.obtenerAmigos();">
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="ListaAmigosOffline listaAmigosOffline = new ListaAmigosOffline();&#xa;ArrayList&lt;Usuario&gt; amigosOff = listaAmigosOffline.obtenerAmigosOff();&#xa;&#xa;DefaultListModel&lt;String&gt; modeloListaAmigosOff = new DefaultListModel&lt;&gt;();&#xa;for(Usuario amigo: amigosOff)&#xa;{&#xa;    modeloListaAmigosOff.addElement(amigo.username);&#xa;}&#xa;ListaAmigosNoConectados.setModel(modeloListaAmigosOff);&#xa;/*">
               <Font name="Dialog" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -208,6 +209,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ListaAmigosNoConectadosMouseClicked"/>
           </Events>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="*/"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
