@@ -226,6 +226,15 @@ public class Usuarios extends javax.swing.JFrame {
 
         IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
         IconLogOut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        IconLogOut.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                IconLogOutMenuSelected(evt);
+            }
+        });
 
         jMenuBar1.add(createHorizontalGlue());
 
@@ -360,6 +369,10 @@ public class Usuarios extends javax.swing.JFrame {
     private void ListaUsuariosNoConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosNoConectadosMouseClicked
         
     }//GEN-LAST:event_ListaUsuariosNoConectadosMouseClicked
+
+    private void IconLogOutMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_IconLogOutMenuSelected
+        // aqui debe ponerse el codigo de que cierra sesion
+    }//GEN-LAST:event_IconLogOutMenuSelected
 
     /**
      * @param args the command line arguments
