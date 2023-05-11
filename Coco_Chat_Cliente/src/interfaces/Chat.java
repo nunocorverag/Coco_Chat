@@ -5,8 +5,15 @@
 package interfaces;
 
 import java.awt.ComponentOrientation;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import returned_models.EnviarMensajesUsuario;
+import user_session.SessionManager;
 
 
 /**
@@ -14,14 +21,19 @@ import javax.swing.SwingConstants;
  * @author Nancy
  */
 public class Chat extends javax.swing.JFrame {
-        
+    private String destinatario;
          
     /**
      * Creates new form Chat
      */
-    public Chat() {
+    
+    public Chat()
+    {
+        
+    }
+    public Chat(String username) {
+        this.destinatario = username;
         initComponents();
-
     }
 
     /**
@@ -84,6 +96,25 @@ public class Chat extends javax.swing.JFrame {
     private void EnviarMsgButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnviarMsgButtonMouseClicked
         String mensaje = campoMsg.getText();
         CampoChat.setText(mensaje);
+        String remitente = SessionManager.getUsername();
+        
+        EnviarMensajesUsuario msg = new EnviarMensajesUsuario(remitente, destinatario, mensaje);
+        
+        Socket s;
+        try {
+            String direccionServidor = "10.147.17.147";
+            InetAddress direccion = InetAddress.getByName(direccionServidor);
+            s = new Socket(direccion, 1234);
+            
+            DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+            funcion.writeUTF("enviar_mensaje_usuario");
+            
+            ObjectOutputStream msgEnviar = new ObjectOutputStream(s.getOutputStream());
+            msgEnviar.writeObject(msg);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+        }
         CampoChat.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
     }//GEN-LAST:event_EnviarMsgButtonMouseClicked
 

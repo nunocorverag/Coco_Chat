@@ -9,22 +9,22 @@ package db_conection_package;
  * @author gnuno
  */
 public class Pertenencias_Grupo {
-    public int id_pertenencias_grupo;
-    public int grupo;
-    public int usuario_perteneciente;
+    public int id_amistad;
+    public int amigo1;
+    public int amigo2;
     
     public Pertenencias_Grupo()
     {
-        id_pertenencias_grupo = 0;
-        grupo = 0;
-        usuario_perteneciente = 0;
+        id_amistad = 0;
+        amigo1 = 0;
+        amigo2 = 0;
     }
     
-    public Pertenencias_Grupo(int grupo, int usuario_perteneciente)
+    public Pertenencias_Grupo(int amigo1, int amigo2)
     {
-        this.id_pertenencias_grupo = id_pertenencias_grupo;
-        this.grupo = grupo;
-        this.usuario_perteneciente = usuario_perteneciente;
+        this.id_amistad = id_amistad;
+        this.amigo1 = amigo1;
+        this.amigo2 = amigo2;
     }
 }
 
