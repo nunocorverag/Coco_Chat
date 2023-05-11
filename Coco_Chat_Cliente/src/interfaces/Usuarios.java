@@ -347,7 +347,7 @@ public class Usuarios extends javax.swing.JFrame {
         String nombreSeleccionado = ListaUsuariosConectados.getSelectedValue();
         if (windowopen == false)
         {
-            Chat a = new Chat();
+            Chat a = new Chat(nombreSeleccionado);
             a.setTitle(nombreSeleccionado);
             int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
             int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight()-30;
