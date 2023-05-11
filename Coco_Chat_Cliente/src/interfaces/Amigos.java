@@ -71,12 +71,14 @@ public class Amigos extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        AgregarAmigosButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaAmigosConectados = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         ListaAmigosNoConectados = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
+        AgregarAmigosButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         UsuariosMenu = new javax.swing.JMenu();
         AmigosMenu = new javax.swing.JMenu();
@@ -102,12 +104,21 @@ public class Amigos extends javax.swing.JFrame {
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
+        AgregarAmigosButton1.setText("Agregar amigos");
+        AgregarAmigosButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarAmigosButton1ActionPerformed(evt);
+            }
+        });
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel1.setText("Conectados");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.weighty = 0.05;
         getContentPane().add(jLabel1, gridBagConstraints);
 
@@ -136,7 +147,7 @@ public class Amigos extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -167,7 +178,7 @@ public class Amigos extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -176,8 +187,20 @@ public class Amigos extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel2.setText("Desconectados");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.weighty = 0.05;
         getContentPane().add(jLabel2, gridBagConstraints);
+
+        AgregarAmigosButton2.setText("Agregar amigos");
+        AgregarAmigosButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarAmigosButton2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        getContentPane().add(AgregarAmigosButton2, gridBagConstraints);
 
         UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
         UsuariosMenu.setText("Usuarios");
@@ -314,7 +337,7 @@ public class Amigos extends javax.swing.JFrame {
                     s.close();
                     for(Usuario user: usuarios)
                     {
-                        if(user.estado == 1)
+                        if(user.estado == 0)
                         {
                             this.amigosOff.add(user);
                         }
@@ -383,6 +406,18 @@ public class Amigos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_ListaAmigosNoConectadosMouseClicked
 
+    private void AgregarAmigosButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarAmigosButton1ActionPerformed
+        AgregarAmigos a = new AgregarAmigos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_AgregarAmigosButton1ActionPerformed
+
+    private void AgregarAmigosButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarAmigosButton2ActionPerformed
+        AgregarAmigos a = new AgregarAmigos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_AgregarAmigosButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -422,6 +457,9 @@ public class Amigos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AgregarAmigosButton;
+    private javax.swing.JButton AgregarAmigosButton1;
+    private javax.swing.JButton AgregarAmigosButton2;
     private javax.swing.JMenu AmigosMenu;
     private javax.swing.JMenu GruposMenu;
     private javax.swing.JMenu IconLogOut;
