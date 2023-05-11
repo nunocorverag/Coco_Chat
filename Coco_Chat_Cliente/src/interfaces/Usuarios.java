@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.Box.createHorizontalGlue;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import user_session.SessionManager;
 
 /**
@@ -268,6 +269,7 @@ public class Usuarios extends javax.swing.JFrame {
                             if(user.estado == 1)
                             {
                                 this.usuariosOn.add(user);
+                                JButton agregarAmigoButton = new JButton("Agregar");
                             }
                         }
                         
@@ -308,6 +310,7 @@ public class Usuarios extends javax.swing.JFrame {
                             if(user.estado == 0)
                             {
                                 this.usuariosOff.add(user);
+                                JButton agregarAmigoButton = new JButton("Agregar");
                             }
                         }
                         
@@ -318,7 +321,6 @@ public class Usuarios extends javax.swing.JFrame {
                     Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
                 }
         }
-  
 
         public ArrayList<Usuario> obtenerUsuariosOff(){
             return this.usuariosOff;
@@ -331,6 +333,8 @@ public class Usuarios extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_UsuariosMenuMenuSelected
 
+        
+        
     private void AmigosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_AmigosMenuMenuSelected
         Amigos a = new Amigos();
         a.setVisible(true);
@@ -359,7 +363,7 @@ public class Usuarios extends javax.swing.JFrame {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent windowEvent) 
                 {
-            windowopen = false;
+                    windowopen = false;
                 }
             });
             a.setVisible(true);
