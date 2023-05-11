@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.swing.Box.createHorizontalGlue;
 import javax.swing.DefaultListModel;
 import user_session.SessionManager;
 
@@ -79,6 +80,7 @@ public class Usuarios extends javax.swing.JFrame {
         UsuariosMenu = new javax.swing.JMenu();
         AmigosMenu = new javax.swing.JMenu();
         GruposMenu = new javax.swing.JMenu();
+        IconLogOut = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -221,6 +223,13 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(GruposMenu);
+
+        IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
+        IconLogOut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jMenuBar1.add(createHorizontalGlue());
+
+        jMenuBar1.add(IconLogOut);
 
         setJMenuBar(jMenuBar1);
 
@@ -391,6 +400,7 @@ public class Usuarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AmigosMenu;
     private javax.swing.JMenu GruposMenu;
+    private javax.swing.JMenu IconLogOut;
     private javax.swing.JList<String> ListaUsuariosConectados;
     private javax.swing.JList<String> ListaUsuariosNoConectados;
     private javax.swing.JMenu UsuariosMenu;

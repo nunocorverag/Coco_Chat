@@ -10,6 +10,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.swing.Box.createHorizontalGlue;
 import user_session.SessionManager;
 
 /**
@@ -72,6 +73,7 @@ public class Grupos extends javax.swing.JFrame {
         UsuariosMenu = new javax.swing.JMenu();
         AmigosMenu = new javax.swing.JMenu();
         GruposMenu = new javax.swing.JMenu();
+        IconLogOut = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -93,7 +95,6 @@ public class Grupos extends javax.swing.JFrame {
         jFormattedTextField1.setText("jFormattedTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(426, 462));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         ListaGrupos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -171,6 +172,12 @@ public class Grupos extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(GruposMenu);
+
+        IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
+
+        jMenuBar1.add(createHorizontalGlue());
+
+        jMenuBar1.add(IconLogOut);
 
         setJMenuBar(jMenuBar1);
 
@@ -272,6 +279,7 @@ public class Grupos extends javax.swing.JFrame {
     private javax.swing.JMenu AmigosMenu;
     private javax.swing.JButton CreatedGroupButton;
     private javax.swing.JMenu GruposMenu;
+    private javax.swing.JMenu IconLogOut;
     private javax.swing.JList<String> ListaGrupos;
     private javax.swing.JMenu UsuariosMenu;
     private javax.swing.JFormattedTextField jFormattedTextField1;
