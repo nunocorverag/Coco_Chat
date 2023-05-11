@@ -16,7 +16,7 @@ public class GruposDAO extends Db_Conection{
         super();
     }
     
-    public boolean CrearGrupo(String nombre_grupo, int creador_grupo) {
+    public boolean CrearGrupo(String nombre_grupo, int creador_grupo, ArrayList<String> usuarios_a_invitar) {
         try {
             PreparedStatement ps = getConnection().prepareStatement("INSERT INTO grupo (nombre_grupo, creador_grupo) values (?,?)", Statement.RETURN_GENERATED_KEYS);
 
@@ -35,6 +35,16 @@ public class GruposDAO extends Db_Conection{
             ps2.setInt(1, id_grupo);
             ps2.setInt(2, creador_grupo);
             ps2.executeUpdate();
+            
+            for(String user : usuarios_a_invitar)
+            {
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                int IDUsuario = usuarioDAO.ObtenerIDUsuario(user);
+                PreparedStatement ps3 = getConnection().prepareStatement("INSERT INTO pertenencias_grupo (grupo, usuario_perteneciente) values (?,?)");
+                ps3.setInt(1, id_grupo);
+                ps3.setInt(2, IDUsuario);
+                ps3.executeUpdate();
+            }
 
             return true;
         } catch(SQLException ex) {
@@ -195,12 +205,18 @@ public class GruposDAO extends Db_Conection{
         return false;
     }
 
-    public ArrayList<Usuario> obtenerNoMiembros(int idGrupo, int creadorGrupo) {
+    public ArrayList<Usuario> obtenerNoMiembrosSinInvitacion(int idGrupo, int creadorGrupo) {
         ArrayList<Usuario> listaNoMiembros = new ArrayList();
         try {
-            // Obtener lista de usuarios que no son miembros del grupo
-            PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM usuario WHERE id_usuario NOT IN (SELECT usuario_perteneciente FROM pertenencias_grupo WHERE grupo = ?)");
-            ps.setInt(1, idGrupo);
+            // Obtener lista de usuarios que no son miembros del grupo y no han sido invitados
+            PreparedStatement ps = getConnection().prepareStatement(
+                "SELECT * FROM usuario WHERE id_usuario != ? " + // Excluir al creador del grupo
+                "AND id_usuario NOT IN (SELECT usuario_perteneciente FROM pertenencias_grupo WHERE grupo = ?) " +
+                "AND id_usuario NOT IN (SELECT destinatario_invitacion_grupo FROM invitacion_grupo WHERE id_grupo_invitado = ?)"
+            );
+            ps.setInt(1, creadorGrupo);
+            ps.setInt(2, idGrupo);
+            ps.setInt(3, idGrupo);
             ResultSet rs = ps.executeQuery();
 
             // Filtrar lista para obtener solo los usuarios que no son amigos del creador del grupo

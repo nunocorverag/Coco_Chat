@@ -170,7 +170,63 @@ public class Coco_Chat_Server {
                             ObjectOutputStream respuestaCredencialesCorrectas = new ObjectOutputStream(clientSocket.getOutputStream());
                             respuestaCredencialesCorrectas.writeObject(listaUsuarios);
                         }
+                        
+                        if(funcion.equals("mostrar_amigos"))
+                        {
+                            System.out.println("Mostrar Amigos");
+                             DataInputStream informacionUsuarioCliente = new DataInputStream(clientSocket.getInputStream());
+                             String nombre_usuario = informacionUsuarioCliente.readUTF();
+                             System.out.println(nombre_usuario);
+                            UsuarioDAO usuarioDAO = new UsuarioDAO();
+                            int IDUsuario = usuarioDAO.ObtenerIDUsuario(nombre_usuario);
+                            ArrayList<Usuario> listaAmigos = usuarioDAO.obtenerAmigos(IDUsuario);
+                            ObjectOutputStream respuestaCredencialesCorrectas = new ObjectOutputStream(clientSocket.getOutputStream());
+                            respuestaCredencialesCorrectas.writeObject(listaAmigos);
+                        }
+                        
+                        if(funcion.equals("mostrar_no_amigos"))
+                        {
+                            System.out.println("Mostrar No Amigos");
+                            DataInputStream informacionUsuarioCliente = new DataInputStream(clientSocket.getInputStream());
+                            String nombre_usuario = informacionUsuarioCliente.readUTF();
+                            System.out.println(nombre_usuario);
+                            UsuarioDAO usuarioDAO = new UsuarioDAO();
+                            int IDUsuario = usuarioDAO.ObtenerIDUsuario(nombre_usuario);
+                            ArrayList<Usuario> listaNoAmigos = usuarioDAO.obtenerNoAmigos(IDUsuario);
+                            ObjectOutputStream respuestaCredencialesCorrectas = new ObjectOutputStream(clientSocket.getOutputStream());
+                            respuestaCredencialesCorrectas.writeObject(listaNoAmigos);
+                        }
+                        
+                        if(funcion.equals("crear_grupo"))
+                        {
+                            System.out.println("Crear grupo");
+                             ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
+                             try {
+                               Object objectReceived = infoReceived.readObject();
+                               SolicitudCrearGrupo infoCrearGrupo  = (SolicitudCrearGrupo)objectReceived;
+                               System.out.println(infoCrearGrupo.creador_grupo);
+                               UsuarioDAO usuarioDAO = new UsuarioDAO();
+                               int IDUsuario = usuarioDAO.ObtenerIDUsuario(infoCrearGrupo.creador_grupo);
+                               GruposDAO grupoDAO = new GruposDAO();
+                               grupoDAO.CrearGrupo(infoCrearGrupo.nombre_grupo, IDUsuario, infoCrearGrupo.usuarios_invitados);
+                             } catch (ClassNotFoundException ex) {
+                                 Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
+                             }
+                        }
 
+                        if(funcion.equals("mostrar_grupos"))
+                        {
+                            System.out.println("Mostrar Grupos");
+                            DataInputStream informacionUsuarioCliente = new DataInputStream(clientSocket.getInputStream());
+                            String nombre_usuario = informacionUsuarioCliente.readUTF();
+                            System.out.println(nombre_usuario);
+                            UsuarioDAO usuarioDAO = new UsuarioDAO();
+                            int IDUsuario = usuarioDAO.ObtenerIDUsuario(nombre_usuario);
+                            ArrayList<Grupo> listaGrupos = usuarioDAO.obtenerGrupos(IDUsuario);
+                            ObjectOutputStream respuestaCredencialesCorrectas = new ObjectOutputStream(clientSocket.getOutputStream());
+                            respuestaCredencialesCorrectas.writeObject(listaGrupos);
+                        }
+                        
                         if(funcion.equals("cerrar_sesion"))
                         {
                                System.out.println("Desconectar usuario:");
@@ -324,6 +380,63 @@ public class Coco_Chat_Server {
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                            }
+                        }
+                        
+                        if(funcion.equals("enviar_solicitud_amistad"))
+                        {
+                               System.out.println("Enviar solicitud amistad:");
+                               ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
+                               Object objectReceived;
+                           try {
+                               objectReceived = infoReceived.readObject();
+                               EnviarMensajesUsuario enviarMensajeUsuario  = (EnviarMensajesUsuario)objectReceived;
+                               UsuarioDAO usuarioDAO = new UsuarioDAO();
+                               MensajesDAO mensajesDAO = new MensajesDAO();
+                               int ID_usuario_loggeado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.remitente);
+                               int ID_usuario_seleccionado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.destinatario);
+                               String mensaje_enviado = enviarMensajeUsuario.mensaje;
+                               mensajesDAO.EnviarMensajeUsuario(ID_usuario_loggeado, ID_usuario_seleccionado, mensaje_enviado);
+                           } catch (ClassNotFoundException ex) {
+                               Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
+                           }
+                        }
+                        
+
+                        if(funcion.equals("aceptar_solicitud_amistad"))
+                        {
+                            
+                        }
+                        if(funcion.equals("rechazar_solicitud_amistad"))
+                        {
+                            
+                        }
+                            
+                        if(funcion.equals("enviar_invitacion_grupo"))
+                        {
+                               System.out.println("Enviar invitacion grupo:");
+                               ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
+                               Object objectReceived;
+                           try {
+                               objectReceived = infoReceived.readObject();
+                               EnviarMensajesUsuario enviarMensajeUsuario  = (EnviarMensajesUsuario)objectReceived;
+                               UsuarioDAO usuarioDAO = new UsuarioDAO();
+                               MensajesDAO mensajesDAO = new MensajesDAO();
+                               int ID_usuario_loggeado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.remitente);
+                               int ID_usuario_seleccionado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.destinatario);
+                               String mensaje_enviado = enviarMensajeUsuario.mensaje;
+                               mensajesDAO.EnviarMensajeUsuario(ID_usuario_loggeado, ID_usuario_seleccionado, mensaje_enviado);
+                           } catch (ClassNotFoundException ex) {
+                               Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
+                           }
+                        }
+                        
+                        if(funcion.equals("aceptar_invitacion_grupo"))
+                        {
+                            
+                        }
+                        if(funcion.equals("rechazar_invitacion_grupo"))
+                        {
+                            
                         }
                        
                    }

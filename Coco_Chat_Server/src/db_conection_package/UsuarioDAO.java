@@ -137,6 +137,27 @@ public class UsuarioDAO extends Db_Conection{
         
     }
     
+    public String obtenerNombreUsuario(int id)
+    {
+        try {
+            PreparedStatement ps = getConnection().prepareStatement("SELECT nombre FROM usuario WHERE id_usuario=?");
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next())
+            {
+                String nombre = rs.getString("nombre");
+                return nombre;
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+        
+    }
+    
     public int ObtenerIDUsuario(String username)
     {
         try 
@@ -196,17 +217,33 @@ public class UsuarioDAO extends Db_Conection{
             ps.setInt(2, usuario);
 
             ResultSet rs;
-            Usuario infoAmigo;
+            Amistad infoAmistad;
             rs = ps.executeQuery(); 
                         
             while (rs.next())
             {
-                infoAmigo = new Usuario();
-                infoAmigo.nombre = rs.getString("nombre");
-                infoAmigo.username = rs.getString("username");
-                infoAmigo.estado = rs.getInt("estado");
-                listaAmigos.add(infoAmigo);
-            }            
+                infoAmistad = new Amistad();
+                infoAmistad.amigo1 = rs.getInt("amigo1");
+                infoAmistad.amigo2 = rs.getInt("amigo2");
+                if(usuario != infoAmistad.amigo1)
+                {
+                    String username = obtenerUsernameUsuario(infoAmistad.amigo1);
+                    String nombre = obtenerNombreUsuario(infoAmistad.amigo1);
+                    Usuario infoAmigo = new Usuario();
+                    infoAmigo.nombre = nombre;
+                    infoAmigo.username = username;
+                    listaAmigos.add(infoAmigo);
+                }
+                else if(usuario != infoAmistad.amigo2)
+                {
+                    String username = obtenerUsernameUsuario(infoAmistad.amigo2);
+                    String nombre = obtenerNombreUsuario(infoAmistad.amigo2);
+                    Usuario infoAmigo = new Usuario();
+                    infoAmigo.nombre = nombre;
+                    infoAmigo.username = username;
+                    listaAmigos.add(infoAmigo);
+                }
+            }           
         }
         catch(SQLException es)
         {
@@ -234,7 +271,6 @@ public class UsuarioDAO extends Db_Conection{
                 infoNoAmigo = new Usuario();
                 infoNoAmigo.nombre = rs.getString("nombre");
                 infoNoAmigo.username = rs.getString("username");
-                infoNoAmigo.estado = rs.getInt("estado");
                 listaNoAmigos.add(infoNoAmigo);
             }            
         }
