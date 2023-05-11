@@ -2,6 +2,15 @@
 package interfaces;
 
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import user_session.SessionManager;
 
 /**
  *
@@ -17,6 +26,30 @@ public class Amigos extends javax.swing.JFrame {
     public Amigos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.addWindowListener(new WindowAdapter()
+                {
+                    public void windowClosing(WindowEvent e)
+                    {
+                        Socket s;      
+                        try {
+                            String direccionServidor = "10.147.17.147";
+                            InetAddress direccion = InetAddress.getByName(direccionServidor);
+                            s = new Socket(direccion, 1234);
+                            
+                            DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+                            funcion.writeUTF("cerrar_sesion");
+                            
+                            String username = SessionManager.getUsername();
+                            DataOutputStream objectOS = new DataOutputStream(s.getOutputStream());
+                            objectOS.writeUTF(username);
+                           
+                            s.close();
+                        } catch (IOException ex) {
+                            Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+        );
     }
     /*
     public Chat(String usuario){
@@ -230,7 +263,7 @@ public class Amigos extends javax.swing.JFrame {
             Chat a = new Chat();
             a.setTitle(nombreSeleccionado);
             int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
-            int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight();
+            int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight()-30;
             a.setLocation(posX, posY);
             
             windowopen = true;
@@ -239,7 +272,7 @@ public class Amigos extends javax.swing.JFrame {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent windowEvent) 
                 {
-            windowopen = false;
+                    windowopen = false;
                 }
             });
             a.setVisible(true);

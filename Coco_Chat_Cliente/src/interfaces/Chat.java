@@ -4,7 +4,10 @@
  */
 package interfaces;
 
-import java.awt.Dimension;
+import java.awt.ComponentOrientation;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 
 /**
  *
@@ -18,6 +21,7 @@ public class Chat extends javax.swing.JFrame {
      */
     public Chat() {
         initComponents();
+
     }
 
     /**
@@ -30,37 +34,59 @@ public class Chat extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jButton1 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        EnviarMsgButton = new javax.swing.JButton();
+        campoMsg = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        CampoChat = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(226, 262));
+        setPreferredSize(new java.awt.Dimension(226, 380));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setText("Enviar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        EnviarMsgButton.setText("Enviar");
+        EnviarMsgButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EnviarMsgButtonMouseClicked(evt);
+            }
+        });
+        EnviarMsgButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                EnviarMsgButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        getContentPane().add(jButton1, gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        getContentPane().add(EnviarMsgButton, gridBagConstraints);
 
-        jTextArea2.setColumns(5);
-        jTextArea2.setRows(1);
-        jScrollPane2.setViewportView(jTextArea2);
+        campoMsg.setColumns(15);
+        campoMsg.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        campoMsg.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        getContentPane().add(campoMsg, gridBagConstraints);
 
-        getContentPane().add(jScrollPane2, new java.awt.GridBagConstraints());
+        CampoChat.setEditable(false);
+        CampoChat.setColumns(15);
+        CampoChat.setRows(15);
+        jScrollPane1.setViewportView(CampoChat);
+
+        getContentPane().add(jScrollPane1, new java.awt.GridBagConstraints());
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void EnviarMsgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarMsgButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_EnviarMsgButtonActionPerformed
+
+    private void EnviarMsgButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnviarMsgButtonMouseClicked
+        String mensaje = campoMsg.getText();
+        CampoChat.setText(mensaje);
+        CampoChat.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        
+    }//GEN-LAST:event_EnviarMsgButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -98,8 +124,9 @@ public class Chat extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea CampoChat;
+    private javax.swing.JButton EnviarMsgButton;
+    private javax.swing.JTextField campoMsg;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

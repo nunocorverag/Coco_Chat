@@ -179,6 +179,7 @@ public class Coco_Chat_Server {
                                System.out.println(nombre_usuario);
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
                                usuarioDAO.DesconectarUsuario(nombre_usuario);
+                               clientSocket.close();
                         }
                    }
                    catch(IOException e){
