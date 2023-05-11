@@ -32,7 +32,7 @@ public class CrearGrupo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        Usuario = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
 
@@ -64,13 +64,13 @@ public class CrearGrupo extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        jCheckBox1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jCheckBox1.setText("Usuario");
-        jCheckBox1.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        Usuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        Usuario.setText("Usuario");
+        Usuario.setMargin(new java.awt.Insets(5, 5, 5, 5));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        getContentPane().add(jCheckBox1, gridBagConstraints);
+        getContentPane().add(Usuario, gridBagConstraints);
 
         jMenuBar1.setToolTipText("k");
         jMenuBar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -95,6 +95,8 @@ public class CrearGrupo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+ 
+    
     private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
         Grupos a = new Grupos();
         a.setVisible(true);
@@ -140,8 +142,8 @@ public class CrearGrupo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox Usuario;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
