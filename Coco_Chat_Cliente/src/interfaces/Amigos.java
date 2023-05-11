@@ -314,7 +314,7 @@ public class Amigos extends javax.swing.JFrame {
                     s.close();
                     for(Usuario user: usuarios)
                     {
-                        if(user.estado == 1)
+                        if(user.estado == 0)
                         {
                             this.amigosOff.add(user);
                         }

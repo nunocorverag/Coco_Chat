@@ -4,18 +4,51 @@
  */
 package interfaces;
 
+import db_conection_package.Usuario;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import returned_models.SolicitudCrearGrupo;
+import user_session.SessionManager;
+
 /**
  *
  * @author Nancy
  */
 public class CrearGrupo extends javax.swing.JFrame {
-
+    
+    public ArrayList<Usuario> ListaUsuarios;
+    public ArrayList<String> ListaUsuariosInvitacion;
     /**
      * Creates new form CrearGrupo
      */
     public CrearGrupo() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        Socket s;
+        
+        try {
+            String direccionServidor = "10.147.17.147";
+            InetAddress direccion = InetAddress.getByName(direccionServidor);
+            s = new Socket(direccion, 1234);
+            DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+            funcion.writeUTF("mostrar_usuarios");
+            
+            ObjectInputStream usuarios = new ObjectInputStream(s.getInputStream());
+            try {
+                this.ListaUsuarios = (ArrayList<Usuario>)usuarios.readObject();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(CrearGrupo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CrearGrupo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -37,10 +70,14 @@ public class CrearGrupo extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(518, 518));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jButton1.setText("Crear grupo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -67,6 +104,11 @@ public class CrearGrupo extends javax.swing.JFrame {
         Usuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         Usuario.setText("Usuario");
         Usuario.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        Usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -102,6 +144,25 @@ public class CrearGrupo extends javax.swing.JFrame {
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMenu2MenuSelected
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Socket s;
+        String creadorGrupo = SessionManager.getUsername();
+        try {
+            String direccionServidor = "10.147.17.147";
+            InetAddress direccion = InetAddress.getByName(direccionServidor);
+            s = new Socket(direccion, 1234);
+            
+            SolicitudCrearGrupo crearGrupo = new SolicitudCrearGrupo(creadorGrupo, jTextArea1.getText(), ListaUsuariosInvitacion);
+        } catch (IOException ex) {
+            Logger.getLogger(CrearGrupo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioActionPerformed
 
     /**
      * @param args the command line arguments
