@@ -85,7 +85,6 @@ public class Chat extends javax.swing.JFrame {
         String mensaje = campoMsg.getText();
         CampoChat.setText(mensaje);
         CampoChat.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        
     }//GEN-LAST:event_EnviarMsgButtonMouseClicked
 
     /**
