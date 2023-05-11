@@ -4,11 +4,13 @@
  */
 package returned_models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author PABLOPC
  */
-public class SolicitarMensajesUsuario {
+public class SolicitarMensajesUsuario implements Serializable {
     public String usuarioLoggeado;
     public String usuarioSeleccionado;
 

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import returned_models.RespuestaMensajesUsuario;
 
 /**
  *
@@ -85,9 +86,9 @@ public class MensajesDAO extends Db_Conection{
         return false;
     }
     
-    public ArrayList<Mensaje_Usuario> obtenerMensajesUsuario(int usuario, int usuario_mensaje)
+    public ArrayList<RespuestaMensajesUsuario> obtenerMensajesUsuario(int usuario, int usuario_mensaje)
     {
-        ArrayList<Mensaje_Usuario> listaMensajesUsuario = new ArrayList();
+        ArrayList<RespuestaMensajesUsuario> listaMensajesUsuario = new ArrayList();
         try 
         {
             PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM mensaje_usuario where (remitente_usuario = ? AND destinatario_usuario = ?) OR (remitente_usuario = ? AND destinatario_usuario = ?))");
@@ -96,16 +97,16 @@ public class MensajesDAO extends Db_Conection{
             ps.setInt(3, usuario_mensaje);
             ps.setInt(4, usuario);
             ResultSet rs;
-            Mensaje_Usuario mensajeUsuario;
+            RespuestaMensajesUsuario mensajeUsuario;
             rs = ps.executeQuery(); 
 
             while (rs.next())
             {
-                mensajeUsuario = new Mensaje_Usuario();
-                mensajeUsuario.remitente_usuario = rs.getInt("remitente_usuario");
-                mensajeUsuario.destinatario_usuario = rs.getInt("destinatario_usuario");
+                mensajeUsuario = new RespuestaMensajesUsuario();
                 mensajeUsuario.fecha_mensaje_usuario = rs.getTimestamp("fecha_mensaje_usuario");
                 mensajeUsuario.mensaje_usuario = rs.getString("mensaje_usuario");
+                mensajeUsuario.username_destinatario = rs.getString("username_destinatario");
+                mensajeUsuario.username_remitente = rs.getString("username_remitente");
                 listaMensajesUsuario.add(mensajeUsuario);
             }            
         }

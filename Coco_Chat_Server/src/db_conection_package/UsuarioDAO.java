@@ -118,10 +118,9 @@ public class UsuarioDAO extends Db_Conection{
     
     public String getUsernameUsuario(int id)
     {
-        String idString = valueOf(id);
         try {
             PreparedStatement ps = getConnection().prepareStatement("SELECT username FROM usuario WHERE id_usuario=?");
-            ps.setString(1,idString);
+            ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
             
             if(rs.next())
