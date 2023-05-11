@@ -120,6 +120,11 @@ public class Grupos extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         CreatedGroupButton.setText("Crear grupo");
+        CreatedGroupButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreatedGroupButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(CreatedGroupButton, new java.awt.GridBagConstraints());
 
         UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
@@ -236,6 +241,12 @@ public class Grupos extends javax.swing.JFrame {
             a.setVisible(true);
         }
     }//GEN-LAST:event_ListaGruposMouseClicked
+
+    private void CreatedGroupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreatedGroupButtonActionPerformed
+         CrearGrupo a = new CrearGrupo();
+         a.setVisible(true);
+         this.setVisible(false);
+    }//GEN-LAST:event_CreatedGroupButtonActionPerformed
 
     /**
      * @param args the command line arguments
