@@ -261,9 +261,10 @@ public class Usuarios extends javax.swing.JFrame {
                     funcion.writeUTF("mostrar_usuarios");
                     
                     ObjectInputStream usuariosList = new ObjectInputStream(s.getInputStream());
+                    
                     try {
                         ArrayList<Usuario> usuarios = (ArrayList<Usuario>)usuariosList.readObject();
-
+                        s.close();
                         for(Usuario user: usuarios)
                         {
                             if(user.estado == 1)
@@ -302,9 +303,10 @@ public class Usuarios extends javax.swing.JFrame {
                     funcion.writeUTF("mostrar_usuarios");
                     
                     ObjectInputStream usuariosList = new ObjectInputStream(s.getInputStream());
+                    
                     try {
                         ArrayList<Usuario> usuarios = (ArrayList<Usuario>)usuariosList.readObject();
-
+                        s.close();
                         for(Usuario user: usuarios)
                         {
                             if(user.estado == 0)

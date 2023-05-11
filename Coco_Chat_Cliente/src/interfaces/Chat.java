@@ -62,7 +62,7 @@ public class Chat extends javax.swing.JFrame {
             
             try {
                 ArrayList<RespuestaMensajesUsuario> chatRecibido = (ArrayList<RespuestaMensajesUsuario>)chat.readObject();
-                
+                s.close();
                 
                 for(RespuestaMensajesUsuario msg: chatRecibido)
                 {
@@ -75,13 +75,6 @@ public class Chat extends javax.swing.JFrame {
                         Color color = remitente.equals(msg.username_remitente) ? colorRemitente : colorDestinatario;
                         CampoChat.append(msg.username_remitente + ": " + msg.mensaje_usuario + "\n");
                         CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
-                        
-                        /*
-                        mensajes = mensajes.concat(msg.mensaje_usuario);
-                        mensajes = mensajes.concat("\n");
-                        System.out.println(msg.mensaje_usuario);
-                        CampoChat.setText(mensajes);
-                        */
                     }
                     else
                     {
@@ -157,7 +150,6 @@ public class Chat extends javax.swing.JFrame {
 
     private void EnviarMsgButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnviarMsgButtonMouseClicked
         String mensaje = campoMsg.getText();
-        CampoChat.setText(mensaje);
         String remitente = SessionManager.getUsername();
         
         EnviarMensajesUsuario msg = new EnviarMensajesUsuario(remitente, destinatario, mensaje);
@@ -173,11 +165,42 @@ public class Chat extends javax.swing.JFrame {
             
             ObjectOutputStream msgEnviar = new ObjectOutputStream(s.getOutputStream());
             msgEnviar.writeObject(msg);
-            
+                       
+            try {
+                
+                ObjectInputStream chat = new ObjectInputStream(s.getInputStream());
+
+                ArrayList<RespuestaMensajesUsuario> chatRecibido = (ArrayList<RespuestaMensajesUsuario>)chat.readObject();
+                s.close();
+                
+                Color colorDestinatario = Color.BLUE;
+                Color colorRemitente = Color.GREEN;
+                for(RespuestaMensajesUsuario msge: chatRecibido)
+                {
+                    
+                    System.out.println(msge.username_destinatario);
+                    System.out.println(msge.username_remitente);
+                    
+                    if(msge.username_destinatario.equals(remitente))
+                    {
+                        Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
+                        CampoChat.append(msge.username_remitente + ": " + msge.mensaje_usuario + "\n");
+                        CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                    }
+                    else
+                    {
+                        Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
+                        CampoChat.append(msge.username_remitente + ": " + msge.mensaje_usuario + "\n");
+                        CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                    }
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (IOException ex) {
             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
         }
-        CampoChat.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        //CampoChat.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
     }//GEN-LAST:event_EnviarMsgButtonMouseClicked
 
     /**
