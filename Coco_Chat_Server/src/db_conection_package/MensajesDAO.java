@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import returned_models.RespuestaMensajesUsuario;
+import returned_models.*;
 
 /**
  *
@@ -91,7 +91,7 @@ public class MensajesDAO extends Db_Conection{
         ArrayList<RespuestaMensajesUsuario> listaMensajesUsuario = new ArrayList();
         try 
         {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM mensaje_usuario where (remitente_usuario = ? AND destinatario_usuario = ?) OR (remitente_usuario = ? AND destinatario_usuario = ?))");
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM mensaje_usuario where (remitente_usuario = ? AND destinatario_usuario = ?) OR (remitente_usuario = ? AND destinatario_usuario = ?)");
             ps.setInt(1, usuario);
             ps.setInt(2, usuario_mensaje);
             ps.setInt(3, usuario_mensaje);
@@ -105,8 +105,11 @@ public class MensajesDAO extends Db_Conection{
                 mensajeUsuario = new RespuestaMensajesUsuario();
                 mensajeUsuario.fecha_mensaje_usuario = rs.getTimestamp("fecha_mensaje_usuario");
                 mensajeUsuario.mensaje_usuario = rs.getString("mensaje_usuario");
-                mensajeUsuario.username_destinatario = rs.getString("username_destinatario");
-                mensajeUsuario.username_remitente = rs.getString("username_remitente");
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                String username_destinatario = usuarioDAO.obtenerUsernameUsuario(rs.getInt("destinatario_usuario"));
+                String username_remitente = usuarioDAO.obtenerUsernameUsuario(rs.getInt("remitente_usuario"));
+                mensajeUsuario.username_destinatario = username_destinatario;
+                mensajeUsuario.username_remitente = username_remitente;
                 listaMensajesUsuario.add(mensajeUsuario);
             }            
         }
@@ -117,27 +120,30 @@ public class MensajesDAO extends Db_Conection{
         return listaMensajesUsuario;
     }
     
-    public ArrayList<Mensaje_Amigo> obtenerMensajesAmigo(int usuario, int amigo_mensaje)
+    public ArrayList<RespuestaMensajesAmigo> obtenerMensajesAmigo(int usuario, int amigo_mensaje)
     {
-        ArrayList<Mensaje_Amigo> listaMensajesAmigo = new ArrayList();
+        ArrayList<RespuestaMensajesAmigo> listaMensajesAmigo = new ArrayList();
         try 
         {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM mensaje_amigo where (remitente_amigo = ? AND destinatario_amigo = ?) OR (remitente_amigo = ? AND destinatario_amigo = ?))");
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM mensaje_amigo where (remitente_amigo = ? AND destinatario_amigo = ?) OR (remitente_amigo = ? AND destinatario_amigo = ?)");
             ps.setInt(1, usuario);
             ps.setInt(2, amigo_mensaje);
             ps.setInt(3, amigo_mensaje);
             ps.setInt(4, usuario);
             ResultSet rs;  
-            Mensaje_Amigo mensajeAmigo;
+            RespuestaMensajesAmigo mensajeAmigo;
             rs = ps.executeQuery(); 
 
             while (rs.next())
             {
-                mensajeAmigo = new Mensaje_Amigo();
-                mensajeAmigo.remitente_amigo = rs.getInt("remitente_amigo");
-                mensajeAmigo.destinatario_amigo = rs.getInt("destinatario_amigo");
+                mensajeAmigo = new RespuestaMensajesAmigo();
                 mensajeAmigo.fecha_mensaje_amigo = rs.getTimestamp("fecha_mensaje_amigo");
                 mensajeAmigo.mensaje_amigo = rs.getString("mensaje_amigo");
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                String username_destinatario = usuarioDAO.obtenerUsernameUsuario(rs.getInt("destinatario_amigo"));
+                String username_remitente = usuarioDAO.obtenerUsernameUsuario(rs.getInt("remitente_amigo"));
+                mensajeAmigo.username_destinatario = username_destinatario;
+                mensajeAmigo.username_remitente = username_remitente;
                 listaMensajesAmigo.add(mensajeAmigo);
             }            
         }
@@ -148,24 +154,25 @@ public class MensajesDAO extends Db_Conection{
         return listaMensajesAmigo;
     }
     
-    public ArrayList<Mensaje_Grupo> obtenerMensajesGrupo(int grupo_mensaje)
+    public ArrayList<RespuestaMensajesGrupo> obtenerMensajesGrupo(int grupo_mensaje)
     {
-        ArrayList<Mensaje_Grupo> listaMensajesGrupo = new ArrayList();
+        ArrayList<RespuestaMensajesGrupo> listaMensajesGrupo = new ArrayList();
         try 
         {
             PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM mensaje_grupo where destinatario_grupo = ?)");
             ps.setInt(1, grupo_mensaje);
             ResultSet rs;  
-            Mensaje_Grupo mensajeGrupo;
+            RespuestaMensajesGrupo mensajeGrupo;
             rs = ps.executeQuery(); 
 
             while (rs.next())
             {
-                mensajeGrupo = new Mensaje_Grupo();
-                mensajeGrupo.remitente_grupo = rs.getInt("remitente_grupo");
-                mensajeGrupo.destinatario_grupo = rs.getInt("destinatario_grupo");
+                mensajeGrupo = new RespuestaMensajesGrupo();
                 mensajeGrupo.fecha_mensaje_grupo = rs.getTimestamp("fecha_mensaje_grupo");
                 mensajeGrupo.mensaje_grupo = rs.getString("mensaje_grupo");
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                String username_remitente = usuarioDAO.obtenerUsernameUsuario(rs.getInt("remitente_grupo"));
+                mensajeGrupo.username_remitente = username_remitente;
                 listaMensajesGrupo.add(mensajeGrupo);
             }            
         }
