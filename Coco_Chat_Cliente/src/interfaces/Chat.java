@@ -4,7 +4,7 @@
  */
 package interfaces;
 
-import db_conection_package.Mensaje_Usuario;
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import returned_models.EnviarMensajesUsuario;
+import returned_models.RespuestaMensajesUsuario;
 import returned_models.SolicitarMensajesUsuario;
 import user_session.SessionManager;
 
@@ -49,19 +50,44 @@ public class Chat extends javax.swing.JFrame {
             funcion.writeUTF("cargar_mensajes_usuario");
             
             String remitente = SessionManager.getUsername();
+            
+            Color colorDestinatario = Color.BLUE;
+            Color colorRemitente = Color.GREEN;
+            
             SolicitarMensajesUsuario solicitudMensaje = new SolicitarMensajesUsuario(remitente, this.destinatario);
             ObjectOutputStream solicitud = new ObjectOutputStream(s.getOutputStream());
             solicitud.writeObject(solicitudMensaje);
+            
             ObjectInputStream chat = new ObjectInputStream(s.getInputStream());
             
             try {
-                ArrayList<Mensaje_Usuario> chatRecibido = (ArrayList<Mensaje_Usuario>)chat.readObject();
-
-                for(Mensaje_Usuario msg: chatRecibido)
+                ArrayList<RespuestaMensajesUsuario> chatRecibido = (ArrayList<RespuestaMensajesUsuario>)chat.readObject();
+                
+                
+                for(RespuestaMensajesUsuario msg: chatRecibido)
                 {
+                    
+                    System.out.println(msg.username_destinatario);
+                    System.out.println(msg.username_remitente);
+                    
                     if(msg.username_destinatario.equals(remitente))
                     {
+                        Color color = remitente.equals(msg.username_remitente) ? colorRemitente : colorDestinatario;
+                        CampoChat.append(msg.username_remitente + ": " + msg.mensaje_usuario + "\n");
+                        CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                        
+                        /*
+                        mensajes = mensajes.concat(msg.mensaje_usuario);
+                        mensajes = mensajes.concat("\n");
                         System.out.println(msg.mensaje_usuario);
+                        CampoChat.setText(mensajes);
+                        */
+                    }
+                    else
+                    {
+                        Color color = remitente.equals(msg.username_remitente) ? colorRemitente : colorDestinatario;
+                        CampoChat.append(msg.username_remitente + ": " + msg.mensaje_usuario + "\n");
+                        CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
                     }
                 }
             } catch (ClassNotFoundException ex) {
