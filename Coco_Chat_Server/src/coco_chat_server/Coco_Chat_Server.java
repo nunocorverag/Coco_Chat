@@ -173,9 +173,9 @@ public class Coco_Chat_Server {
 
                         if(funcion.equals("cerrar_sesion"))
                         {
+                               System.out.println("Desconectar usuario:");
                                DataInputStream informacionUsuarioCliente = new DataInputStream(clientSocket.getInputStream());
                                String nombre_usuario = informacionUsuarioCliente.readUTF();
-                               System.out.println("Desconectar usuario:");
                                System.out.println(nombre_usuario);
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
                                usuarioDAO.DesconectarUsuario(nombre_usuario);
