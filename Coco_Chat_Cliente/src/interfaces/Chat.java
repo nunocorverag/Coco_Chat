@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import returned_models.EnviarMensajesUsuario;
+import returned_models.SolicitarMensajesUsuario;
 import user_session.SessionManager;
 
 
@@ -44,20 +45,23 @@ public class Chat extends javax.swing.JFrame {
             InetAddress direccion = InetAddress.getByName(direccionServidor);
             s = new Socket(direccion, 1234);
             
+            DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+            funcion.writeUTF("cargar_mensajes_usuario");
+            
+            String remitente = SessionManager.getUsername();
+            SolicitarMensajesUsuario solicitudMensaje = new SolicitarMensajesUsuario(remitente, this.destinatario);
+            ObjectOutputStream solicitud = new ObjectOutputStream(s.getOutputStream());
+            solicitud.writeObject(solicitudMensaje);
             ObjectInputStream chat = new ObjectInputStream(s.getInputStream());
+            
             try {
                 ArrayList<Mensaje_Usuario> chatRecibido = (ArrayList<Mensaje_Usuario>)chat.readObject();
-                String remitente = SessionManager.getUsername();
-                
+
                 for(Mensaje_Usuario msg: chatRecibido)
                 {
                     if(msg.username_destinatario.equals(remitente))
                     {
-                        CampoChat.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-                    }
-                    else
-                    {
-                        CampoChat.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+                        System.out.println(msg.mensaje_usuario);
                     }
                 }
             } catch (ClassNotFoundException ex) {

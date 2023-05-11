@@ -190,6 +190,8 @@ public class Coco_Chat_Server {
                                objectReceived = infoReceived.readObject();
                                SolicitarMensajesUsuario usuariosMensaje  = (SolicitarMensajesUsuario)objectReceived;
                                
+                               System.out.println("Remitente: " + usuariosMensaje.usuarioLoggeado);
+                               System.out.println("Destinatario: " + usuariosMensaje.usuarioSeleccionado);
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
                                MensajesDAO mensajesDAO = new MensajesDAO();
                                
