@@ -105,8 +105,7 @@ public class Grupos extends javax.swing.JFrame {
         ListaGrupos.setModel(new javax.swing.AbstractListModel<String>() {
             public int getSize() { return grupos.length; }
             public String getElementAt(int i) { return grupos[i];
-                JButton botonEliminar = new JButton("Eliminar");
-                l.add(botonEliminar);
+
             }
         });
         ListaGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
