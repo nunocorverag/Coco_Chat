@@ -345,6 +345,20 @@ public class Usuarios extends javax.swing.JFrame {
         }
     }
     
+    public class ListaChatsAbiertos {
+        private ArrayList<String> nombres;
+
+        public ListaChatsAbiertos() {
+            nombres = new ArrayList<String>();
+        }
+
+        public ArrayList<String> obtenerNombres()
+        {
+            return nombres;
+        }
+    }
+    private ListaChatsAbiertos listaChatsAbiertos = new ListaChatsAbiertos();
+    
     private void UsuariosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_UsuariosMenuMenuSelected
         Usuarios a = new Usuarios();
         a.setVisible(true);
@@ -366,25 +380,34 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_GruposMenuMenuSelected
 
     private void ListaUsuariosConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosConectadosMouseClicked
-        String nombreSeleccionado = ListaUsuariosConectados.getSelectedValue();
-        if (windowopen == false)
-        {
-            Chat a = new Chat(nombreSeleccionado);
-            a.setTitle(nombreSeleccionado);
-            int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
-            int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight()-30;
-            a.setLocation(posX, posY);
-            
-            windowopen = true;
-            a.addWindowListener(new java.awt.event.WindowAdapter() 
-            {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent windowEvent) 
-                {
-                    windowopen = false;
-                }
-            });
-            a.setVisible(true);
+       String nombreSeleccionado = ListaUsuariosConectados.getSelectedValue();
+        String listaPro = ListaUsuariosConectados.getSelectedValue();
+
+        Chat a = new Chat();
+
+        if (listaChatsAbiertos.obtenerNombres().contains(nombreSeleccionado)) {
+            System.out.println("tienen en mismo nombre");
+            windowopen = false;
+        } else {
+            System.out.println("tienen el nombre diferente");
+            System.out.println(listaChatsAbiertos.obtenerNombres());
+            listaChatsAbiertos.obtenerNombres().add(listaPro);
+            System.out.println(nombreSeleccionado);
+            if (windowopen = true) {
+                a.setTitle(nombreSeleccionado);
+                int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
+                int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight() - 30;
+                a.setLocation(posX, posY);
+
+                windowopen = true;
+                a.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                        windowopen = false;
+                    }
+                });
+                a.setVisible(true);
+            }
         }
     }//GEN-LAST:event_ListaUsuariosConectadosMouseClicked
 
