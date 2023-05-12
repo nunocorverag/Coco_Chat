@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import returned_models.EnviarMensajesUsuario;
+import returned_models.RespuestaMensajesAmigo;
+import returned_models.RespuestaMensajesGrupo;
 import returned_models.RespuestaMensajesUsuario;
 import returned_models.SolicitarMensajesUsuario;
 import user_session.SessionManager;
@@ -48,58 +50,113 @@ public class Chat extends javax.swing.JFrame {
             InetAddress direccion = InetAddress.getByName(direccionServidor);
             s = new Socket(direccion, 1234);
             
+            String remitente = SessionManager.getUsername();
+            Color colorDestinatario = Color.BLUE;
+            Color colorRemitente = Color.GREEN;
+            SolicitarMensajesUsuario solicitudMensaje = new SolicitarMensajesUsuario(remitente, this.destinatario);
+            ObjectOutputStream solicitud;
+            ObjectInputStream chat;
+            
             DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
             switch (ventana) {
                 case "Usuarios":
                     funcion.writeUTF("cargar_mensajes_usuario");
+                    solicitud = new ObjectOutputStream(s.getOutputStream());
+                    solicitud.writeObject(solicitudMensaje);
+                    
+                    chat = new ObjectInputStream(s.getInputStream());
+
+                    try {
+                        ArrayList<RespuestaMensajesUsuario> chatRecibido = (ArrayList<RespuestaMensajesUsuario>)chat.readObject();
+                        s.close();
+
+                        for(RespuestaMensajesUsuario msg: chatRecibido)
+                        {
+
+                            System.out.println(msg.username_destinatario);
+                            System.out.println(msg.username_remitente);
+
+                            if(msg.username_destinatario.equals(remitente))
+                            {
+                                Color color = remitente.equals(msg.username_remitente) ? colorRemitente : colorDestinatario;
+                                CampoChat.append(msg.username_remitente + ": " + msg.mensaje_usuario + "\n");
+                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                            }
+                            else
+                            {
+                                Color color = remitente.equals(msg.username_remitente) ? colorRemitente : colorDestinatario;
+                                CampoChat.append(msg.username_remitente + ": " + msg.mensaje_usuario + "\n");
+                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                            }
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 case "Amigos":
-                    funcion.writeUTF("cargar_mensajes_amigos");
+                    funcion.writeUTF("cargar_mensajes_amigo");
+                    solicitud = new ObjectOutputStream(s.getOutputStream());
+                    solicitud.writeObject(solicitudMensaje);
+                    
+                    chat = new ObjectInputStream(s.getInputStream());
+
+                    try {
+                        ArrayList<RespuestaMensajesAmigo> chatRecibido = (ArrayList<RespuestaMensajesAmigo>)chat.readObject();
+                        s.close();
+
+                        for(RespuestaMensajesAmigo msg: chatRecibido)
+                        {
+
+                            System.out.println(msg.username_destinatario);
+                            System.out.println(msg.username_remitente);
+
+                            if(msg.username_destinatario.equals(remitente))
+                            {
+                                Color color = remitente.equals(msg.username_remitente) ? colorRemitente : colorDestinatario;
+                                CampoChat.append(msg.username_remitente + ": " + msg.mensaje_amigo + "\n");
+                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                            }
+                            else
+                            {
+                                Color color = remitente.equals(msg.username_remitente) ? colorRemitente : colorDestinatario;
+                                CampoChat.append(msg.username_remitente + ": " + msg.mensaje_amigo + "\n");
+                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                            }
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 case "Grupos":
-                    funcion.writeUTF("cargar_mensajes_usuario");
+                    funcion.writeUTF("cargar_mensajes_grupo");
+                    solicitud = new ObjectOutputStream(s.getOutputStream());
+                    solicitud.writeObject(solicitudMensaje);
+                    
+                    chat = new ObjectInputStream(s.getInputStream());
+
+                    try {
+                        ArrayList<RespuestaMensajesGrupo> chatRecibido = (ArrayList<RespuestaMensajesGrupo>)chat.readObject();
+                        s.close();
+
+                        for(RespuestaMensajesGrupo msg: chatRecibido)
+                        {
+                            System.out.println(msg.username_remitente);
+
+                                Color color = remitente.equals(msg.username_remitente) ? colorRemitente : colorDestinatario;
+                                CampoChat.append(msg.username_remitente + ": " + msg.mensaje_grupo + "\n");
+                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 default:
                     break;
             }
             
-            String remitente = SessionManager.getUsername();
+
             
-            Color colorDestinatario = Color.BLUE;
-            Color colorRemitente = Color.GREEN;
             
-            SolicitarMensajesUsuario solicitudMensaje = new SolicitarMensajesUsuario(remitente, this.destinatario);
-            ObjectOutputStream solicitud = new ObjectOutputStream(s.getOutputStream());
-            solicitud.writeObject(solicitudMensaje);
-            
-            ObjectInputStream chat = new ObjectInputStream(s.getInputStream());
-            
-            try {
-                ArrayList<RespuestaMensajesUsuario> chatRecibido = (ArrayList<RespuestaMensajesUsuario>)chat.readObject();
-                s.close();
-                
-                for(RespuestaMensajesUsuario msg: chatRecibido)
-                {
-                    
-                    System.out.println(msg.username_destinatario);
-                    System.out.println(msg.username_remitente);
-                    
-                    if(msg.username_destinatario.equals(remitente))
-                    {
-                        Color color = remitente.equals(msg.username_remitente) ? colorRemitente : colorDestinatario;
-                        CampoChat.append(msg.username_remitente + ": " + msg.mensaje_usuario + "\n");
-                        CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
-                    }
-                    else
-                    {
-                        Color color = remitente.equals(msg.username_remitente) ? colorRemitente : colorDestinatario;
-                        CampoChat.append(msg.username_remitente + ": " + msg.mensaje_usuario + "\n");
-                        CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
-                    }
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
-            }
         } catch (IOException ex) {
             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -168,6 +225,8 @@ public class Chat extends javax.swing.JFrame {
         String remitente = SessionManager.getUsername();
         
         EnviarMensajesUsuario msg = new EnviarMensajesUsuario(remitente, destinatario, mensaje);
+        ObjectOutputStream msgEnviar;
+        ObjectInputStream chat;
         
         Socket s;
         try {
@@ -179,55 +238,107 @@ public class Chat extends javax.swing.JFrame {
             switch (ventana) {
                 case "Usuarios":
                     funcion.writeUTF("enviar_mensaje_usuario");
+                    msgEnviar = new ObjectOutputStream(s.getOutputStream());
+                    msgEnviar.writeObject(msg);
+                    try {
+                        chat = new ObjectInputStream(s.getInputStream());
+
+                        ArrayList<RespuestaMensajesUsuario> chatRecibido = (ArrayList<RespuestaMensajesUsuario>)chat.readObject();
+                        s.close();
+
+                        Color colorDestinatario = Color.BLUE;
+                        Color colorRemitente = Color.GREEN;
+                        for(RespuestaMensajesUsuario msge: chatRecibido)
+                        {
+
+                            System.out.println(msge.username_destinatario);
+                            System.out.println(msge.username_remitente);
+
+                            if(msge.username_destinatario.equals(remitente))
+                            {
+                                Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
+                                CampoChat.append(msge.username_remitente + ": " + msge.mensaje_usuario + "\n");
+                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                            }
+                            else
+                            {
+                                Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
+                                CampoChat.append(msge.username_remitente + ": " + msge.mensaje_usuario + "\n");
+                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                            }
+                        }
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     break;
                 case "Amigos":
                     funcion.writeUTF("enviar_mensaje_amigo");
+                    msgEnviar = new ObjectOutputStream(s.getOutputStream());
+                    msgEnviar.writeObject(msg);
+                       
+                    try {
+                        chat = new ObjectInputStream(s.getInputStream());
+
+                        ArrayList<RespuestaMensajesAmigo> chatRecibido = (ArrayList<RespuestaMensajesAmigo>)chat.readObject();
+                        s.close();
+
+                        Color colorDestinatario = Color.BLUE;
+                        Color colorRemitente = Color.GREEN;
+                        for(RespuestaMensajesAmigo msge: chatRecibido)
+                        {
+
+                            System.out.println(msge.username_destinatario);
+                            System.out.println(msge.username_remitente);
+
+                            if(msge.username_destinatario.equals(remitente))
+                            {
+                                Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
+                                CampoChat.append(msge.username_remitente + ": " + msge.mensaje_amigo + "\n");
+                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                            }
+                            else
+                            {
+                                Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
+                                CampoChat.append(msge.username_remitente + ": " + msge.mensaje_amigo + "\n");
+                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                            }
+                        }
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     break;
                 case "Grupos":
                     funcion.writeUTF("enviar_mensaje_grupo");
+                    msgEnviar = new ObjectOutputStream(s.getOutputStream());
+                    msgEnviar.writeObject(msg);
+                       
+                    try {
+                        chat = new ObjectInputStream(s.getInputStream());
+
+                        ArrayList<RespuestaMensajesGrupo> chatRecibido = (ArrayList<RespuestaMensajesGrupo>)chat.readObject();
+                        s.close();
+
+                        Color colorDestinatario = Color.BLUE;
+                        Color colorRemitente = Color.GREEN;
+                        for(RespuestaMensajesGrupo msge: chatRecibido)
+                        {
+
+                            System.out.println(msge.username_remitente);
+
+                            Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
+                            CampoChat.append(msge.username_remitente + ": " + msge.mensaje_grupo + "\n");
+                            CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                        }
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     break;
                 default:
                     break;
             }
-            
-            ObjectOutputStream msgEnviar = new ObjectOutputStream(s.getOutputStream());
-            msgEnviar.writeObject(msg);
-                       
-            try {
-                
-                ObjectInputStream chat = new ObjectInputStream(s.getInputStream());
-
-                ArrayList<RespuestaMensajesUsuario> chatRecibido = (ArrayList<RespuestaMensajesUsuario>)chat.readObject();
-                s.close();
-                
-                Color colorDestinatario = Color.BLUE;
-                Color colorRemitente = Color.GREEN;
-                for(RespuestaMensajesUsuario msge: chatRecibido)
-                {
-                    
-                    System.out.println(msge.username_destinatario);
-                    System.out.println(msge.username_remitente);
-                    
-                    if(msge.username_destinatario.equals(remitente))
-                    {
-                        Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
-                        CampoChat.append(msge.username_remitente + ": " + msge.mensaje_usuario + "\n");
-                        CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
-                    }
-                    else
-                    {
-                        Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
-                        CampoChat.append(msge.username_remitente + ": " + msge.mensaje_usuario + "\n");
-                        CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
-                    }
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
-            }
         } catch (IOException ex) {
             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //CampoChat.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
     }//GEN-LAST:event_EnviarMsgButtonMouseClicked
 
     /**
