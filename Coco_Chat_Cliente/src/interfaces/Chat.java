@@ -253,6 +253,7 @@ public class Chat extends javax.swing.JFrame {
                     funcion.writeUTF("enviar_mensaje_usuario");
                     msgEnviar = new ObjectOutputStream(s.getOutputStream());
                     msgEnviar.writeObject(msg);
+                    
                     try {
                         chat = new ObjectInputStream(s.getInputStream());
 
@@ -276,12 +277,13 @@ public class Chat extends javax.swing.JFrame {
                         } catch (ClassNotFoundException ex) {
                             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                    
                     break;
                 case "Amigos":
                     funcion.writeUTF("enviar_mensaje_amigo");
                     msgEnviar = new ObjectOutputStream(s.getOutputStream());
                     msgEnviar.writeObject(msg); 
-                    
+                    /*
                     try {
                         chat = new ObjectInputStream(s.getInputStream());
                         ArrayList<RespuestaMensajesAmigo> chatRecibido = (ArrayList<RespuestaMensajesAmigo>)chat.readObject();
@@ -303,12 +305,13 @@ public class Chat extends javax.swing.JFrame {
                         } catch (ClassNotFoundException ex) {
                             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                    */
                     break;
                 case "Grupos":
                     funcion.writeUTF("enviar_mensaje_grupo");
                     msgEnviar = new ObjectOutputStream(s.getOutputStream());
                     msgEnviar.writeObject(msg);
-                       
+                    /*
                     try {
                         chat = new ObjectInputStream(s.getInputStream());
 
@@ -329,6 +332,7 @@ public class Chat extends javax.swing.JFrame {
                         } catch (ClassNotFoundException ex) {
                             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                    */
                     break;
                 default:
                     break;
