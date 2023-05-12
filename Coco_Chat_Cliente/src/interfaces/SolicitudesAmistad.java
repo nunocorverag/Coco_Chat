@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
+import returned_models.InfoSolicitudAmistad;
 import user_session.SessionManager;
 
 /**
@@ -83,13 +83,13 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
         getContentPane().add(jLabel1, gridBagConstraints);
 
         ListaUsuarios.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        ListaAmigos AmigosList = new ListaAmigos();
-        ArrayList<Usuario> Amigos = AmigosList.obtenerAmigos();
+        ListaSolicitudes SoliList = new ListaSolicitudes();
+        ArrayList<InfoSolicitudAmistad> sol = SoliList.obtenerAmigos();
 
         DefaultListModel<String> modeloLista = new DefaultListModel<>();
-        for(Usuario amigo: Amigos)
+        for(InfoSolicitudAmistad amigo: sol)
         {
-            modeloLista.addElement(amigo.username);
+            modeloLista.addElement(amigo.remitente_solicitud_amistad);
         }
         ListaUsuarios.setModel(modeloLista);
         ListaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,12 +129,12 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    public class ListaAmigos{
-        private ArrayList<Usuario> Amigos;
+    public class ListaSolicitudes{
+        private ArrayList<InfoSolicitudAmistad> Amigos;
         
-        public ListaAmigos()
+        public ListaSolicitudes()
         {
-            this.Amigos = new ArrayList<Usuario>();
+            this.Amigos = new ArrayList<InfoSolicitudAmistad>();
             
             Socket s;
             try {
@@ -143,7 +143,7 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
                     s = new Socket(direccion, 1234);
                     
                     DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
-                    funcion.writeUTF("mostrar_no_amigos");
+                    funcion.writeUTF("ver_solicitudes_amistad");
                     
                     String UserLogged = SessionManager.getUsername();
                     DataOutputStream mandarUsername = new DataOutputStream(s.getOutputStream());
@@ -151,14 +151,15 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
                     
                     System.out.println("Se mando el user: " + UserLogged);
                     
-                    ObjectInputStream AmigosObject = new ObjectInputStream(s.getInputStream());
+                    ObjectInputStream SoliObject = new ObjectInputStream(s.getInputStream());
                     
                     try {
-                        ArrayList<Usuario> Amigos = (ArrayList<Usuario>)AmigosObject.readObject();
+                        ArrayList<InfoSolicitudAmistad> Solicitudes = (ArrayList<InfoSolicitudAmistad>)SoliObject.readObject();
                         s.close();
-                        for(Usuario user: Amigos)
+                        for(InfoSolicitudAmistad soli: Solicitudes)
                         {
-                            this.Amigos.add(user);
+                            this.Amigos.add(soli);
+                            System.out.println(soli.remitente_solicitud_amistad);
                         }
                   
                     } catch (ClassNotFoundException ex) {
@@ -171,7 +172,7 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
             }
         }
         
-        public ArrayList<Usuario> obtenerAmigos()
+        public ArrayList<InfoSolicitudAmistad> obtenerAmigos()
         {
             return this.Amigos;
         }
