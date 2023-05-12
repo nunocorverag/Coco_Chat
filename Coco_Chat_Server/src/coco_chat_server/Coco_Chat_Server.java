@@ -612,21 +612,23 @@ public class Coco_Chat_Server {
                         
                         if(funcion.equals("salir_grupo"))
                         {
-                            System.out.println("Crear grupo");
+                             System.out.println("Salir grupo");
                              ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
                              try {
                                Object objectReceived = infoReceived.readObject();
-                               SolicitudCrearGrupo infoCrearGrupo  = (SolicitudCrearGrupo)objectReceived;
-                               System.out.println(infoCrearGrupo.creador_grupo);
-                               System.out.println("Usuarios Invitados: ");
-                                for(String user : infoCrearGrupo.usuarios_invitados)
-                                {
-                                    System.out.println(user);
-                                }
+                               ArrayList <SolicitarInfoGrupo> infoGrupo  = (ArrayList <SolicitarInfoGrupo>)objectReceived;
+
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                               int IDUsuario = usuarioDAO.ObtenerIDUsuario(infoCrearGrupo.creador_grupo);
                                GruposDAO grupoDAO = new GruposDAO();
-                               grupoDAO.CrearGrupo(infoCrearGrupo.nombre_grupo, IDUsuario, infoCrearGrupo.usuarios_invitados);
+                                                              
+                                for(SolicitarInfoGrupo grupo : infoGrupo)
+                                {
+                               System.out.println(grupo.UsuarioLoggeado);
+                               System.out.println(grupo.NombreGrupo);
+                                    int ID_Usuario_Salir = usuarioDAO.ObtenerIDUsuario(grupo.UsuarioLoggeado);
+                                    int ID_Grupo_Salir = grupoDAO.ObtenerIDGrupo(grupo.NombreGrupo);
+                                    grupoDAO.SalirGrupo(ID_Grupo_Salir, ID_Usuario_Salir);
+                                }
                              } catch (ClassNotFoundException ex) {
                                  Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                              }
@@ -634,48 +636,23 @@ public class Coco_Chat_Server {
                         
                         if(funcion.equals("eliminar_grupo"))
                         {
-                               System.out.println("Enviar solicitud amistad:");
-                               ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
-                               Object objectReceived;
-                           try {
-                               objectReceived = infoReceived.readObject();
-                               ArrayList<InfoSolicitudAmistad> enviarSolicitudAmistad  = (ArrayList<InfoSolicitudAmistad>)objectReceived;
-                               UsuarioDAO usuarioDAO = new UsuarioDAO();
-                               SolicitudDAO solicitudDAO = new SolicitudDAO();
-                                                              
-                                for(InfoSolicitudAmistad solicitudAmistad : enviarSolicitudAmistad)
-                                {
-                                    int ID_usuario_remitente = usuarioDAO.ObtenerIDUsuario(solicitudAmistad.remitente_solicitud_amistad);
-                                    int ID_usuario_destinatario = usuarioDAO.ObtenerIDUsuario(solicitudAmistad.destinatario_solicitud_amistad);
-                                    solicitudDAO.EnviarSolicitudAmistad(ID_usuario_remitente, ID_usuario_destinatario);
-                                }
+                             System.out.println("Eliminar grupo");
+                             ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
+                             try {
+                               Object objectReceived = infoReceived.readObject();
+                               ArrayList <SolicitarInfoGrupo> infoGrupo  = (ArrayList <SolicitarInfoGrupo>)objectReceived;
 
-                           } catch (ClassNotFoundException ex) {
-                               Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
-                           }
-                        }
-                        
-                        if(funcion.equals("salir_grupo"))
-                        {
-                               System.out.println("Enviar solicitud amistad:");
-                               ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
-                               Object objectReceived;
-                           try {
-                               objectReceived = infoReceived.readObject();
-                               ArrayList<InfoSolicitudAmistad> enviarSolicitudAmistad  = (ArrayList<InfoSolicitudAmistad>)objectReceived;
-                               UsuarioDAO usuarioDAO = new UsuarioDAO();
-                               SolicitudDAO solicitudDAO = new SolicitudDAO();
+                               GruposDAO grupoDAO = new GruposDAO();
                                                               
-                                for(InfoSolicitudAmistad solicitudAmistad : enviarSolicitudAmistad)
+                                for(SolicitarInfoGrupo grupo : infoGrupo)
                                 {
-                                    int ID_usuario_remitente = usuarioDAO.ObtenerIDUsuario(solicitudAmistad.remitente_solicitud_amistad);
-                                    int ID_usuario_destinatario = usuarioDAO.ObtenerIDUsuario(solicitudAmistad.destinatario_solicitud_amistad);
-                                    solicitudDAO.EnviarSolicitudAmistad(ID_usuario_remitente, ID_usuario_destinatario);
+                                    System.out.println(grupo.NombreGrupo);
+                                    int ID_Grupo_Eliminar = grupoDAO.ObtenerIDGrupo(grupo.NombreGrupo);
+                                    grupoDAO.EliminarGrupo(ID_Grupo_Eliminar);
                                 }
-
-                           } catch (ClassNotFoundException ex) {
-                               Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
-                           }
+                             } catch (ClassNotFoundException ex) {
+                                 Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
+                             }
                         }
                        
                    }
