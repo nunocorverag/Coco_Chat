@@ -31,7 +31,11 @@ public class VerInvitacionesGrupos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaUsuarios = new javax.swing.JList<>();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
+        UsuariosMenu = new javax.swing.JMenu();
+        AmigosMenu = new javax.swing.JMenu();
+        GruposMenu = new javax.swing.JMenu();
+        VerInvitaciones = new javax.swing.JMenu();
+        IconLogOut = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -63,38 +67,122 @@ public class VerInvitacionesGrupos extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
-        jMenuBar1.setToolTipText("k");
-        jMenuBar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jMenuBar1.setPreferredSize(new java.awt.Dimension(30, 30));
-
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/PaAtras.png"))); // NOI18N
-        jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu2.addMenuListener(new javax.swing.event.MenuListener() {
+        UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
+        UsuariosMenu.setText("Usuarios");
+        UsuariosMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuariosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        UsuariosMenu.setIconTextGap(5);
+        UsuariosMenu.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        UsuariosMenu.addMenuListener(new javax.swing.event.MenuListener() {
             public void menuCanceled(javax.swing.event.MenuEvent evt) {
             }
             public void menuDeselected(javax.swing.event.MenuEvent evt) {
             }
             public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenu2MenuSelected(evt);
+                UsuariosMenuMenuSelected(evt);
             }
         });
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(UsuariosMenu);
+
+        AmigosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/amigos.png"))); // NOI18N
+        AmigosMenu.setText("Amigos");
+        AmigosMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AmigosMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        AmigosMenu.setIconTextGap(5);
+        AmigosMenu.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        AmigosMenu.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                AmigosMenuMenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(AmigosMenu);
+
+        GruposMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/grupos.png"))); // NOI18N
+        GruposMenu.setText("Grupos");
+        GruposMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        GruposMenu.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        GruposMenu.setIconTextGap(5);
+        GruposMenu.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        GruposMenu.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                GruposMenuMenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(GruposMenu);
+
+        VerInvitaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/invitacion.png"))); // NOI18N
+        VerInvitaciones.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                VerInvitacionesMenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(VerInvitaciones);
+
+        IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
+        IconLogOut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        IconLogOut.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                IconLogOutMenuSelected(evt);
+            }
+        });
+
+        jMenuBar1.add(createHorizontalGlue());
+
+        jMenuBar1.add(IconLogOut);
 
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
-        Amigos a = new Amigos();
-        a.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jMenu2MenuSelected
-
     private void ListaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosMouseClicked
         String nombreSeleccionado = ListaUsuarios.getSelectedValue();
         
     }//GEN-LAST:event_ListaUsuariosMouseClicked
+
+    private void UsuariosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_UsuariosMenuMenuSelected
+        Usuarios a = new Usuarios();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_UsuariosMenuMenuSelected
+
+    private void AmigosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_AmigosMenuMenuSelected
+        Amigos a = new Amigos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_AmigosMenuMenuSelected
+
+    private void GruposMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_GruposMenuMenuSelected
+        Grupos a = new Grupos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_GruposMenuMenuSelected
+
+    private void VerInvitacionesMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_VerInvitacionesMenuSelected
+        VerInvitacionesGrupos a = new VerInvitacionesGrupos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_VerInvitacionesMenuSelected
+
+    private void IconLogOutMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_IconLogOutMenuSelected
+        // aqui debe ponerse el codigo de que cierra sesion
+    }//GEN-LAST:event_IconLogOutMenuSelected
 
     /**
      * @param args the command line arguments
@@ -147,9 +235,13 @@ public class VerInvitacionesGrupos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu AmigosMenu;
+    private javax.swing.JMenu GruposMenu;
+    private javax.swing.JMenu IconLogOut;
     private javax.swing.JList<String> ListaUsuarios;
+    private javax.swing.JMenu UsuariosMenu;
+    private javax.swing.JMenu VerInvitaciones;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

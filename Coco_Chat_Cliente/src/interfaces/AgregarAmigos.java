@@ -70,6 +70,7 @@ public class AgregarAmigos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaUsuarios = new javax.swing.JList<>();
+        AgregarAmigoButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
 
@@ -106,6 +107,17 @@ public class AgregarAmigos extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(jScrollPane1, gridBagConstraints);
+
+        AgregarAmigoButton.setText("Agregar amigo");
+        AgregarAmigoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarAmigoButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        getContentPane().add(AgregarAmigoButton, gridBagConstraints);
 
         jMenuBar1.setToolTipText("k");
         jMenuBar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -187,6 +199,10 @@ public class AgregarAmigos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_ListaUsuariosMouseClicked
 
+    private void AgregarAmigoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarAmigoButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AgregarAmigoButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,6 +242,7 @@ public class AgregarAmigos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AgregarAmigoButton;
     private javax.swing.JList<String> ListaUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;

@@ -76,6 +76,7 @@ public class Amigos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaAmigos = new javax.swing.JList<>();
         AgregarAmigosButton2 = new javax.swing.JButton();
+        AgregarAmigosButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         UsuariosMenu = new javax.swing.JMenu();
         AmigosMenu = new javax.swing.JMenu();
@@ -140,6 +141,7 @@ public class Amigos extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -152,8 +154,22 @@ public class Amigos extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 57, 0, 1);
         getContentPane().add(AgregarAmigosButton2, gridBagConstraints);
+
+        AgregarAmigosButton3.setText("Solicitudes de amistad");
+        AgregarAmigosButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarAmigosButton3ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        getContentPane().add(AgregarAmigosButton3, gridBagConstraints);
 
         UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
         UsuariosMenu.setText("Usuarios");
@@ -355,6 +371,10 @@ public class Amigos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenu2MenuSelected
 
+    private void AgregarAmigosButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarAmigosButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AgregarAmigosButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -396,6 +416,7 @@ public class Amigos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarAmigosButton1;
     private javax.swing.JButton AgregarAmigosButton2;
+    private javax.swing.JButton AgregarAmigosButton3;
     private javax.swing.JMenu AmigosMenu;
     private javax.swing.JMenu GruposMenu;
     private javax.swing.JMenu IconLogOut;
