@@ -81,7 +81,6 @@ public class Usuarios extends javax.swing.JFrame {
         UsuariosMenu = new javax.swing.JMenu();
         AmigosMenu = new javax.swing.JMenu();
         GruposMenu = new javax.swing.JMenu();
-        VerInvitaciones = new javax.swing.JMenu();
         IconLogOut = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -225,18 +224,6 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(GruposMenu);
-
-        VerInvitaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/invitacion.png"))); // NOI18N
-        VerInvitaciones.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                VerInvitacionesMenuSelected(evt);
-            }
-        });
-        jMenuBar1.add(VerInvitaciones);
 
         IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
         IconLogOut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -391,7 +378,8 @@ public class Usuarios extends javax.swing.JFrame {
     private void ListaUsuariosConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosConectadosMouseClicked
        String nombreSeleccionado = ListaUsuariosConectados.getSelectedValue();
         String listaPro = ListaUsuariosConectados.getSelectedValue();
-
+        String nombreAmigo = ListaUsuariosConectados.getSelectedValue();
+        
         Chat a = new Chat(nombreSeleccionado, "Usuarios");
 
         if (listaChatsAbiertos.obtenerNombres().contains(nombreSeleccionado)) {
@@ -413,6 +401,7 @@ public class Usuarios extends javax.swing.JFrame {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                         windowopen = false;
+                        listaChatsAbiertos.obtenerNombres().remove(nombreAmigo);
                     }
                 });
                 a.setVisible(true);
@@ -427,12 +416,6 @@ public class Usuarios extends javax.swing.JFrame {
     private void IconLogOutMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_IconLogOutMenuSelected
         // aqui debe ponerse el codigo de que cierra sesion
     }//GEN-LAST:event_IconLogOutMenuSelected
-
-    private void VerInvitacionesMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_VerInvitacionesMenuSelected
-        VerInvitacionesGrupos a = new VerInvitacionesGrupos();
-        a.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_VerInvitacionesMenuSelected
 
     /**
      * @param args the command line arguments
@@ -477,7 +460,6 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JList<String> ListaUsuariosConectados;
     private javax.swing.JList<String> ListaUsuariosNoConectados;
     private javax.swing.JMenu UsuariosMenu;
-    private javax.swing.JMenu VerInvitaciones;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
