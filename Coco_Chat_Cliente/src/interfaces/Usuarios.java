@@ -389,7 +389,7 @@ public class Usuarios extends javax.swing.JFrame {
             System.out.println("tienen el nombre diferente");
             System.out.println(listaChatsAbiertos.obtenerNombres());
             listaChatsAbiertos.obtenerNombres().add(listaPro);
-            System.out.println(nombreSeleccionado);
+            System.out.println(nombreSeleccionado + " mensaje Usuairo");
             if (windowopen = true) {
                 a.setTitle(nombreSeleccionado);
                 int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
