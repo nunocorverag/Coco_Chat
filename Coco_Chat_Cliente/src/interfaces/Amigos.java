@@ -325,7 +325,7 @@ public class Amigos extends javax.swing.JFrame {
         String nombreSeleccionado = ListaAmigos.getSelectedValue();
         String listaPro = ListaAmigos.getSelectedValue();
 
-        Chat a = new Chat();
+        Chat a = new Chat(nombreSeleccionado, "Amigos");
 
         if (listaChatsAbiertos.obtenerNombres().contains(nombreSeleccionado)) {
             System.out.println("tienen en mismo nombre");

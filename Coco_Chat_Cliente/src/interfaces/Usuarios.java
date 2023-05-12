@@ -392,7 +392,7 @@ public class Usuarios extends javax.swing.JFrame {
        String nombreSeleccionado = ListaUsuariosConectados.getSelectedValue();
         String listaPro = ListaUsuariosConectados.getSelectedValue();
 
-        Chat a = new Chat();
+        Chat a = new Chat(nombreSeleccionado, "Usuarios");
 
         if (listaChatsAbiertos.obtenerNombres().contains(nombreSeleccionado)) {
             System.out.println("tienen en mismo nombre");

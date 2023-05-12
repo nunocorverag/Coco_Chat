@@ -28,14 +28,18 @@ import user_session.SessionManager;
 public class Chat extends javax.swing.JFrame {
     private String destinatario;
     private String username;
+    private String ventana;
          
     /**
      * Creates new form Chat
      */
+    public Chat()
+    {
     
-
-    public Chat() {
+    }
+    public Chat(String username, String ventana) {
         this.destinatario = username;
+        this.ventana = ventana;
         initComponents();
         
         Socket s;
@@ -45,7 +49,19 @@ public class Chat extends javax.swing.JFrame {
             s = new Socket(direccion, 1234);
             
             DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
-            funcion.writeUTF("cargar_mensajes_usuario");
+            switch (ventana) {
+                case "Usuarios":
+                    funcion.writeUTF("cargar_mensajes_usuario");
+                    break;
+                case "Amigos":
+                    funcion.writeUTF("cargar_mensajes_amigos");
+                    break;
+                case "Grupos":
+                    funcion.writeUTF("cargar_mensajes_usuario");
+                    break;
+                default:
+                    break;
+            }
             
             String remitente = SessionManager.getUsername();
             
@@ -160,7 +176,19 @@ public class Chat extends javax.swing.JFrame {
             s = new Socket(direccion, 1234);
             
             DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
-            funcion.writeUTF("enviar_mensaje_usuario");
+            switch (ventana) {
+                case "Usuarios":
+                    funcion.writeUTF("enviar_mensaje_usuario");
+                    break;
+                case "Amigos":
+                    funcion.writeUTF("enviar_mensaje_amigo");
+                    break;
+                case "Grupos":
+                    funcion.writeUTF("enviar_mensaje_grupo");
+                    break;
+                default:
+                    break;
+            }
             
             ObjectOutputStream msgEnviar = new ObjectOutputStream(s.getOutputStream());
             msgEnviar.writeObject(msg);
