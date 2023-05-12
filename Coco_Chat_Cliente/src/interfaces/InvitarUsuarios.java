@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import returned_models.InfoInvitacionGrupo;
 import returned_models.InfoSolicitudAmistad;
 import user_session.SessionManager;
 
@@ -158,7 +159,7 @@ public class InvitarUsuarios extends javax.swing.JFrame {
                     s = new Socket(direccion, 1234);
                     
                     DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
-                    funcion.writeUTF("mostrar_no_amigos");
+                    funcion.writeUTF("mostrar_no_miembros");
                     
                     String UserLogged = SessionManager.getUsername();
                     DataOutputStream mandarUsername = new DataOutputStream(s.getOutputStream());
@@ -209,7 +210,7 @@ public class InvitarUsuarios extends javax.swing.JFrame {
         String userLogged = SessionManager.getUsername();
         
         List<String> selectedUsers = ListaUsuarios.getSelectedValuesList();
-        ArrayList<String> ListaUsuariosSolicitudes = new ArrayList<>(selectedUsers);
+        ArrayList<String> ListaUsuariosInvitaciones = new ArrayList<>(selectedUsers);
         
         try {
             String direccionServidor = "10.147.17.147";
@@ -219,13 +220,19 @@ public class InvitarUsuarios extends javax.swing.JFrame {
             DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
             funcion.writeUTF("enviar_solicitud_amistad");
             
-            ArrayList<InfoSolicitudAmistad> infoSolicitudes = new ArrayList<InfoSolicitudAmistad>();
-            
-            for(String selectedUser:ListaUsuariosSolicitudes)
+            ArrayList<InfoInvitacionGrupo> infoSolicitudes = new ArrayList<InfoInvitacionGrupo>();
+            InfoInvitacionGrupo soli;
+            for(String selectedUser:ListaUsuariosInvitaciones)
             {
-               InfoSolicitudAmistad soli = new InfoSolicitudAmistad(userLogged, selectedUser);
+               soli = new InfoInvitacionGrupo();
+               soli.remitente_invitacion_grupo = userLogged;
+               soli.destinatario_invitacion_grupo = selectedUser;
+               //TODO AGREGAR GRUPO
+               soli.grupo_invitado = grupo;
                infoSolicitudes.add(soli);
-               System.out.println("Se envio solicitud a: "+selectedUser);
+               System.out.println("Se envio invitacion a: "+selectedUser);
+               System.out.println("El grupo seleccionado fue: "+ grupo);
+
             }
 
              ObjectOutputStream ListInfo = new ObjectOutputStream(s.getOutputStream());
