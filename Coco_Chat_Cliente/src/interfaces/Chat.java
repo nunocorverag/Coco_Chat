@@ -224,10 +224,11 @@ public class Chat extends javax.swing.JFrame {
         String mensaje = campoMsg.getText();
         String remitente = SessionManager.getUsername();
         
-        EnviarMensajesUsuario msg = new EnviarMensajesUsuario(remitente, destinatario, mensaje);
+        EnviarMensajesUsuario msg = new EnviarMensajesUsuario(remitente, this.destinatario, mensaje);
         ObjectOutputStream msgEnviar;
         ObjectInputStream chat;
         
+               
         Socket s;
         try {
             String direccionServidor = "10.147.17.147";
@@ -254,18 +255,11 @@ public class Chat extends javax.swing.JFrame {
                             System.out.println(msge.username_destinatario);
                             System.out.println(msge.username_remitente);
 
-                            if(msge.username_destinatario.equals(remitente))
-                            {
-                                Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
-                                CampoChat.append(msge.username_remitente + ": " + msge.mensaje_usuario + "\n");
-                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
-                            }
-                            else
-                            {
-                                Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
-                                CampoChat.append(msge.username_remitente + ": " + msge.mensaje_usuario + "\n");
-                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
-                            }
+                            
+                            Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
+                            CampoChat.append(msge.username_remitente + ": " + msge.mensaje_usuario + "\n");
+                            CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                            
                         }
                         } catch (ClassNotFoundException ex) {
                             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
@@ -274,11 +268,10 @@ public class Chat extends javax.swing.JFrame {
                 case "Amigos":
                     funcion.writeUTF("enviar_mensaje_amigo");
                     msgEnviar = new ObjectOutputStream(s.getOutputStream());
-                    msgEnviar.writeObject(msg);
-                       
+                    msgEnviar.writeObject(msg); 
+                    
                     try {
                         chat = new ObjectInputStream(s.getInputStream());
-
                         ArrayList<RespuestaMensajesAmigo> chatRecibido = (ArrayList<RespuestaMensajesAmigo>)chat.readObject();
                         s.close();
 
@@ -290,18 +283,10 @@ public class Chat extends javax.swing.JFrame {
                             System.out.println(msge.username_destinatario);
                             System.out.println(msge.username_remitente);
 
-                            if(msge.username_destinatario.equals(remitente))
-                            {
-                                Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
-                                CampoChat.append(msge.username_remitente + ": " + msge.mensaje_amigo + "\n");
-                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
-                            }
-                            else
-                            {
-                                Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
-                                CampoChat.append(msge.username_remitente + ": " + msge.mensaje_amigo + "\n");
-                                CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
-                            }
+                            Color color = remitente.equals(msge.username_remitente) ? colorRemitente : colorDestinatario;
+                            CampoChat.append(msge.username_remitente + ": " + msge.mensaje_amigo + "\n");
+                            CampoChat.setCaretPosition(CampoChat.getDocument().getLength());
+                            
                         }
                         } catch (ClassNotFoundException ex) {
                             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
