@@ -176,10 +176,10 @@ public class Chat extends javax.swing.JFrame {
         campoMsg = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         CampoChat = new javax.swing.JTextArea();
+        RecargarButton = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(226, 380));
-        setPreferredSize(new java.awt.Dimension(226, 380));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         EnviarMsgButton.setText("Enviar");
@@ -212,6 +212,18 @@ public class Chat extends javax.swing.JFrame {
         jScrollPane1.setViewportView(CampoChat);
 
         getContentPane().add(jScrollPane1, new java.awt.GridBagConstraints());
+
+        RecargarButton.setText("Recargar");
+        RecargarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecargarButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        getContentPane().add(RecargarButton, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -326,6 +338,12 @@ public class Chat extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_EnviarMsgButtonMouseClicked
 
+    private void RecargarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecargarButtonActionPerformed
+        Chat a = new Chat();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_RecargarButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -364,6 +382,7 @@ public class Chat extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea CampoChat;
     private javax.swing.JButton EnviarMsgButton;
+    private javax.swing.JToggleButton RecargarButton;
     private javax.swing.JTextField campoMsg;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
