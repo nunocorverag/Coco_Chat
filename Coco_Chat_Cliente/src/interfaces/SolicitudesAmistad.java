@@ -70,6 +70,8 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaUsuarios = new javax.swing.JList<>();
+        AceptarSolicitudButton = new javax.swing.JButton();
+        RechazarSolicitudButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
 
@@ -106,6 +108,22 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(jScrollPane1, gridBagConstraints);
+
+        AceptarSolicitudButton.setText("Aceptar");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
+        getContentPane().add(AceptarSolicitudButton, gridBagConstraints);
+
+        RechazarSolicitudButton.setText("Rechazar");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 50);
+        getContentPane().add(RechazarSolicitudButton, gridBagConstraints);
 
         jMenuBar1.setToolTipText("k");
         jMenuBar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -231,7 +249,9 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AceptarSolicitudButton;
     private javax.swing.JList<String> ListaUsuarios;
+    private javax.swing.JButton RechazarSolicitudButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

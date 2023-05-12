@@ -73,11 +73,14 @@ public class Grupos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaGrupos = new javax.swing.JList<>();
         CreatedGroupButton = new javax.swing.JButton();
+        InvitacionesGruposButton = new javax.swing.JButton();
+        InvitarGrupoButton = new javax.swing.JButton();
+        EliminarGrupoButton = new javax.swing.JButton();
+        SalirGrupoButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         UsuariosMenu = new javax.swing.JMenu();
         AmigosMenu = new javax.swing.JMenu();
         GruposMenu = new javax.swing.JMenu();
-        VerInvitaciones = new javax.swing.JMenu();
         IconLogOut = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -122,6 +125,7 @@ public class Grupos extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -134,6 +138,18 @@ public class Grupos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(CreatedGroupButton, new java.awt.GridBagConstraints());
+
+        InvitacionesGruposButton.setText("Invitaciones");
+        getContentPane().add(InvitacionesGruposButton, new java.awt.GridBagConstraints());
+
+        InvitarGrupoButton.setText("Invitar");
+        getContentPane().add(InvitarGrupoButton, new java.awt.GridBagConstraints());
+
+        EliminarGrupoButton.setText("Eliminar");
+        getContentPane().add(EliminarGrupoButton, new java.awt.GridBagConstraints());
+
+        SalirGrupoButton.setText("Salir");
+        getContentPane().add(SalirGrupoButton, new java.awt.GridBagConstraints());
 
         UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
         UsuariosMenu.setText("Usuarios");
@@ -185,18 +201,6 @@ public class Grupos extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(GruposMenu);
-
-        VerInvitaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/invitacion.png"))); // NOI18N
-        VerInvitaciones.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                VerInvitacionesMenuSelected(evt);
-            }
-        });
-        jMenuBar1.add(VerInvitaciones);
 
         IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
 
@@ -321,12 +325,6 @@ public class Grupos extends javax.swing.JFrame {
          this.setVisible(false);
     }//GEN-LAST:event_CreatedGroupButtonActionPerformed
 
-    private void VerInvitacionesMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_VerInvitacionesMenuSelected
-        VerInvitacionesGrupos a = new VerInvitacionesGrupos();
-        a.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_VerInvitacionesMenuSelected
-
     /**
      * @param args the command line arguments
      */
@@ -368,11 +366,14 @@ public class Grupos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AmigosMenu;
     private javax.swing.JButton CreatedGroupButton;
+    private javax.swing.JButton EliminarGrupoButton;
     private javax.swing.JMenu GruposMenu;
     private javax.swing.JMenu IconLogOut;
+    private javax.swing.JButton InvitacionesGruposButton;
+    private javax.swing.JButton InvitarGrupoButton;
     private javax.swing.JList<String> ListaGrupos;
+    private javax.swing.JButton SalirGrupoButton;
     private javax.swing.JMenu UsuariosMenu;
-    private javax.swing.JMenu VerInvitaciones;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JMenu jMenu3;
