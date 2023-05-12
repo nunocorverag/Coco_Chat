@@ -455,8 +455,12 @@ public class Coco_Chat_Server {
                                
                                 for(InfoSolicitudAmistad solicitudAceptada : infoSolicitudAceptada)
                                 {
+                                    System.out.println("Remitente solicitud amistad: " + solicitudAceptada.remitente_solicitud_amistad);
+                                    System.out.println("Destinatario solicitud amistad:" + solicitudAceptada.destinatario_solicitud_amistad);
                                     int ID_usuario_remitente = usuarioDAO.ObtenerIDUsuario(solicitudAceptada.remitente_solicitud_amistad);
                                     int ID_usuario_destinatario = usuarioDAO.ObtenerIDUsuario(solicitudAceptada.destinatario_solicitud_amistad);
+                                    System.out.println("Remitente solicitud amistad: " + ID_usuario_remitente);
+                                    System.out.println("Destinatario solicitud amistad:" + ID_usuario_destinatario);
                                     solicitudDAO.AceptarSolicitudAmistad(ID_usuario_remitente, ID_usuario_destinatario);
                                 }
                            } catch (ClassNotFoundException ex) {
