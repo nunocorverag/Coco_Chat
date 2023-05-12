@@ -10,9 +10,11 @@ import java.awt.event.WindowEvent;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -110,6 +112,11 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         AceptarSolicitudButton.setText("Aceptar");
+        AceptarSolicitudButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AceptarSolicitudButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -118,6 +125,11 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
         getContentPane().add(AceptarSolicitudButton, gridBagConstraints);
 
         RechazarSolicitudButton.setText("Rechazar");
+        RechazarSolicitudButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RechazarSolicitudButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -205,6 +217,83 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
         String nombreSeleccionado = ListaUsuarios.getSelectedValue();
         
     }//GEN-LAST:event_ListaUsuariosMouseClicked
+
+    private void AceptarSolicitudButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarSolicitudButtonActionPerformed
+        // TODO add your handling code here:
+        Socket s;
+        String userLogged = SessionManager.getUsername();
+        
+        List<String> selectedUsers = ListaUsuarios.getSelectedValuesList();
+        ArrayList<String> ListaUsuariosSolicitudes = new ArrayList<>(selectedUsers);
+        
+        try {
+            String direccionServidor = "10.147.17.147";
+            InetAddress direccion = InetAddress.getByName(direccionServidor);
+            s = new Socket(direccion, 1234);
+            
+            DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+            funcion.writeUTF("aceptar_solicitud_amistad");
+            
+            ArrayList<InfoSolicitudAmistad> infoSolicitudes = new ArrayList<InfoSolicitudAmistad>();
+            
+            for(String selectedUser:ListaUsuariosSolicitudes)
+            {
+               InfoSolicitudAmistad soli = new InfoSolicitudAmistad(userLogged, selectedUser);
+               infoSolicitudes.add(soli);
+               System.out.println("Se envio solicitud a: "+selectedUser);
+            }
+
+             ObjectOutputStream ListInfo = new ObjectOutputStream(s.getOutputStream());
+             ListInfo.writeObject(infoSolicitudes);
+            
+            Amigos a = new Amigos();
+            a.setVisible(true);
+            this.setVisible(false);
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(AgregarAmigos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_AceptarSolicitudButtonActionPerformed
+
+    private void RechazarSolicitudButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RechazarSolicitudButtonActionPerformed
+        // TODO add your handling code here:
+        Socket s;
+        String userLogged = SessionManager.getUsername();
+        
+        List<String> selectedUsers = ListaUsuarios.getSelectedValuesList();
+        ArrayList<String> ListaUsuariosSolicitudes = new ArrayList<>(selectedUsers);
+        
+        try {
+            String direccionServidor = "10.147.17.147";
+            InetAddress direccion = InetAddress.getByName(direccionServidor);
+            s = new Socket(direccion, 1234);
+            
+            DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+            funcion.writeUTF("rechazar_solicitud_amistad");
+            
+            ArrayList<InfoSolicitudAmistad> infoSolicitudes = new ArrayList<InfoSolicitudAmistad>();
+            
+            for(String selectedUser:ListaUsuariosSolicitudes)
+            {
+               InfoSolicitudAmistad soli = new InfoSolicitudAmistad(userLogged, selectedUser);
+               infoSolicitudes.add(soli);
+               System.out.println("Se envio solicitud a: "+selectedUser);
+            }
+
+             ObjectOutputStream ListInfo = new ObjectOutputStream(s.getOutputStream());
+             ListInfo.writeObject(infoSolicitudes);
+            
+            Amigos a = new Amigos();
+            a.setVisible(true);
+            this.setVisible(false);
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(AgregarAmigos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_RechazarSolicitudButtonActionPerformed
 
     /**
      * @param args the command line arguments
