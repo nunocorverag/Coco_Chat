@@ -310,13 +310,10 @@ public class Coco_Chat_Server {
                                String mensaje_enviado = enviarMensajeUsuario.mensaje;
                                mensajesDAO.EnviarMensajeUsuario(ID_usuario_loggeado, ID_usuario_seleccionado, mensaje_enviado);
                                
-                               RespuestaMensajesUsuario mensajeUltimo = new RespuestaMensajesUsuario();
-                               mensajeUltimo.mensaje_usuario = mensaje_enviado;
-                               mensajeUltimo.username_remitente = usuarioDAO.obtenerUsernameUsuario(ID_usuario_loggeado);
-                               mensajeUltimo.username_destinatario = usuarioDAO.obtenerUsernameUsuario(ID_usuario_seleccionado);
-                               
+                               ArrayList<RespuestaMensajesUsuario> mensajes_usuario = mensajesDAO.obtenerMensajesUsuario(ID_usuario_loggeado, ID_usuario_seleccionado);
                                ObjectOutputStream respuestaMensajesUsuario = new ObjectOutputStream(clientSocket.getOutputStream());
-                               respuestaMensajesUsuario.writeObject(mensajeUltimo);
+                               
+                               respuestaMensajesUsuario.writeObject(mensajes_usuario);
                                
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -365,14 +362,10 @@ public class Coco_Chat_Server {
                                String mensaje_enviado = enviarMensajeAmigo.mensaje;
                                mensajesDAO.EnviarMensajeAmigo(ID_usuario_loggeado, ID_usuario_seleccionado, mensaje_enviado);
                                
-                               RespuestaMensajesAmigo mensajeUltimo = new RespuestaMensajesAmigo();
-                               mensajeUltimo.mensaje_amigo = mensaje_enviado;
-                               mensajeUltimo.username_remitente = usuarioDAO.obtenerUsernameUsuario(ID_usuario_loggeado);
-                               mensajeUltimo.username_destinatario = usuarioDAO.obtenerUsernameUsuario(ID_usuario_seleccionado);
+                               ArrayList<RespuestaMensajesAmigo> mensajes_usuario = mensajesDAO.obtenerMensajesAmigo(ID_usuario_loggeado, ID_usuario_seleccionado);
+                               ObjectOutputStream respuestaMensajesAmigo = new ObjectOutputStream(clientSocket.getOutputStream());
                                
-                               ObjectOutputStream respuestaMensajesUsuario = new ObjectOutputStream(clientSocket.getOutputStream());
-                               respuestaMensajesUsuario.writeObject(mensajeUltimo);
-                               
+                               respuestaMensajesAmigo.writeObject(mensajes_usuario);
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                            }
@@ -421,13 +414,10 @@ public class Coco_Chat_Server {
                                String mensaje_enviado = enviarMensajeGrupo.mensaje;
                                mensajesDAO.EnviarMensajeGrupo(ID_usuario_loggeado, ID_grupo, mensaje_enviado);
                                
-                               RespuestaMensajesGrupo mensajeUltimo = new RespuestaMensajesGrupo();
-                               mensajeUltimo.mensaje_grupo = mensaje_enviado;
-                               mensajeUltimo.username_remitente = usuarioDAO.obtenerUsernameUsuario(ID_usuario_loggeado);
+                               ArrayList<RespuestaMensajesGrupo> mensajes_grupo = mensajesDAO.obtenerMensajesGrupo(ID_grupo);
+                               ObjectOutputStream respuestaMensajesGrupo = new ObjectOutputStream(clientSocket.getOutputStream());
                                
-                               ObjectOutputStream respuestaMensajesUsuario = new ObjectOutputStream(clientSocket.getOutputStream());
-                               respuestaMensajesUsuario.writeObject(mensajeUltimo);
-                               
+                               respuestaMensajesGrupo.writeObject(mensajes_grupo);
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                            }
