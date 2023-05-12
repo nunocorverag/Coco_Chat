@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import returned_models.*;
 
 /**
  *
@@ -181,16 +182,17 @@ public class UsuarioDAO extends Db_Conection{
         return -1;
     }
     
-    public ArrayList<Usuario> obtenerUsuarios()
+    public ArrayList<Usuario> obtenerUsuarios(String username)
     {
         ArrayList<Usuario> listaUsuarios = new ArrayList();
         try 
         {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM usuario");
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM usuario WHERE username <> ?");
+            ps.setString(1, username);
             ResultSet rs;
             Usuario usuario;
             rs = ps.executeQuery(); 
-                        
+
             while (rs.next())
             {
                 usuario = new Usuario();
@@ -290,15 +292,29 @@ public class UsuarioDAO extends Db_Conection{
             ps.setInt(1, usuario);
 
             ResultSet rs;
+            ResultSet rs2;
             Grupo infoGrupo;
             rs = ps.executeQuery(); 
                         
-            while (rs.next())
-            {
+            while (rs.next()) {
+                int ID_grupo = rs.getInt("grupo");
+                PreparedStatement ps2 = getConnection().prepareStatement("SELECT * FROM grupo where id_grupo = ?");
+                ps2.setInt(1, ID_grupo);
+                rs2 = ps2.executeQuery();
                 infoGrupo = new Grupo();
-                infoGrupo.nombre_grupo = rs.getString("nombre_grupo");
-                listaGrupos.add(infoGrupo);
-            }            
+                if (rs2.next()) {
+                    infoGrupo.nombre_grupo = rs2.getString("nombre_grupo");
+                    listaGrupos.add(infoGrupo);
+                }
+                try {
+                    rs2.close();
+                } catch (SQLException e) {
+                }
+                try {
+                    ps2.close();
+                } catch (SQLException e) {
+                }
+            }       
         }
         catch(SQLException es)
         {
@@ -345,6 +361,70 @@ public class UsuarioDAO extends Db_Conection{
             System.out.println(ex.getMessage());
         }
         return res>0;
+    }
+    
+    public ArrayList<InfoSolicitudAmistad> obtenerSolicitudesAmistad(int usuario)
+    {
+        ArrayList<InfoSolicitudAmistad> listaSolicitudesAmistad = new ArrayList();
+        try 
+        {
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM solicitud_amistad where destinatario_solicitud_amistad = ?");
+            ps.setInt(1, usuario);
+
+            ResultSet rs;
+            InfoSolicitudAmistad infoSolicitudAmistad;
+            rs = ps.executeQuery(); 
+            
+            String username_destinatario = obtenerUsernameUsuario(usuario);
+                        
+            while (rs.next())
+            {
+                infoSolicitudAmistad = new InfoSolicitudAmistad();
+                String username_remitente = obtenerUsernameUsuario(rs.getInt("remitente_solicitud_amistad"));
+                infoSolicitudAmistad.remitente_solicitud_amistad = username_remitente;
+                infoSolicitudAmistad.remitente_solicitud_amistad = username_destinatario;
+                listaSolicitudesAmistad.add(infoSolicitudAmistad);
+            }           
+        }
+        catch(SQLException es)
+        {
+            System.out.println(es.getMessage());
+        }
+        return listaSolicitudesAmistad;
+    }
+    
+    public ArrayList<InfoInvitacionGrupo> obtenerInvitacionesGrupos(int usuario)
+    {
+        ArrayList<InfoInvitacionGrupo> listaInvitacionesGrupos = new ArrayList();
+        try 
+        {
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM invitacion_grupo where destinatario_invitacion_grupo = ?");
+            ps.setInt(1, usuario);
+
+            ResultSet rs;
+            InfoInvitacionGrupo infoInvitacionGrupo;
+            rs = ps.executeQuery(); 
+            
+            String username_destinatario = obtenerUsernameUsuario(usuario);
+            GruposDAO gruposDAO; 
+                        
+            while (rs.next())
+            {
+                infoInvitacionGrupo = new InfoInvitacionGrupo();
+                String username_remitente = obtenerUsernameUsuario(rs.getInt("remitente_invitacion_grupo"));
+                gruposDAO = new GruposDAO();
+                String nombre_grupo = gruposDAO.obtenerNombreGrupo(rs.getInt("id_grupo_invitado"));
+                infoInvitacionGrupo.grupo_invitado = nombre_grupo;
+                infoInvitacionGrupo.remitente_invitacion_grupo = username_remitente;
+                infoInvitacionGrupo.destinatario_invitacion_grupo = username_destinatario;
+                listaInvitacionesGrupos.add(infoInvitacionGrupo);
+            }           
+        }
+        catch(SQLException es)
+        {
+            System.out.println(es.getMessage());
+        }
+        return listaInvitacionesGrupos;
     }
    
 }

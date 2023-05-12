@@ -8,13 +8,13 @@ import java.io.Serializable;
 
 /**
  *
- * @author PABLOPC
+ * @author gnuno
  */
-public class EnviarMensajesUsuario implements Serializable{
+public class EnviarMensajesUsuario implements Serializable {
     public String remitente;
     public String destinatario;
     public String mensaje;
-    
+
     public EnviarMensajesUsuario(String remitente, String destinatario, String mensaje)
     {
         this.remitente = remitente;

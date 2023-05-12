@@ -4,11 +4,13 @@
  */
 package db_conection_package;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gnuno
  */
-public class Grupo {
+public class Grupo implements Serializable{
     public int id_grupo;
     public String nombre_grupo;
     public int creador_grupo;

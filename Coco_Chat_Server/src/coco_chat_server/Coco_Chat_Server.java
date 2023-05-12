@@ -165,8 +165,11 @@ public class Coco_Chat_Server {
                         if(funcion.equals("mostrar_usuarios"))
                         {
                             System.out.println("Mostrar Usuarios");
+                            DataInputStream informacionUsuarioCliente = new DataInputStream(clientSocket.getInputStream());
+                            String nombre_usuario = informacionUsuarioCliente.readUTF();
+                            System.out.println(nombre_usuario);
                             UsuarioDAO usuarioDAO = new UsuarioDAO();
-                            ArrayList<Usuario> listaUsuarios = usuarioDAO.obtenerUsuarios();
+                            ArrayList<Usuario> listaUsuarios = usuarioDAO.obtenerUsuarios(nombre_usuario);
                             ObjectOutputStream respuestaCredencialesCorrectas = new ObjectOutputStream(clientSocket.getOutputStream());
                             respuestaCredencialesCorrectas.writeObject(listaUsuarios);
                         }
@@ -197,6 +200,18 @@ public class Coco_Chat_Server {
                             respuestaCredencialesCorrectas.writeObject(listaNoAmigos);
                         }
                         
+                        if(funcion.equals("cargar_usuarios_crear_grupo"))
+                        {
+                            System.out.println("Cargar usuarios al crear grupo");
+                            DataInputStream informacionUsuarioCliente = new DataInputStream(clientSocket.getInputStream());
+                            String nombre_usuario = informacionUsuarioCliente.readUTF();
+                            System.out.println(nombre_usuario);
+                            UsuarioDAO usuarioDAO = new UsuarioDAO();
+                            ArrayList<Usuario> listaUsuariosNoPertenecientes = usuarioDAO.obtenerUsuarios(nombre_usuario);
+                            ObjectOutputStream respuestaCredencialesCorrectas = new ObjectOutputStream(clientSocket.getOutputStream());
+                            respuestaCredencialesCorrectas.writeObject(listaUsuariosNoPertenecientes);
+                        }
+                        
                         if(funcion.equals("crear_grupo"))
                         {
                             System.out.println("Crear grupo");
@@ -205,6 +220,11 @@ public class Coco_Chat_Server {
                                Object objectReceived = infoReceived.readObject();
                                SolicitudCrearGrupo infoCrearGrupo  = (SolicitudCrearGrupo)objectReceived;
                                System.out.println(infoCrearGrupo.creador_grupo);
+                               System.out.println("Usuarios Invitados: ");
+                                for(String user : infoCrearGrupo.usuarios_invitados)
+                                {
+                                    System.out.println(user);
+                                }
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
                                int IDUsuario = usuarioDAO.ObtenerIDUsuario(infoCrearGrupo.creador_grupo);
                                GruposDAO grupoDAO = new GruposDAO();
@@ -297,13 +317,13 @@ public class Coco_Chat_Server {
                                Object objectReceived;
                            try {
                                objectReceived = infoReceived.readObject();
-                               EnviarMensajesUsuario enviarMensajeUsuario  = (EnviarMensajesUsuario)objectReceived;
+                               EnviarMensajesUsuario enviarMensajeAmigo  = (EnviarMensajesUsuario)objectReceived;
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
                                MensajesDAO mensajesDAO = new MensajesDAO();
-                               int ID_usuario_loggeado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.remitente);
-                               int ID_usuario_seleccionado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.destinatario);
-                               String mensaje_enviado = enviarMensajeUsuario.mensaje;
-                               mensajesDAO.EnviarMensajeUsuario(ID_usuario_loggeado, ID_usuario_seleccionado, mensaje_enviado);
+                               int ID_usuario_loggeado = usuarioDAO.ObtenerIDUsuario(enviarMensajeAmigo.remitente);
+                               int ID_usuario_seleccionado = usuarioDAO.ObtenerIDUsuario(enviarMensajeAmigo.destinatario);
+                               String mensaje_enviado = enviarMensajeAmigo.mensaje;
+                               mensajesDAO.EnviarMensajeAmigo(ID_usuario_loggeado, ID_usuario_seleccionado, mensaje_enviado);
                                funcion = "cargar_mensajes_amigo";
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -317,20 +337,20 @@ public class Coco_Chat_Server {
                                Object objectReceived;
                            try {
                                objectReceived = infoReceived.readObject();
-                               SolicitarMensajesUsuario usuariosMensaje  = (SolicitarMensajesUsuario)objectReceived;
+                               SolicitarMensajesUsuario amigosMensaje  = (SolicitarMensajesUsuario)objectReceived;
                                
-                               System.out.println("Remitente: " + usuariosMensaje.usuarioLoggeado);
-                               System.out.println("Destinatario: " + usuariosMensaje.usuarioSeleccionado);
+                               System.out.println("Remitente: " + amigosMensaje.usuarioLoggeado);
+                               System.out.println("Destinatario: " + amigosMensaje.usuarioSeleccionado);
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
                                MensajesDAO mensajesDAO = new MensajesDAO();
                                
-                               int ID_usuario_loggeado = usuarioDAO.ObtenerIDUsuario(usuariosMensaje.usuarioLoggeado);
-                               int ID_usuario_seleccionado = usuarioDAO.ObtenerIDUsuario(usuariosMensaje.usuarioSeleccionado);
+                               int ID_usuario_loggeado = usuarioDAO.ObtenerIDUsuario(amigosMensaje.usuarioLoggeado);
+                               int ID_usuario_seleccionado = usuarioDAO.ObtenerIDUsuario(amigosMensaje.usuarioSeleccionado);
                                
-                               ArrayList<RespuestaMensajesUsuario> mensajes_usuario = mensajesDAO.obtenerMensajesUsuario(ID_usuario_loggeado, ID_usuario_seleccionado);
-                               ObjectOutputStream respuestaMensajesUsuario = new ObjectOutputStream(clientSocket.getOutputStream());
+                               ArrayList<RespuestaMensajesAmigo> mensajes_amigo = mensajesDAO.obtenerMensajesAmigo(ID_usuario_loggeado, ID_usuario_seleccionado);
+                               ObjectOutputStream respuestaMensajesAmigo = new ObjectOutputStream(clientSocket.getOutputStream());
                                
-                               respuestaMensajesUsuario.writeObject(mensajes_usuario);
+                               respuestaMensajesAmigo.writeObject(mensajes_amigo);
                                
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -344,13 +364,13 @@ public class Coco_Chat_Server {
                                Object objectReceived;
                            try {
                                objectReceived = infoReceived.readObject();
-                               EnviarMensajesUsuario enviarMensajeUsuario  = (EnviarMensajesUsuario)objectReceived;
+                               EnviarMensajesUsuario enviarMensajeGrupo  = (EnviarMensajesUsuario)objectReceived;
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
                                MensajesDAO mensajesDAO = new MensajesDAO();
-                               int ID_usuario_loggeado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.remitente);
-                               int ID_usuario_seleccionado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.destinatario);
-                               String mensaje_enviado = enviarMensajeUsuario.mensaje;
-                               mensajesDAO.EnviarMensajeUsuario(ID_usuario_loggeado, ID_usuario_seleccionado, mensaje_enviado);
+                               int ID_usuario_loggeado = usuarioDAO.ObtenerIDUsuario(enviarMensajeGrupo.remitente);
+                               int ID_grupo = usuarioDAO.ObtenerIDUsuario(enviarMensajeGrupo.destinatario);
+                               String mensaje_enviado = enviarMensajeGrupo.mensaje;
+                               mensajesDAO.EnviarMensajeGrupo(ID_usuario_loggeado, ID_grupo, mensaje_enviado);
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                            }
@@ -362,20 +382,20 @@ public class Coco_Chat_Server {
                                Object objectReceived;
                            try {
                                objectReceived = infoReceived.readObject();
-                               SolicitarMensajesUsuario usuariosMensaje  = (SolicitarMensajesUsuario)objectReceived;
+                               SolicitarMensajesUsuario grupoMensajes  = (SolicitarMensajesUsuario)objectReceived;
                                
-                               System.out.println("Remitente: " + usuariosMensaje.usuarioLoggeado);
-                               System.out.println("Destinatario: " + usuariosMensaje.usuarioSeleccionado);
+                               System.out.println("Remitente: " + grupoMensajes.usuarioLoggeado);
+                               System.out.println("Destinatario: " + grupoMensajes.usuarioSeleccionado);
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                               GruposDAO grupoDAO = new GruposDAO();
                                MensajesDAO mensajesDAO = new MensajesDAO();
                                
-                               int ID_usuario_loggeado = usuarioDAO.ObtenerIDUsuario(usuariosMensaje.usuarioLoggeado);
-                               int ID_usuario_seleccionado = usuarioDAO.ObtenerIDUsuario(usuariosMensaje.usuarioSeleccionado);
+                               int ID_grupo = grupoDAO.ObtenerIDGrupo(grupoMensajes.usuarioSeleccionado);
                                
-                               ArrayList<RespuestaMensajesUsuario> mensajes_usuario = mensajesDAO.obtenerMensajesUsuario(ID_usuario_loggeado, ID_usuario_seleccionado);
-                               ObjectOutputStream respuestaMensajesUsuario = new ObjectOutputStream(clientSocket.getOutputStream());
+                               ArrayList<RespuestaMensajesGrupo> mensajes_grupo = mensajesDAO.obtenerMensajesGrupo(ID_grupo);
+                               ObjectOutputStream respuestaMensajesGrupo = new ObjectOutputStream(clientSocket.getOutputStream());
                                
-                               respuestaMensajesUsuario.writeObject(mensajes_usuario);
+                               respuestaMensajesGrupo.writeObject(mensajes_grupo);
                                
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -389,18 +409,34 @@ public class Coco_Chat_Server {
                                Object objectReceived;
                            try {
                                objectReceived = infoReceived.readObject();
-                               EnviarMensajesUsuario enviarMensajeUsuario  = (EnviarMensajesUsuario)objectReceived;
+                               ArrayList<InfoSolicitudAmistad> enviarSolicitudAmistad  = (ArrayList<InfoSolicitudAmistad>)objectReceived;
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                               MensajesDAO mensajesDAO = new MensajesDAO();
-                               int ID_usuario_loggeado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.remitente);
-                               int ID_usuario_seleccionado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.destinatario);
-                               String mensaje_enviado = enviarMensajeUsuario.mensaje;
-                               mensajesDAO.EnviarMensajeUsuario(ID_usuario_loggeado, ID_usuario_seleccionado, mensaje_enviado);
+                               SolicitudDAO solicitudDAO = new SolicitudDAO();
+                               
+                                for(InfoSolicitudAmistad solicitudAmistad : enviarSolicitudAmistad)
+                                {
+                                int ID_usuario_remitente = usuarioDAO.ObtenerIDUsuario(solicitudAmistad.remitente_solicitud_amistad);
+                                int ID_usuario_destinatario = usuarioDAO.ObtenerIDUsuario(solicitudAmistad.destinatario_solicitud_amistad);
+                               solicitudDAO.EnviarSolicitudAmistad(ID_usuario_remitente, ID_usuario_destinatario);
+                                }
+
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                            }
                         }
                         
+                        if(funcion.equals("ver_solicitudes_amistad"))
+                        {
+                            System.out.println("Ver solicitudes amistad");
+                            DataInputStream informacionUsuarioCliente = new DataInputStream(clientSocket.getInputStream());
+                            String nombre_usuario = informacionUsuarioCliente.readUTF();
+                            System.out.println(nombre_usuario);
+                            UsuarioDAO usuarioDAO = new UsuarioDAO();
+                            int IDUsuario = usuarioDAO.ObtenerIDUsuario(nombre_usuario);
+                            ArrayList<Usuario> listaNoAmigos = usuarioDAO.obtenerNoAmigos(IDUsuario);
+                            ObjectOutputStream respuestaCredencialesCorrectas = new ObjectOutputStream(clientSocket.getOutputStream());
+                            respuestaCredencialesCorrectas.writeObject(listaNoAmigos);
+                        }
 
                         if(funcion.equals("aceptar_solicitud_amistad"))
                         {
@@ -418,16 +454,26 @@ public class Coco_Chat_Server {
                                Object objectReceived;
                            try {
                                objectReceived = infoReceived.readObject();
-                               EnviarMensajesUsuario enviarMensajeUsuario  = (EnviarMensajesUsuario)objectReceived;
+                               ArrayList<InfoInvitacionGrupo> enviarSolicitudGrupo = (ArrayList<InfoInvitacionGrupo>)objectReceived;
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                               MensajesDAO mensajesDAO = new MensajesDAO();
-                               int ID_usuario_loggeado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.remitente);
-                               int ID_usuario_seleccionado = usuarioDAO.ObtenerIDUsuario(enviarMensajeUsuario.destinatario);
-                               String mensaje_enviado = enviarMensajeUsuario.mensaje;
-                               mensajesDAO.EnviarMensajeUsuario(ID_usuario_loggeado, ID_usuario_seleccionado, mensaje_enviado);
+                               GruposDAO gruposDAO = new GruposDAO();
+                               
+                                for(InfoInvitacionGrupo solicitudGrupo : enviarSolicitudGrupo)
+                                {
+                                int ID_grupo = gruposDAO.ObtenerIDGrupo(solicitudGrupo.grupo_invitado);
+                                int ID_usuario_remitente = usuarioDAO.ObtenerIDUsuario(solicitudGrupo.remitente_invitacion_grupo);
+                                int ID_usuario_destinatario = usuarioDAO.ObtenerIDUsuario(solicitudGrupo.destinatario_invitacion_grupo);
+                               gruposDAO.EnviarInvitacionGrupo(ID_grupo, ID_usuario_remitente, ID_usuario_destinatario);
+                                }
+
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                            }
+                        }
+                        
+                        if(funcion.equals("ver_invitaciones_grupo"))
+                        {
+                            
                         }
                         
                         if(funcion.equals("aceptar_invitacion_grupo"))

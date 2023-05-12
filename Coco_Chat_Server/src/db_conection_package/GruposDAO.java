@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import returned_models.*;
 
 /**
  *
@@ -40,9 +41,10 @@ public class GruposDAO extends Db_Conection{
             {
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                 int IDUsuario = usuarioDAO.ObtenerIDUsuario(user);
-                PreparedStatement ps3 = getConnection().prepareStatement("INSERT INTO pertenencias_grupo (grupo, usuario_perteneciente) values (?,?)");
+                PreparedStatement ps3 = getConnection().prepareStatement("INSERT INTO invitacion_grupo (id_grupo_invitado, remitente_invitacion_grupo, destinatario_invitacion_grupo) values (?,?,?)");
                 ps3.setInt(1, id_grupo);
-                ps3.setInt(2, IDUsuario);
+                ps3.setInt(2, creador_grupo);
+                ps3.setInt(3, IDUsuario);
                 ps3.executeUpdate();
             }
 
@@ -230,6 +232,50 @@ public class GruposDAO extends Db_Conection{
             System.out.println(es.getMessage());
         }
         return listaNoMiembros;
+    }
+    
+    public int ObtenerIDGrupo(String grupo)
+    {
+        try 
+        {
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT id_grupo FROM grupo WHERE username=?");
+            ps.setString(1, grupo);
+            ResultSet rs = ps.executeQuery(); 
+            
+            //Si las credenciales son correctas
+            if(rs.next())
+            {
+                //Aqui necesitamos poner esta variable global o en algun cache para guardarla
+                int id_grupo = rs.getInt("id_grupo");
+                return id_grupo;
+            }  
+        }
+        catch(SQLException es)
+        {
+            System.out.println(es.getMessage());
+        }
+        return -1;
+    }
+    
+    public String obtenerNombreGrupo(int id_grupo)
+    {
+        try {
+            PreparedStatement ps = getConnection().prepareStatement("SELECT nombre_grupo FROM grupo WHERE id_grupo=?");
+            ps.setInt(1,id_grupo);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next())
+            {
+                String nombre_grupo = rs.getString("nombre_grupo");
+                return nombre_grupo;
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+        
     }
 
 }
