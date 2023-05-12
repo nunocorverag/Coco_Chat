@@ -27,16 +27,14 @@ import user_session.SessionManager;
  */
 public class Chat extends javax.swing.JFrame {
     private String destinatario;
+    private String username;
          
     /**
      * Creates new form Chat
      */
     
-    public Chat()
-    {
-        
-    }
-    public Chat(String username) {
+
+    public Chat() {
         this.destinatario = username;
         initComponents();
         
