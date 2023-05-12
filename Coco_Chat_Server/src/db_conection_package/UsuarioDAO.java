@@ -328,46 +328,47 @@ public class UsuarioDAO extends Db_Conection{
         return listaAmigos;
     }
     
-    public ArrayList<Usuario> obtenerNoAmigos(int usuario)
+public ArrayList<Usuario> obtenerNoAmigos(int usuario)
+{
+    ArrayList<Usuario> listaNoAmigos = new ArrayList();
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    try 
     {
-        ArrayList<Usuario> listaNoAmigos = new ArrayList();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try 
-        {
-            ps = getConnection().prepareStatement("SELECT * FROM usuario WHERE id_usuario <> ? AND id_usuario NOT IN (SELECT amigo2 FROM amistad WHERE amigo1 = ? UNION SELECT amigo1 FROM amistad WHERE amigo2 = ?)");
-            ps.setInt(1, usuario);
-            ps.setInt(2, usuario);
-            ps.setInt(3, usuario);
+        ps = getConnection().prepareStatement("SELECT * FROM usuario WHERE id_usuario <> ? AND id_usuario NOT IN (SELECT amigo2 FROM amistad WHERE amigo1 = ? UNION SELECT amigo1 FROM amistad WHERE amigo2 = ? UNION SELECT destinatario_solicitud_amistad FROM solicitud_amistad WHERE remitente_solicitud_amistad = ?)");
+        ps.setInt(1, usuario);
+        ps.setInt(2, usuario);
+        ps.setInt(3, usuario);
+        ps.setInt(4, usuario);
 
-            rs = ps.executeQuery(); 
+        rs = ps.executeQuery(); 
 
-            while (rs.next())
-            {
-                Usuario infoNoAmigo = new Usuario();
-                infoNoAmigo.nombre = rs.getString("nombre");
-                infoNoAmigo.username = rs.getString("username");
-                listaNoAmigos.add(infoNoAmigo);
-            }            
-        }
-        catch(SQLException es)
+        while (rs.next())
         {
-            System.out.println(es.getMessage());
-        }
-        finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-        return listaNoAmigos;
+            Usuario infoNoAmigo = new Usuario();
+            infoNoAmigo.nombre = rs.getString("nombre");
+            infoNoAmigo.username = rs.getString("username");
+            listaNoAmigos.add(infoNoAmigo);
+        }            
     }
+    catch(SQLException es)
+    {
+        System.out.println(es.getMessage());
+    }
+    finally {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    return listaNoAmigos;
+}
     
     public ArrayList<Grupo> obtenerGrupos(int usuario)
     {
