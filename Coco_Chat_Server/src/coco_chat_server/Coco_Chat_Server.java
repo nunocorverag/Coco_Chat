@@ -412,7 +412,7 @@ public class Coco_Chat_Server {
                                ArrayList<InfoSolicitudAmistad> enviarSolicitudAmistad  = (ArrayList<InfoSolicitudAmistad>)objectReceived;
                                UsuarioDAO usuarioDAO = new UsuarioDAO();
                                SolicitudDAO solicitudDAO = new SolicitudDAO();
-                               
+                                                              
                                 for(InfoSolicitudAmistad solicitudAmistad : enviarSolicitudAmistad)
                                 {
                                     int ID_usuario_remitente = usuarioDAO.ObtenerIDUsuario(solicitudAmistad.remitente_solicitud_amistad);

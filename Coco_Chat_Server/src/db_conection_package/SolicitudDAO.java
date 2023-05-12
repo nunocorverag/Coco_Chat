@@ -17,7 +17,7 @@ public class SolicitudDAO extends Db_Conection{
     public boolean EnviarSolicitudAmistad(int solicitud_de, int solicitud_para) 
     {
         try {
-            PreparedStatement ps = getConnection().prepareStatement("INSERT INTO solicitudes_de_amistad (usuario_solicitado, usuario_que_solicito) values (?,?)");
+            PreparedStatement ps = getConnection().prepareStatement("INSERT INTO solicitud_amistad (remitente_solicitud_amistad, destinatario_solicitud_amistad) values (?,?)");
 
             ps.setInt(1, solicitud_de);
             ps.setInt(2, solicitud_para);
