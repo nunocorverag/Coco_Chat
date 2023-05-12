@@ -31,12 +31,15 @@ public class GruposDAO extends Db_Conection{
             if (rs.next()) {
                 id_grupo = rs.getInt(1);
             }
+            rs.close();
+            ps.close();
 
             PreparedStatement ps2 = getConnection().prepareStatement("INSERT INTO pertenencias_grupo (grupo, usuario_perteneciente) values (?,?)");
             ps2.setInt(1, id_grupo);
             ps2.setInt(2, creador_grupo);
             ps2.executeUpdate();
-            
+            ps2.close();
+
             for(String user : usuarios_a_invitar)
             {
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -46,6 +49,7 @@ public class GruposDAO extends Db_Conection{
                 ps3.setInt(2, creador_grupo);
                 ps3.setInt(3, IDUsuario);
                 ps3.executeUpdate();
+                ps3.close();
             }
 
             return true;
@@ -55,43 +59,40 @@ public class GruposDAO extends Db_Conection{
         return false;
     }
     
-    public boolean EnviarInvitacionGrupo(int id_grupo_invitado, int invitacion_de, int invitacion_para) 
-    {
-        try
-        {
-        PreparedStatement ps = getConnection().prepareStatement("INSERT INTO invitacion_grupo (id_grupo_invitado, remitente_invitacion_grupo, destinatario_invitacion_grupo) values (?,?,?)");
-        
-        ps.setInt(1, id_grupo_invitado);
-        ps.setInt(2, invitacion_de);
-        ps.setInt(2, invitacion_para);
+    public boolean EnviarInvitacionGrupo(int id_grupo_invitado, int invitacion_de, int invitacion_para) {
+        try {
+            PreparedStatement ps = getConnection().prepareStatement("INSERT INTO invitacion_grupo (id_grupo_invitado, remitente_invitacion_grupo, destinatario_invitacion_grupo) values (?,?,?)");
 
-        return ps.executeUpdate()>0;
-        } 
-        catch(SQLException ex)
-        {
+            ps.setInt(1, id_grupo_invitado);
+            ps.setInt(2, invitacion_de);
+            ps.setInt(3, invitacion_para);
+
+            boolean result = ps.executeUpdate() > 0;
+            ps.close();
+            return result;
+        } catch(SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return false;
     }
     
-      public boolean AceptarInvitacionGrupo(int id_grupo, int usuario_invitado) 
-    {
-        try
-        {
-        PreparedStatement ps = getConnection().prepareStatement("INSERT INTO pertenencias_grupo (grupo, usuario_perteneciente) values (?,?)");
-        
-        ps.setInt(1, id_grupo);
-        ps.setInt(2, usuario_invitado);
-        
-        PreparedStatement ps2 = getConnection().prepareStatement("DELETE FROM invitacion_grupo where id_grupo_invitado = ? AND destinatario_invitacion_grupo = ?");
-        ps2.setInt(1, id_grupo);
-        ps2.setInt(2, usuario_invitado);
-        ps2.executeUpdate();
+    public boolean AceptarInvitacionGrupo(int id_grupo, int usuario_invitado) {
+        try {
+            PreparedStatement ps = getConnection().prepareStatement("INSERT INTO pertenencias_grupo (grupo, usuario_perteneciente) values (?,?)");
 
-        return ps.executeUpdate()>0;
-        } 
-        catch(SQLException ex)
-        {
+            ps.setInt(1, id_grupo);
+            ps.setInt(2, usuario_invitado);
+
+            PreparedStatement ps2 = getConnection().prepareStatement("DELETE FROM invitacion_grupo where id_grupo_invitado = ? AND destinatario_invitacion_grupo = ?");
+            ps2.setInt(1, id_grupo);
+            ps2.setInt(2, usuario_invitado);
+            ps2.executeUpdate();
+
+            boolean result = ps.executeUpdate() > 0;
+            ps.close();
+            ps2.close();
+            return result;
+        } catch(SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return false;
@@ -101,34 +102,37 @@ public class GruposDAO extends Db_Conection{
     {
         try
         {
-        PreparedStatement ps = getConnection().prepareStatement("DELETE FROM invitacion_grupo where id_grupo_invitado = ? AND destinatario_invitacion_grupo = ?");
-        ps.setInt(1, id_grupo);
-        ps.setInt(2, usuario_invitado);
-       
-        // Verificar cuantos usuarios en el grupo quedan y si quedan menos de 3, eliminarlo
-        int numUsuarios = 0;
-        PreparedStatement psCountPertenencias = getConnection().prepareStatement("SELECT COUNT(*) FROM pertenencias_grupo WHERE grupo = ?");
-        psCountPertenencias.setInt(1, id_grupo);
-        ResultSet rsCountPertenencias = psCountPertenencias.executeQuery();
+            PreparedStatement ps = getConnection().prepareStatement("DELETE FROM invitacion_grupo where id_grupo_invitado = ? AND destinatario_invitacion_grupo = ?");
+            ps.setInt(1, id_grupo);
+            ps.setInt(2, usuario_invitado);
 
-        if (rsCountPertenencias.next()) {
-            numUsuarios = rsCountPertenencias.getInt(1);
-        }
+            // Verificar cuantos usuarios en el grupo quedan y si quedan menos de 3, eliminarlo
+            int numUsuarios = 0;
+            PreparedStatement psCountPertenencias = getConnection().prepareStatement("SELECT COUNT(*) FROM pertenencias_grupo WHERE grupo = ?");
+            psCountPertenencias.setInt(1, id_grupo);
+            ResultSet rsCountPertenencias = psCountPertenencias.executeQuery();
 
-        PreparedStatement psCountInvitaciones = getConnection().prepareStatement("SELECT COUNT(*) FROM invitacion_grupo  WHERE id_grupo_invitado = ?");
-        psCountInvitaciones.setInt(1, id_grupo);
-        ResultSet rsCountInvitaciones = psCountInvitaciones.executeQuery();
+            if (rsCountPertenencias.next()) {
+                numUsuarios = rsCountPertenencias.getInt(1);
+            }
 
-        if (rsCountInvitaciones.next()) {
-            numUsuarios = numUsuarios + rsCountInvitaciones.getInt(1);
-        }
+            PreparedStatement psCountInvitaciones = getConnection().prepareStatement("SELECT COUNT(*) FROM invitacion_grupo  WHERE id_grupo_invitado = ?");
+            psCountInvitaciones.setInt(1, id_grupo);
+            ResultSet rsCountInvitaciones = psCountInvitaciones.executeQuery();
 
-        // Si hay menos de 3 usuarios, eliminar el grupo
-        if (numUsuarios < 3) {
-            EliminarGrupo(id_grupo);
-        }
+            if (rsCountInvitaciones.next()) {
+                numUsuarios = numUsuarios + rsCountInvitaciones.getInt(1);
+            }
 
-        return ps.executeUpdate()>0;
+            // Si hay menos de 3 usuarios, eliminar el grupo
+            if (numUsuarios < 3) {
+                EliminarGrupo(id_grupo);
+            }
+
+            ps.close();
+            psCountPertenencias.close();
+            psCountInvitaciones.close();
+            return true;
         } 
         catch(SQLException ex)
         {
@@ -167,45 +171,50 @@ public class GruposDAO extends Db_Conection{
                 EliminarGrupo(id_grupo);
             }
 
-            return ps.executeUpdate() > 0;
+            ps.close();
+            psCountPertenencias.close();
+            psCountInvitaciones.close();
+
+            return true;
         } catch(SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return false;
     }
+
       
-      public boolean EliminarGrupo(int id_grupo) 
-    {
-        try
-        {
-        //Eliminar los usuarios pertenecientes
-        PreparedStatement ps = getConnection().prepareStatement("DELETE FROM pertenencias_grupo where grupo = ?");
-        
-        ps.setInt(1, id_grupo);
-        ps.executeUpdate();
-        
-        //Eliminar las invitaciones
-        PreparedStatement ps2 = getConnection().prepareStatement("DELETE FROM invitacion_grupo where id_grupo_invitado = ?");
-        ps2.setInt(1, id_grupo);
-        ps2.executeUpdate();
+    public boolean EliminarGrupo(int id_grupo) {
+        try {
+            //Eliminar los usuarios pertenecientes
+            PreparedStatement ps = getConnection().prepareStatement("DELETE FROM pertenencias_grupo where grupo = ?");
+            ps.setInt(1, id_grupo);
+            ps.executeUpdate();
+            ps.close();
 
-        //Eliminar los mensajes del grupo
-        PreparedStatement ps3 = getConnection().prepareStatement("DELETE FROM mensaje_grupo where destinatario_grupo = ?");
-        ps3.setInt(1, id_grupo);
-        ps3.executeUpdate();
+            //Eliminar las invitaciones
+            PreparedStatement ps2 = getConnection().prepareStatement("DELETE FROM invitacion_grupo where id_grupo_invitado = ?");
+            ps2.setInt(1, id_grupo);
+            ps2.executeUpdate();
+            ps2.close();
 
-        //Eliminar el grupo
-        PreparedStatement ps4 = getConnection().prepareStatement("DELETE FROM grupo where id_grupo = ?");
-        ps4.setInt(1, id_grupo);
+            //Eliminar los mensajes del grupo
+            PreparedStatement ps3 = getConnection().prepareStatement("DELETE FROM mensaje_grupo where destinatario_grupo = ?");
+            ps3.setInt(1, id_grupo);
+            ps3.executeUpdate();
+            ps3.close();
 
-        return ps4.executeUpdate()>0;
-        } 
-        catch(SQLException ex)
-        {
+            //Eliminar el grupo
+            PreparedStatement ps4 = getConnection().prepareStatement("DELETE FROM grupo where id_grupo = ?");
+            ps4.setInt(1, id_grupo);
+            boolean result = ps4.executeUpdate() > 0;
+            ps4.close();
+            return result;
+        } catch(SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return false;
     }
+
 
     public ArrayList<Usuario> obtenerNoMiembrosSinInvitacion(int idGrupo, int creadorGrupo) {
         ArrayList<Usuario> listaNoMiembros = new ArrayList();
@@ -228,34 +237,43 @@ public class GruposDAO extends Db_Conection{
                 infoNoMiembro.username = rs.getString("username");
                 listaNoMiembros.add(infoNoMiembro);
             }
+            rs.close();
+            ps.close();
         } catch (SQLException es) {
             System.out.println(es.getMessage());
         }
         return listaNoMiembros;
     }
+
     
-    public int ObtenerIDGrupo(String grupo)
-    {
-        try 
-        {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT id_grupo FROM grupo WHERE username=?");
-            ps.setString(1, grupo);
-            ResultSet rs = ps.executeQuery(); 
-            
-            //Si las credenciales son correctas
-            if(rs.next())
-            {
-                //Aqui necesitamos poner esta variable global o en algun cache para guardarla
-                int id_grupo = rs.getInt("id_grupo");
-                return id_grupo;
-            }  
+    public int ObtenerIDGrupo(String grupo) {
+        try {
+                PreparedStatement ps =  getConnection().prepareStatement("SELECT id_grupo FROM grupo WHERE username=?");
+                ps.setString(1, grupo);
+                ResultSet rs = ps.executeQuery();
+
+                //Si las credenciales son correctas
+                if(rs.next()) {
+                    //Aqui necesitamos poner esta variable global o en algun cache para guardarla
+                    int id_grupo = rs.getInt("id_grupo");
+
+                    rs.close();
+                    ps.close();
+                    getConnection().close();
+
+                    return id_grupo;
+                }
+
+                rs.close();
+                ps.close();
+                getConnection().close();
+
+            } catch(SQLException es) {
+                System.out.println(es.getMessage());
+            }
+            return -1;
         }
-        catch(SQLException es)
-        {
-            System.out.println(es.getMessage());
-        }
-        return -1;
-    }
+
     
     public String obtenerNombreGrupo(int id_grupo)
     {
@@ -263,10 +281,12 @@ public class GruposDAO extends Db_Conection{
             PreparedStatement ps = getConnection().prepareStatement("SELECT nombre_grupo FROM grupo WHERE id_grupo=?");
             ps.setInt(1,id_grupo);
             ResultSet rs = ps.executeQuery();
-            
+
             if(rs.next())
             {
                 String nombre_grupo = rs.getString("nombre_grupo");
+                ps.close();
+                rs.close();
                 return nombre_grupo;
             }
         } 
@@ -275,8 +295,8 @@ public class GruposDAO extends Db_Conection{
             System.out.println(ex.getMessage());
         }
         return null;
-        
     }
+
 
 }
 

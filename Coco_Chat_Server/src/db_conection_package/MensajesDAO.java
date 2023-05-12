@@ -44,24 +44,24 @@ public class MensajesDAO extends Db_Conection{
     {
         try
         {
-            
-        Timestamp fecha_actual = new Timestamp(System.currentTimeMillis());
+            Timestamp fecha_actual = new Timestamp(System.currentTimeMillis());
 
-        PreparedStatement ps = getConnection().prepareStatement("INSERT INTO mensaje_amigo (remitente_amigo, destinatario_amigo, fecha_mensaje_amigo, mensaje_amigo) values (?,?,?,?)");
-        
-        ps.setInt(1, mensaje_de);
-        ps.setInt(2, mensaje_para);
-        ps.setTimestamp(3, fecha_actual);
-        ps.setString(4, mensaje);
-        
-        return ps.executeUpdate()>0;
-}
+            PreparedStatement ps = getConnection().prepareStatement("INSERT INTO mensaje_amigo (remitente_amigo, destinatario_amigo, fecha_mensaje_amigo, mensaje_amigo) values (?,?,?,?)");
+
+            ps.setInt(1, mensaje_de);
+            ps.setInt(2, mensaje_para);
+            ps.setTimestamp(3, fecha_actual);
+            ps.setString(4, mensaje);
+
+            return ps.executeUpdate()>0;
+        }
         catch(SQLException ex)
         {
             System.out.println(ex.getMessage());
         }
         return false;
     }
+
 
     public boolean EnviarMensajeGrupo(int mensaje_de, int mensaje_para, String mensaje) 
     {
@@ -86,22 +86,17 @@ public class MensajesDAO extends Db_Conection{
         return false;
     }
     
-    public ArrayList<RespuestaMensajesUsuario> obtenerMensajesUsuario(int usuario, int usuario_mensaje)
-    {
-        ArrayList<RespuestaMensajesUsuario> listaMensajesUsuario = new ArrayList();
-        try 
-        {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM mensaje_usuario where (remitente_usuario = ? AND destinatario_usuario = ?) OR (remitente_usuario = ? AND destinatario_usuario = ?)");
-            ps.setInt(1, usuario);
-            ps.setInt(2, usuario_mensaje);
-            ps.setInt(3, usuario_mensaje);
-            ps.setInt(4, usuario);
-            ResultSet rs;
-            RespuestaMensajesUsuario mensajeUsuario;
-            rs = ps.executeQuery(); 
+    public ArrayList<RespuestaMensajesUsuario> obtenerMensajesUsuario(int usuario, int usuario_mensaje) {
+    ArrayList<RespuestaMensajesUsuario> listaMensajesUsuario = new ArrayList<>();
+    try (PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM mensaje_usuario where (remitente_usuario = ? AND destinatario_usuario = ?) OR (remitente_usuario = ? AND destinatario_usuario = ?)")) {
+        ps.setInt(1, usuario);
+        ps.setInt(2, usuario_mensaje);
+        ps.setInt(3, usuario_mensaje);
+        ps.setInt(4, usuario);
 
-            while (rs.next())
-            {
+        try (ResultSet rs = ps.executeQuery()) {
+            RespuestaMensajesUsuario mensajeUsuario;
+            while (rs.next()) {
                 mensajeUsuario = new RespuestaMensajesUsuario();
                 mensajeUsuario.fecha_mensaje_usuario = rs.getTimestamp("fecha_mensaje_usuario");
                 mensajeUsuario.mensaje_usuario = rs.getString("mensaje_usuario");
@@ -111,31 +106,28 @@ public class MensajesDAO extends Db_Conection{
                 mensajeUsuario.username_destinatario = username_destinatario;
                 mensajeUsuario.username_remitente = username_remitente;
                 listaMensajesUsuario.add(mensajeUsuario);
-            }            
-        }
-        catch(SQLException es)
-        {
-            System.out.println(es.getMessage());
-        }
-        return listaMensajesUsuario;
+            }
+        } 
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
     }
+    return listaMensajesUsuario;
+}
+
     
-    public ArrayList<RespuestaMensajesAmigo> obtenerMensajesAmigo(int usuario, int amigo_mensaje)
-    {
+    public ArrayList<RespuestaMensajesAmigo> obtenerMensajesAmigo(int usuario, int amigo_mensaje) {
         ArrayList<RespuestaMensajesAmigo> listaMensajesAmigo = new ArrayList();
-        try 
-        {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM mensaje_amigo where (remitente_amigo = ? AND destinatario_amigo = ?) OR (remitente_amigo = ? AND destinatario_amigo = ?)");
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = getConnection().prepareStatement("SELECT * FROM mensaje_amigo where (remitente_amigo = ? AND destinatario_amigo = ?) OR (remitente_amigo = ? AND destinatario_amigo = ?)");
             ps.setInt(1, usuario);
             ps.setInt(2, amigo_mensaje);
             ps.setInt(3, amigo_mensaje);
             ps.setInt(4, usuario);
-            ResultSet rs;  
             RespuestaMensajesAmigo mensajeAmigo;
-            rs = ps.executeQuery(); 
-
-            while (rs.next())
-            {
+            rs = ps.executeQuery();
+            while (rs.next()) {
                 mensajeAmigo = new RespuestaMensajesAmigo();
                 mensajeAmigo.fecha_mensaje_amigo = rs.getTimestamp("fecha_mensaje_amigo");
                 mensajeAmigo.mensaje_amigo = rs.getString("mensaje_amigo");
@@ -145,29 +137,42 @@ public class MensajesDAO extends Db_Conection{
                 mensajeAmigo.username_destinatario = username_destinatario;
                 mensajeAmigo.username_remitente = username_remitente;
                 listaMensajesAmigo.add(mensajeAmigo);
-            }            
-        }
-        catch(SQLException es)
-        {
+            }
+        } catch(SQLException es) {
             System.out.println(es.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (getConnection() != null) {
+                    getConnection().close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
         return listaMensajesAmigo;
     }
+
     
     public ArrayList<RespuestaMensajesGrupo> obtenerMensajesGrupo(int grupo_mensaje)
     {
         ArrayList<RespuestaMensajesGrupo> listaMensajesGrupo = new ArrayList();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try 
         {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM mensaje_grupo where destinatario_grupo = ?)");
+            ps = getConnection().prepareStatement("SELECT * FROM mensaje_grupo where destinatario_grupo = ?");
             ps.setInt(1, grupo_mensaje);
-            ResultSet rs;  
-            RespuestaMensajesGrupo mensajeGrupo;
             rs = ps.executeQuery(); 
 
             while (rs.next())
             {
-                mensajeGrupo = new RespuestaMensajesGrupo();
+                RespuestaMensajesGrupo mensajeGrupo = new RespuestaMensajesGrupo();
                 mensajeGrupo.fecha_mensaje_grupo = rs.getTimestamp("fecha_mensaje_grupo");
                 mensajeGrupo.mensaje_grupo = rs.getString("mensaje_grupo");
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -179,9 +184,22 @@ public class MensajesDAO extends Db_Conection{
         catch(SQLException es)
         {
             System.out.println(es.getMessage());
+        } 
+        finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
         return listaMensajesGrupo;
     }
+
 
 }
 
