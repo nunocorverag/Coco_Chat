@@ -61,7 +61,7 @@ public class CrearGrupo extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jButton1 = new javax.swing.JButton();
+        CrearGrupoButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -74,17 +74,17 @@ public class CrearGrupo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setText("Crear grupo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CrearGrupoButton.setText("Crear grupo");
+        CrearGrupoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CrearGrupoButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        getContentPane().add(jButton1, gridBagConstraints);
+        getContentPane().add(CrearGrupoButton, gridBagConstraints);
 
         jTextArea1.setColumns(10);
         jTextArea1.setRows(1);
@@ -165,7 +165,7 @@ public class CrearGrupo extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenu2MenuSelected
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CrearGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearGrupoButtonActionPerformed
         // TODO add your handling code here:
         Socket s;
         String creadorGrupo = SessionManager.getUsername();
@@ -178,11 +178,11 @@ public class CrearGrupo extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(CrearGrupo.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CrearGrupoButtonActionPerformed
 
     private void ListaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosMouseClicked
         String nombreSeleccionado = ListaUsuarios.getSelectedValue();
-
+        
     }//GEN-LAST:event_ListaUsuariosMouseClicked
 
     /**
@@ -224,8 +224,8 @@ public class CrearGrupo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CrearGrupoButton;
     private javax.swing.JList<String> ListaUsuarios;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
