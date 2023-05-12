@@ -1,16 +1,20 @@
 
 package interfaces;
 
+import db_conection_package.Grupo;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.Box.createHorizontalGlue;
+import javax.swing.DefaultListModel;
 import user_session.SessionManager;
 
 /**
@@ -99,11 +103,14 @@ public class Grupos extends javax.swing.JFrame {
 
         ListaGrupos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         ListaGrupos listaGrupos = new ListaGrupos();
-        String[] grupos = listaGrupos.obtenerGrupos();
-        ListaGrupos.setModel(new javax.swing.AbstractListModel<String>() {
-            public int getSize() { return grupos.length; }
-            public String getElementAt(int i) { return grupos[i]; }
-        });
+        ArrayList<Grupo> grupos = listaGrupos.obtenerGrupos();
+
+        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+        for(Grupo group:grupos)
+        {
+            modeloLista.addElement(group.nombre_grupo);
+        }
+        ListaGrupos.setModel(modeloLista);
         ListaGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ListaGruposMouseClicked(evt);
@@ -190,13 +197,42 @@ public class Grupos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public class ListaGrupos{
-        private String[] grupos;
+        private ArrayList<Grupo> grupos;
 
         public ListaGrupos(){
-            grupos = new String[]{"Los Kks", "Equipo Dinamita", "Los chidos como no", "Cocotaxo"};
+            this.grupos = new ArrayList<Grupo>();
+            Socket s;
+            try {
+                String direccionServidor = "10.147.17.147";
+                InetAddress direccion = InetAddress.getByName(direccionServidor);
+                s = new Socket(direccion, 1234);
+                
+                DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+                funcion.writeUTF("mostrar_grupos");
+                
+                String usuarioUser = SessionManager.getUsername();
+                DataOutputStream username = new DataOutputStream(s.getOutputStream());
+                username.writeUTF(usuarioUser);
+                
+                ObjectInputStream GruposList = new ObjectInputStream(s.getInputStream());
+                try {
+                    ArrayList<Grupo> Grupos = (ArrayList<Grupo>)GruposList.readObject();
+                    s.close();
+                    
+                    for(Grupo group: Grupos)
+                    {
+                        this.grupos.add(group);
+                    }
+                    
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Grupos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Grupos.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
-        public String[] obtenerGrupos(){
+        public ArrayList<Grupo> obtenerGrupos(){
             return grupos;
         }
     }
