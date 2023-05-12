@@ -4,6 +4,21 @@
  */
 package interfaces;
 
+import db_conection_package.Usuario;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import user_session.SessionManager;
+
 /**
  *
  * @author Nancy
@@ -15,6 +30,31 @@ public class AgregarAmigos extends javax.swing.JFrame {
      */
     public AgregarAmigos() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.addWindowListener(new WindowAdapter()
+                {
+                    public void windowClosing(WindowEvent e)
+                    {
+                        Socket s;      
+                        try {
+                            String direccionServidor = "10.147.17.147";
+                            InetAddress direccion = InetAddress.getByName(direccionServidor);
+                            s = new Socket(direccion, 1234);
+                            
+                            DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+                            funcion.writeUTF("cerrar_sesion");
+                            
+                            String username = SessionManager.getUsername();
+                            DataOutputStream objectOS = new DataOutputStream(s.getOutputStream());
+                            objectOS.writeUTF(username);
+                           
+                            s.close();
+                        } catch (IOException ex) {
+                            Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+        );
     }
 
     /**
@@ -43,11 +83,15 @@ public class AgregarAmigos extends javax.swing.JFrame {
         getContentPane().add(jLabel1, gridBagConstraints);
 
         ListaUsuarios.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        ListaUsuarios.setModel(new javax.swing.AbstractListModel<modeloLista>() {
-            /*public int getSize() { return usuariosOn.length; }
-            public String getElementAt(int i) { return usuariosOn[i]; }
-        });
-        */
+        ListaAmigos AmigosList = new ListaAmigos();
+        ArrayList<Usuario> Amigos = AmigosList.obtenerAmigos();
+
+        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+        for(Usuario amigo: Amigos)
+        {
+            modeloLista.addElement(amigo.username);
+        }
+        ListaUsuarios.setModel(modeloLista);
         ListaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ListaUsuariosMouseClicked(evt);
@@ -84,7 +128,54 @@ public class AgregarAmigos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public class ListaAmigos{
+        private ArrayList<Usuario> Amigos;
+        
+        public ListaAmigos()
+        {
+            this.Amigos = new ArrayList<Usuario>();
+            
+            Socket s;
+            try {
+                    String direccionServidor = "10.147.17.147";
+                    InetAddress direccion = InetAddress.getByName(direccionServidor);
+                    s = new Socket(direccion, 1234);
+                    
+                    DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+                    funcion.writeUTF("mostrar_no_amigos");
+                    
+                    String UserLogged = SessionManager.getUsername();
+                    DataOutputStream mandarUsername = new DataOutputStream(s.getOutputStream());
+                    mandarUsername.writeUTF(UserLogged);
+                    
+                    System.out.println("Se mando el user: " + UserLogged);
+                    
+                    ObjectInputStream AmigosObject = new ObjectInputStream(s.getInputStream());
+                    
+                    try {
+                        ArrayList<Usuario> Amigos = (ArrayList<Usuario>)AmigosObject.readObject();
+                        s.close();
+                        for(Usuario user: Amigos)
+                        {
+                            this.Amigos.add(user);
+                        }
+                  
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            }
+            catch (IOException ex) 
+            {
+                Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        public ArrayList<Usuario> obtenerAmigos()
+        {
+            return this.Amigos;
+        }
+    }
     private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
         Amigos a = new Amigos();
         a.setVisible(true);
