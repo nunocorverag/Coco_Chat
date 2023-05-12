@@ -302,7 +302,7 @@ public class Grupos extends javax.swing.JFrame {
         String listaPro = ListaGrupos.getSelectedValue();
         String nombreAmigo = ListaGrupos.getSelectedValue();
         
-        Chat a = new Chat();
+        Chat a = new Chat(nombreSeleccionado, "Usuarios");
 
         if (listaChatsAbiertos.obtenerNombres().contains(nombreSeleccionado)) {
             System.out.println("tienen en mismo nombre");
@@ -344,7 +344,7 @@ public class Grupos extends javax.swing.JFrame {
     }//GEN-LAST:event_InvitacionesGruposButtonActionPerformed
 
     private void InvitarGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InvitarGrupoButtonActionPerformed
-        InvitarUsuarios a = new InvitarUsuarios();
+        ListaGruposInvitar a = new ListaGruposInvitar();
          a.setVisible(true);
          this.setVisible(false);
     }//GEN-LAST:event_InvitarGrupoButtonActionPerformed
