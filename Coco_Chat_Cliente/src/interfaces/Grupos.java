@@ -140,9 +140,19 @@ public class Grupos extends javax.swing.JFrame {
         getContentPane().add(CreatedGroupButton, new java.awt.GridBagConstraints());
 
         InvitacionesGruposButton.setText("Invitaciones");
+        InvitacionesGruposButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InvitacionesGruposButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(InvitacionesGruposButton, new java.awt.GridBagConstraints());
 
         InvitarGrupoButton.setText("Invitar");
+        InvitarGrupoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InvitarGrupoButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(InvitarGrupoButton, new java.awt.GridBagConstraints());
 
         EliminarGrupoButton.setText("Eliminar");
@@ -326,6 +336,18 @@ public class Grupos extends javax.swing.JFrame {
          a.setVisible(true);
          this.setVisible(false);
     }//GEN-LAST:event_CreatedGroupButtonActionPerformed
+
+    private void InvitacionesGruposButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InvitacionesGruposButtonActionPerformed
+        VerInvitacionesGrupos a = new VerInvitacionesGrupos();
+         a.setVisible(true);
+         this.setVisible(false);
+    }//GEN-LAST:event_InvitacionesGruposButtonActionPerformed
+
+    private void InvitarGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InvitarGrupoButtonActionPerformed
+        InvitarUsuarios a = new InvitarUsuarios();
+         a.setVisible(true);
+         this.setVisible(false);
+    }//GEN-LAST:event_InvitarGrupoButtonActionPerformed
 
     /**
      * @param args the command line arguments
