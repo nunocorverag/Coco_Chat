@@ -324,7 +324,11 @@ public class Coco_Chat_Server {
                                int ID_usuario_seleccionado = usuarioDAO.ObtenerIDUsuario(enviarMensajeAmigo.destinatario);
                                String mensaje_enviado = enviarMensajeAmigo.mensaje;
                                mensajesDAO.EnviarMensajeAmigo(ID_usuario_loggeado, ID_usuario_seleccionado, mensaje_enviado);
-                               funcion = "cargar_mensajes_amigo";
+                               
+                               ArrayList<RespuestaMensajesAmigo> mensajes_usuario = mensajesDAO.obtenerMensajesAmigo(ID_usuario_loggeado, ID_usuario_seleccionado);
+                               ObjectOutputStream respuestaMensajesAmigo = new ObjectOutputStream(clientSocket.getOutputStream());
+                               
+                               respuestaMensajesAmigo.writeObject(mensajes_usuario);
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                            }

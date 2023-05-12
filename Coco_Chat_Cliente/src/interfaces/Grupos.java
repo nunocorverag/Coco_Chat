@@ -292,8 +292,8 @@ public class Grupos extends javax.swing.JFrame {
         String listaPro = ListaGrupos.getSelectedValue();
         String nombreAmigo = ListaGrupos.getSelectedValue();
         
-        Chat a = new Chat();
-
+        Chat a = new Chat(nombreSeleccionado, "Grupos");
+        
         if (listaChatsAbiertos.obtenerNombres().contains(nombreSeleccionado)) {
             System.out.println("tienen en mismo nombre");
             windowopen = false;
