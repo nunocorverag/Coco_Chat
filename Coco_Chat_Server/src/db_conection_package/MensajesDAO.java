@@ -40,6 +40,24 @@ public class MensajesDAO extends Db_Conection{
         return false;
     }
     
+    public boolean EliminarMensajeUsuario(int usuario) 
+    {
+        try
+        {
+        PreparedStatement ps = getConnection().prepareStatement("DELETE FROM mensaje_usuario where (mensaje_de = ? OR mensaje_para = ?)");
+        
+        ps.setInt(1, usuario);
+        ps.setInt(2, usuario);
+        
+        return ps.executeUpdate()>0;
+        } 
+        catch(SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+    
     public boolean EnviarMensajeAmigo(int mensaje_de, int mensaje_para, String mensaje) 
     {
         try

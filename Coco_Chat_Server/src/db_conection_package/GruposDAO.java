@@ -237,8 +237,6 @@ public class GruposDAO extends Db_Conection{
                 infoNoMiembro.username = rs.getString("username");
                 listaNoMiembros.add(infoNoMiembro);
             }
-            rs.close();
-            ps.close();
         } catch (SQLException es) {
             System.out.println(es.getMessage());
         }
@@ -259,14 +257,12 @@ public class GruposDAO extends Db_Conection{
 
                     rs.close();
                     ps.close();
-                    getConnection().close();
 
                     return id_grupo;
                 }
 
                 rs.close();
                 ps.close();
-                getConnection().close();
 
             } catch(SQLException es) {
                 System.out.println(es.getMessage());

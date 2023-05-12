@@ -4,11 +4,13 @@
  */
 package returned_models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gnuno
  */
-public class SolicitarInfoGrupo {
+public class SolicitarInfoGrupo implements Serializable {
     public String UsuarioLoggeado;
     public String NombreGrupo;
     

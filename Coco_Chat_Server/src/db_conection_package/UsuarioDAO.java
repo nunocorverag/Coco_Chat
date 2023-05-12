@@ -432,7 +432,7 @@ public ArrayList<Usuario> obtenerNoAmigos(int usuario)
             rs = ps.executeQuery(); 
 
             while (rs.next()) {
-                int ID_grupo = rs.getInt("grupo");
+                int ID_grupo = rs.getInt("id_grupo");
                 PreparedStatement ps2 = getConnection().prepareStatement("SELECT * FROM grupo where id_grupo = ?");
                 ps2.setInt(1, ID_grupo);
                 rs2 = ps2.executeQuery();
