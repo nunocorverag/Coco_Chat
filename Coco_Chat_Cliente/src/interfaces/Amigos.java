@@ -240,10 +240,7 @@ public class Amigos extends javax.swing.JFrame {
                     s.close();
                     for(Usuario user: usuarios)
                     {
-                        if(user.estado == 1)
-                        {
-                            this.amigos.add(user);
-                        }
+                        this.amigos.add(user);
                     }
 
                 } catch (ClassNotFoundException ex) {

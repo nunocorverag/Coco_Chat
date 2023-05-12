@@ -260,6 +260,12 @@ public class Usuarios extends javax.swing.JFrame {
                     DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
                     funcion.writeUTF("mostrar_usuarios");
                     
+                    String UserLogged = SessionManager.getUsername();
+                    System.out.println(UserLogged);
+                    DataOutputStream mandarUsername = new DataOutputStream(s.getOutputStream());
+                    mandarUsername.writeUTF(UserLogged);
+                    System.out.println("Se mando el userLogged");
+                    
                     ObjectInputStream usuariosList = new ObjectInputStream(s.getInputStream());
                     
                     try {
@@ -301,6 +307,12 @@ public class Usuarios extends javax.swing.JFrame {
                     
                     DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
                     funcion.writeUTF("mostrar_usuarios");
+                    
+                    String UserLogged = SessionManager.getUsername();
+                    System.out.println(UserLogged);
+                    DataOutputStream mandarUsername = new DataOutputStream(s.getOutputStream());
+                    mandarUsername.writeUTF(UserLogged);
+                    System.out.println("Se mando el userLogged");
                     
                     ObjectInputStream usuariosList = new ObjectInputStream(s.getInputStream());
                     
