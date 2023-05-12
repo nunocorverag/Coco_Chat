@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import returned_models.*;
 
 /**
  *
@@ -16,7 +17,7 @@ public class GruposDAO extends Db_Conection{
         super();
     }
     
-    public boolean CrearGrupo(String nombre_grupo, int creador_grupo) {
+    public boolean CrearGrupo(String nombre_grupo, int creador_grupo, ArrayList<String> usuarios_a_invitar) {
         try {
             PreparedStatement ps = getConnection().prepareStatement("INSERT INTO grupo (nombre_grupo, creador_grupo) values (?,?)", Statement.RETURN_GENERATED_KEYS);
 
@@ -35,6 +36,17 @@ public class GruposDAO extends Db_Conection{
             ps2.setInt(1, id_grupo);
             ps2.setInt(2, creador_grupo);
             ps2.executeUpdate();
+            
+            for(String user : usuarios_a_invitar)
+            {
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                int IDUsuario = usuarioDAO.ObtenerIDUsuario(user);
+                PreparedStatement ps3 = getConnection().prepareStatement("INSERT INTO invitacion_grupo (id_grupo_invitado, remitente_invitacion_grupo, destinatario_invitacion_grupo) values (?,?,?)");
+                ps3.setInt(1, id_grupo);
+                ps3.setInt(2, creador_grupo);
+                ps3.setInt(3, IDUsuario);
+                ps3.executeUpdate();
+            }
 
             return true;
         } catch(SQLException ex) {
@@ -195,12 +207,18 @@ public class GruposDAO extends Db_Conection{
         return false;
     }
 
-    public ArrayList<Usuario> obtenerNoMiembros(int idGrupo, int creadorGrupo) {
+    public ArrayList<Usuario> obtenerNoMiembrosSinInvitacion(int idGrupo, int creadorGrupo) {
         ArrayList<Usuario> listaNoMiembros = new ArrayList();
         try {
-            // Obtener lista de usuarios que no son miembros del grupo
-            PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM usuario WHERE id_usuario NOT IN (SELECT usuario_perteneciente FROM pertenencias_grupo WHERE grupo = ?)");
-            ps.setInt(1, idGrupo);
+            // Obtener lista de usuarios que no son miembros del grupo y no han sido invitados
+            PreparedStatement ps = getConnection().prepareStatement(
+                "SELECT * FROM usuario WHERE id_usuario != ? " + // Excluir al creador del grupo
+                "AND id_usuario NOT IN (SELECT usuario_perteneciente FROM pertenencias_grupo WHERE grupo = ?) " +
+                "AND id_usuario NOT IN (SELECT destinatario_invitacion_grupo FROM invitacion_grupo WHERE id_grupo_invitado = ?)"
+            );
+            ps.setInt(1, creadorGrupo);
+            ps.setInt(2, idGrupo);
+            ps.setInt(3, idGrupo);
             ResultSet rs = ps.executeQuery();
 
             // Filtrar lista para obtener solo los usuarios que no son amigos del creador del grupo
@@ -214,6 +232,50 @@ public class GruposDAO extends Db_Conection{
             System.out.println(es.getMessage());
         }
         return listaNoMiembros;
+    }
+    
+    public int ObtenerIDGrupo(String grupo)
+    {
+        try 
+        {
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT id_grupo FROM grupo WHERE username=?");
+            ps.setString(1, grupo);
+            ResultSet rs = ps.executeQuery(); 
+            
+            //Si las credenciales son correctas
+            if(rs.next())
+            {
+                //Aqui necesitamos poner esta variable global o en algun cache para guardarla
+                int id_grupo = rs.getInt("id_grupo");
+                return id_grupo;
+            }  
+        }
+        catch(SQLException es)
+        {
+            System.out.println(es.getMessage());
+        }
+        return -1;
+    }
+    
+    public String obtenerNombreGrupo(int id_grupo)
+    {
+        try {
+            PreparedStatement ps = getConnection().prepareStatement("SELECT nombre_grupo FROM grupo WHERE id_grupo=?");
+            ps.setInt(1,id_grupo);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next())
+            {
+                String nombre_grupo = rs.getString("nombre_grupo");
+                return nombre_grupo;
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+        
     }
 
 }

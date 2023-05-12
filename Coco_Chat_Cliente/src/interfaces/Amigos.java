@@ -72,6 +72,7 @@ public class Amigos extends javax.swing.JFrame {
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         AgregarAmigosButton1 = new javax.swing.JButton();
+        jMenu1 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaAmigos = new javax.swing.JList<>();
         AgregarAmigosButton2 = new javax.swing.JButton();
@@ -79,6 +80,7 @@ public class Amigos extends javax.swing.JFrame {
         UsuariosMenu = new javax.swing.JMenu();
         AmigosMenu = new javax.swing.JMenu();
         GruposMenu = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         IconLogOut = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -106,6 +108,8 @@ public class Amigos extends javax.swing.JFrame {
                 AgregarAmigosButton1ActionPerformed(evt);
             }
         });
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/invitacion.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -202,6 +206,9 @@ public class Amigos extends javax.swing.JFrame {
         });
         jMenuBar1.add(GruposMenu);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/invitacion.png"))); // NOI18N
+        jMenuBar1.add(jMenu2);
+
         IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
 
         jMenuBar1.add(createHorizontalGlue());
@@ -256,6 +263,20 @@ public class Amigos extends javax.swing.JFrame {
         }
     }
   
+    public class ListaChatsAbiertos {
+        private ArrayList<String> nombres;
+
+        public ListaChatsAbiertos() {
+            nombres = new ArrayList<String>();
+        }
+
+        public ArrayList<String> obtenerNombres()
+        {
+            return nombres;
+        }
+    }
+
+    private ListaChatsAbiertos listaChatsAbiertos = new ListaChatsAbiertos();
   
     private void UsuariosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_UsuariosMenuMenuSelected
         Usuarios a = new Usuarios();
@@ -277,24 +298,33 @@ public class Amigos extends javax.swing.JFrame {
 
     private void ListaAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaAmigosMouseClicked
         String nombreSeleccionado = ListaAmigos.getSelectedValue();
-        if (windowopen == false)
-        {
-            Chat a = new Chat(nombreSeleccionado);
-            a.setTitle(nombreSeleccionado);
-            int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
-            int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight()-30;
-            a.setLocation(posX, posY);
-            
-            windowopen = true;
-            a.addWindowListener(new java.awt.event.WindowAdapter() 
-            {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent windowEvent) 
-                {
-                    windowopen = false;
-                }
-            });
-            a.setVisible(true);
+        String listaPro = ListaAmigos.getSelectedValue();
+
+        Chat a = new Chat();
+
+        if (listaChatsAbiertos.obtenerNombres().contains(nombreSeleccionado)) {
+            System.out.println("tienen en mismo nombre");
+            windowopen = false;
+        } else {
+            System.out.println("tienen el nombre diferente");
+            System.out.println(listaChatsAbiertos.obtenerNombres());
+            listaChatsAbiertos.obtenerNombres().add(listaPro);
+            System.out.println(nombreSeleccionado);
+            if (windowopen = true) {
+                a.setTitle(nombreSeleccionado);
+                int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
+                int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight() - 30;
+                a.setLocation(posX, posY);
+
+                windowopen = true;
+                a.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                        windowopen = false;
+                    }
+                });
+                a.setVisible(true);
+            }
         }
     }//GEN-LAST:event_ListaAmigosMouseClicked
 
@@ -358,6 +388,8 @@ public class Amigos extends javax.swing.JFrame {
     private javax.swing.JMenu UsuariosMenu;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
