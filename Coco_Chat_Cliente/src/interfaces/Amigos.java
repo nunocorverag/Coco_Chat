@@ -222,6 +222,15 @@ public class Amigos extends javax.swing.JFrame {
         jMenuBar1.add(GruposMenu);
 
         IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
+        IconLogOut.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                IconLogOutMenuSelected(evt);
+            }
+        });
 
         jMenuBar1.add(createHorizontalGlue());
 
@@ -359,6 +368,12 @@ public class Amigos extends javax.swing.JFrame {
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_AgregarAmigosButton3ActionPerformed
+
+    private void IconLogOutMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_IconLogOutMenuSelected
+        InicioSesion a = new InicioSesion();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_IconLogOutMenuSelected
 
     /**
      * @param args the command line arguments

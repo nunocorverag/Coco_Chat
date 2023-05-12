@@ -70,7 +70,7 @@ public class ListaGruposSalir extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        CrearGrupoButton = new javax.swing.JButton();
+        SalirGrupoButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaGrupos = new javax.swing.JList<>();
@@ -80,20 +80,20 @@ public class ListaGruposSalir extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        CrearGrupoButton.setText("Eliminar grupo");
-        CrearGrupoButton.addActionListener(new java.awt.event.ActionListener() {
+        SalirGrupoButton.setText("Salir del grupo");
+        SalirGrupoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CrearGrupoButtonActionPerformed(evt);
+                SalirGrupoButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        getContentPane().add(CrearGrupoButton, gridBagConstraints);
+        getContentPane().add(SalirGrupoButton, gridBagConstraints);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jLabel2.setText("Grupos creados");
+        jLabel2.setText(" Grupos");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -192,11 +192,11 @@ public class ListaGruposSalir extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenu2MenuSelected
 
-    private void CrearGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearGrupoButtonActionPerformed
+    private void SalirGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirGrupoButtonActionPerformed
         Grupos a = new Grupos();
         a.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_CrearGrupoButtonActionPerformed
+    }//GEN-LAST:event_SalirGrupoButtonActionPerformed
 
     private void ListaGruposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaGruposMouseClicked
 
@@ -269,8 +269,8 @@ public class ListaGruposSalir extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CrearGrupoButton;
     private javax.swing.JList<String> ListaGrupos;
+    private javax.swing.JButton SalirGrupoButton;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
