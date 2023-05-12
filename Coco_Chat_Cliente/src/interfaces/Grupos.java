@@ -370,15 +370,11 @@ public class Grupos extends javax.swing.JFrame {
     }//GEN-LAST:event_InvitarGrupoButtonActionPerformed
 
     private void EliminarGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarGrupoButtonActionPerformed
-        ListaGruposEliminar a = new ListaGruposEliminar();
-        a.setVisible(true);
-        this.setVisible(false);
+
     }//GEN-LAST:event_EliminarGrupoButtonActionPerformed
 
     private void SalirGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirGrupoButtonActionPerformed
-        ListaGruposSalir a = new ListaGruposSalir();
-        a.setVisible(true);
-        this.setVisible(false);
+
     }//GEN-LAST:event_SalirGrupoButtonActionPerformed
 
     private void IconLogOutMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_IconLogOutMenuSelected
