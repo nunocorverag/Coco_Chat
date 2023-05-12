@@ -61,28 +61,30 @@ public class CrearGrupo extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jButton1 = new javax.swing.JButton();
+        CrearGrupoButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        Usuario = new javax.swing.JCheckBox();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ListaUsuarios = new javax.swing.JList<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setText("Crear grupo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CrearGrupoButton.setText("Crear grupo");
+        CrearGrupoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CrearGrupoButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        getContentPane().add(jButton1, gridBagConstraints);
+        getContentPane().add(CrearGrupoButton, gridBagConstraints);
 
         jTextArea1.setColumns(10);
         jTextArea1.setRows(1);
@@ -101,18 +103,36 @@ public class CrearGrupo extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        Usuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        Usuario.setText("Usuario");
-        Usuario.setMargin(new java.awt.Insets(5, 5, 5, 5));
-        Usuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UsuarioActionPerformed(evt);
-            }
-        });
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jLabel2.setText("Usuarios");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        getContentPane().add(Usuario, gridBagConstraints);
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.weighty = 0.05;
+        getContentPane().add(jLabel2, gridBagConstraints);
+
+        ListaUsuarios.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        ListaUsuarios.setModel(new javax.swing.AbstractListModel<modeloLista>() {
+            /*public int getSize() { return usuariosOn.length; }
+            public String getElementAt(int i) { return usuariosOn[i]; }
+        });
+        */
+        ListaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ListaUsuariosMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(ListaUsuarios);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(jScrollPane2, gridBagConstraints);
 
         jMenuBar1.setToolTipText("k");
         jMenuBar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -145,7 +165,7 @@ public class CrearGrupo extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenu2MenuSelected
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CrearGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearGrupoButtonActionPerformed
         // TODO add your handling code here:
         Socket s;
         String creadorGrupo = SessionManager.getUsername();
@@ -158,11 +178,12 @@ public class CrearGrupo extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(CrearGrupo.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CrearGrupoButtonActionPerformed
 
-    private void UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioActionPerformed
+    private void ListaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosMouseClicked
+        String nombreSeleccionado = ListaUsuarios.getSelectedValue();
+        
+    }//GEN-LAST:event_ListaUsuariosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -203,12 +224,14 @@ public class CrearGrupo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox Usuario;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton CrearGrupoButton;
+    private javax.swing.JList<String> ListaUsuarios;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
