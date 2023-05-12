@@ -11,24 +11,24 @@ import java.util.Date;
  *
  * @author gnuno
  */
-public class RespuestaMensajesUsuario implements Serializable {
-    public Date fecha_mensaje_usuario;
-    public String mensaje_usuario;
+public class RespuestaMensajesAmigo implements Serializable {
+    public Date fecha_mensaje_amigo;
+    public String mensaje_amigo;
     public String username_remitente;
     public String username_destinatario;
     
-    public RespuestaMensajesUsuario()
+    public RespuestaMensajesAmigo()
     {
-        this.fecha_mensaje_usuario = new Date();
-        this.mensaje_usuario = "";
+        this.fecha_mensaje_amigo = new Date();
+        this.mensaje_amigo = "";
         this.username_remitente = "";
         this.username_destinatario = "";
     }
     
-    public RespuestaMensajesUsuario(Date fecha_mensaje_usuario, String mensaje_usuario, String username_remitente, String username_destinatario)
+    public RespuestaMensajesAmigo(Date fecha_mensaje_amigo, String mensaje_amigo, String username_remitente, String username_destinatario)
     {
-        this.fecha_mensaje_usuario = fecha_mensaje_usuario;
-        this.mensaje_usuario = mensaje_usuario;
+        this.fecha_mensaje_amigo = fecha_mensaje_amigo;
+        this.mensaje_amigo = mensaje_amigo;
         this.username_remitente = username_remitente;
         this.username_destinatario = username_destinatario;
     }
