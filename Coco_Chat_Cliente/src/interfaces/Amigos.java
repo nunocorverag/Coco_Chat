@@ -207,6 +207,15 @@ public class Amigos extends javax.swing.JFrame {
         jMenuBar1.add(GruposMenu);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/invitacion.png"))); // NOI18N
+        jMenu2.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu2MenuSelected(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
@@ -339,6 +348,12 @@ public class Amigos extends javax.swing.JFrame {
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_AgregarAmigosButton2ActionPerformed
+
+    private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
+        VerInvitacionesGrupos a = new VerInvitacionesGrupos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenu2MenuSelected
 
     /**
      * @param args the command line arguments

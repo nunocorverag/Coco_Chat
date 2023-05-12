@@ -77,6 +77,7 @@ public class Grupos extends javax.swing.JFrame {
         UsuariosMenu = new javax.swing.JMenu();
         AmigosMenu = new javax.swing.JMenu();
         GruposMenu = new javax.swing.JMenu();
+        VerInvitaciones = new javax.swing.JMenu();
         IconLogOut = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -185,6 +186,18 @@ public class Grupos extends javax.swing.JFrame {
         });
         jMenuBar1.add(GruposMenu);
 
+        VerInvitaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/invitacion.png"))); // NOI18N
+        VerInvitaciones.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                VerInvitacionesMenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(VerInvitaciones);
+
         IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
 
         jMenuBar1.add(createHorizontalGlue());
@@ -237,6 +250,21 @@ public class Grupos extends javax.swing.JFrame {
         }
     }
     
+    public class ListaChatsAbiertos {
+        private ArrayList<String> nombres;
+
+        public ListaChatsAbiertos() {
+            nombres = new ArrayList<String>();
+        }
+
+        public ArrayList<String> obtenerNombres()
+        {
+            return nombres;
+        }
+    }
+
+    private ListaChatsAbiertos listaChatsAbiertos = new ListaChatsAbiertos();
+    
     private void UsuariosMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_UsuariosMenuMenuSelected
         Usuarios a = new Usuarios();
         a.setVisible(true);
@@ -257,24 +285,33 @@ public class Grupos extends javax.swing.JFrame {
 
     private void ListaGruposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaGruposMouseClicked
         String nombreSeleccionado = ListaGrupos.getSelectedValue();
-        if (windowopen == false)
-        {
-            Chat a = new Chat();
-            a.setTitle(nombreSeleccionado);
-            int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
-            int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight()-30;
-            a.setLocation(posX, posY);
-            
-            windowopen = true;
-            a.addWindowListener(new java.awt.event.WindowAdapter() 
-            {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent windowEvent) 
-                {
+        String listaPro = ListaGrupos.getSelectedValue();
+
+        Chat a = new Chat();
+
+        if (listaChatsAbiertos.obtenerNombres().contains(nombreSeleccionado)) {
+            System.out.println("tienen en mismo nombre");
             windowopen = false;
-                }
-            });
-            a.setVisible(true);
+        } else {
+            System.out.println("tienen el nombre diferente");
+            System.out.println(listaChatsAbiertos.obtenerNombres());
+            listaChatsAbiertos.obtenerNombres().add(listaPro);
+            System.out.println(nombreSeleccionado);
+            if (windowopen = true) {
+                a.setTitle(nombreSeleccionado);
+                int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
+                int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight() - 30;
+                a.setLocation(posX, posY);
+
+                windowopen = true;
+                a.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                        windowopen = false;
+                    }
+                });
+                a.setVisible(true);
+            }
         }
     }//GEN-LAST:event_ListaGruposMouseClicked
 
@@ -283,6 +320,12 @@ public class Grupos extends javax.swing.JFrame {
          a.setVisible(true);
          this.setVisible(false);
     }//GEN-LAST:event_CreatedGroupButtonActionPerformed
+
+    private void VerInvitacionesMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_VerInvitacionesMenuSelected
+        VerInvitacionesGrupos a = new VerInvitacionesGrupos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_VerInvitacionesMenuSelected
 
     /**
      * @param args the command line arguments
@@ -329,6 +372,7 @@ public class Grupos extends javax.swing.JFrame {
     private javax.swing.JMenu IconLogOut;
     private javax.swing.JList<String> ListaGrupos;
     private javax.swing.JMenu UsuariosMenu;
+    private javax.swing.JMenu VerInvitaciones;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JMenu jMenu3;
