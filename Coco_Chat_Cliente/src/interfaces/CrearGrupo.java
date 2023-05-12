@@ -15,8 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+<<<<<<< HEAD
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
+=======
+import javax.swing.JOptionPane;
+>>>>>>> b92b5dea94e13ec82cc1195345b875a9adbf9436
 import returned_models.SolicitudCrearGrupo;
 import user_session.SessionManager;
 
@@ -57,6 +61,11 @@ public class CrearGrupo extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         CrearGrupoButton.setText("Crear grupo");
+        CrearGrupoButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CrearGrupoButtonMouseClicked(evt);
+            }
+        });
         CrearGrupoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CrearGrupoButtonActionPerformed(evt);
@@ -197,6 +206,7 @@ public class CrearGrupo extends javax.swing.JFrame {
 
     private void CrearGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearGrupoButtonActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD
         Socket s;
         String creadorGrupo = SessionManager.getUsername();
         
@@ -236,12 +246,36 @@ public class CrearGrupo extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(CrearGrupo.class.getName()).log(Level.SEVERE, null, ex);
         }
+=======
+        
+>>>>>>> b92b5dea94e13ec82cc1195345b875a9adbf9436
     }//GEN-LAST:event_CrearGrupoButtonActionPerformed
 
     private void ListaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosMouseClicked
-        String nombreSeleccionado = ListaUsuarios.getSelectedValue();
+        int[] indicesSeleccionados = ListaUsuarios.getSelectedIndices();
+        
+        if(indicesSeleccionados.length >= 3){
+            Socket s;
+            String creadorGrupo = SessionManager.getUsername();
+            try {
+                String direccionServidor = "10.147.17.147";
+                InetAddress direccion = InetAddress.getByName(direccionServidor);
+                s = new Socket(direccion, 1234);
+
+                SolicitudCrearGrupo crearGrupo = new SolicitudCrearGrupo(creadorGrupo, jTextArea1.getText(), ListaUsuariosInvitacion);
+            } catch (IOException ex) {
+                Logger.getLogger(CrearGrupo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar al menos tres usuarios.");
+        }
+        
         
     }//GEN-LAST:event_ListaUsuariosMouseClicked
+
+    private void CrearGrupoButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CrearGrupoButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CrearGrupoButtonMouseClicked
 
     /**
      * @param args the command line arguments
