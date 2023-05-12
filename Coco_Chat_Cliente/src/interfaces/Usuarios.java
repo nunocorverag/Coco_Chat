@@ -378,7 +378,8 @@ public class Usuarios extends javax.swing.JFrame {
     private void ListaUsuariosConectadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaUsuariosConectadosMouseClicked
        String nombreSeleccionado = ListaUsuariosConectados.getSelectedValue();
         String listaPro = ListaUsuariosConectados.getSelectedValue();
-
+        String nombreAmigo = ListaUsuariosConectados.getSelectedValue();
+        
         Chat a = new Chat(nombreSeleccionado, "Usuarios");
 
         if (listaChatsAbiertos.obtenerNombres().contains(nombreSeleccionado)) {
@@ -400,6 +401,7 @@ public class Usuarios extends javax.swing.JFrame {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                         windowopen = false;
+                        listaChatsAbiertos.obtenerNombres().remove(nombreAmigo);
                     }
                 });
                 a.setVisible(true);
