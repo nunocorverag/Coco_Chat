@@ -21,6 +21,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import returned_models.InfoInvitacionGrupo;
 import returned_models.InfoSolicitudAmistad;
+import returned_models.SolicitarUsuariosNoMiembros;
 import user_session.SessionManager;
 
 /**
@@ -28,11 +29,17 @@ import user_session.SessionManager;
  * @author Nancy
  */
 public class InvitarUsuarios extends javax.swing.JFrame {
-
+    public String NombreGrupo;
     /**
      * Creates new form AgregarAmigos
      */
-    public InvitarUsuarios() {
+    
+    public InvitarUsuarios()
+    {
+        
+    }
+    public InvitarUsuarios(String NombreGrupo) {
+        this.NombreGrupo = NombreGrupo;
         initComponents();
         this.setLocationRelativeTo(null);
         this.addWindowListener(new WindowAdapter()
@@ -88,13 +95,13 @@ public class InvitarUsuarios extends javax.swing.JFrame {
         getContentPane().add(jLabel1, gridBagConstraints);
 
         ListaUsuarios.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        ListaAmigos AmigosList = new ListaAmigos();
-        ArrayList<Usuario> Amigos = AmigosList.obtenerAmigos();
+        ListaNoMiembros userList = new ListaNoMiembros();
+        ArrayList<Usuario> UsuariosInvitados = userList.obtenerNoMiembros();
 
         DefaultListModel<String> modeloLista = new DefaultListModel<>();
-        for(Usuario amigo: Amigos)
+        for(Usuario user: UsuariosInvitados)
         {
-            modeloLista.addElement(amigo.username);
+            modeloLista.addElement(user.username);
         }
         ListaUsuarios.setModel(modeloLista);
         ListaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -145,12 +152,12 @@ public class InvitarUsuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    public class ListaAmigos{
-        private ArrayList<Usuario> Amigos;
+    public class ListaNoMiembros{
+        private ArrayList<Usuario> NoMiembros;
         
-        public ListaAmigos()
+        public ListaNoMiembros()
         {
-            this.Amigos = new ArrayList<Usuario>();
+            this.NoMiembros = new ArrayList<Usuario>();
             
             Socket s;
             try {
@@ -162,19 +169,23 @@ public class InvitarUsuarios extends javax.swing.JFrame {
                     funcion.writeUTF("mostrar_no_miembros");
                     
                     String UserLogged = SessionManager.getUsername();
-                    DataOutputStream mandarUsername = new DataOutputStream(s.getOutputStream());
-                    mandarUsername.writeUTF(UserLogged);
+                    
+                    SolicitarUsuariosNoMiembros soli = new SolicitarUsuariosNoMiembros(UserLogged, NombreGrupo);
+                    
+                    ObjectOutputStream mandarSoli = new ObjectOutputStream(s.getOutputStream());
+                    mandarSoli.writeObject(soli);
                     
                     System.out.println("Se mando el user: " + UserLogged);
+                    System.out.println("Se mando el nombre: " + NombreGrupo);
                     
-                    ObjectInputStream AmigosObject = new ObjectInputStream(s.getInputStream());
+                    ObjectInputStream NoMiembrosObject = new ObjectInputStream(s.getInputStream());
                     
                     try {
-                        ArrayList<Usuario> Amigos = (ArrayList<Usuario>)AmigosObject.readObject();
+                        ArrayList<Usuario> NM= (ArrayList<Usuario>)NoMiembrosObject.readObject();
                         s.close();
-                        for(Usuario user: Amigos)
+                        for(Usuario user: NM)
                         {
-                            this.Amigos.add(user);
+                            this.NoMiembros.add(user);
                         }
                   
                     } catch (ClassNotFoundException ex) {
@@ -187,9 +198,9 @@ public class InvitarUsuarios extends javax.swing.JFrame {
             }
         }
         
-        public ArrayList<Usuario> obtenerAmigos()
+        public ArrayList<Usuario> obtenerNoMiembros()
         {
-            return this.Amigos;
+            return this.NoMiembros;
         }
     }
     private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
@@ -218,7 +229,7 @@ public class InvitarUsuarios extends javax.swing.JFrame {
             s = new Socket(direccion, 1234);
             
             DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
-            funcion.writeUTF("enviar_solicitud_amistad");
+            funcion.writeUTF("enviar_invitacion_grupo");
             
             ArrayList<InfoInvitacionGrupo> infoSolicitudes = new ArrayList<InfoInvitacionGrupo>();
             InfoInvitacionGrupo soli;
@@ -228,10 +239,10 @@ public class InvitarUsuarios extends javax.swing.JFrame {
                soli.remitente_invitacion_grupo = userLogged;
                soli.destinatario_invitacion_grupo = selectedUser;
                //TODO AGREGAR GRUPO
-               soli.grupo_invitado = grupo;
+               soli.grupo_invitado = this.NombreGrupo;
                infoSolicitudes.add(soli);
                System.out.println("Se envio invitacion a: "+selectedUser);
-               System.out.println("El grupo seleccionado fue: "+ grupo);
+               System.out.println("El grupo seleccionado fue: "+ this.NombreGrupo);
 
             }
 
