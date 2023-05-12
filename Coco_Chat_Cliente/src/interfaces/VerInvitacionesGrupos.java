@@ -30,11 +30,12 @@ public class VerInvitacionesGrupos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaUsuarios = new javax.swing.JList<>();
+        DenegarInvitacionGrupoButton = new javax.swing.JButton();
+        AceptarInvitacionGrupoButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         UsuariosMenu = new javax.swing.JMenu();
         AmigosMenu = new javax.swing.JMenu();
         GruposMenu = new javax.swing.JMenu();
-        VerInvitaciones = new javax.swing.JMenu();
         IconLogOut = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,6 +67,32 @@ public class VerInvitacionesGrupos extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(jScrollPane1, gridBagConstraints);
+
+        DenegarInvitacionGrupoButton.setText("Denegar");
+        DenegarInvitacionGrupoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DenegarInvitacionGrupoButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 60);
+        getContentPane().add(DenegarInvitacionGrupoButton, gridBagConstraints);
+
+        AceptarInvitacionGrupoButton.setText("Aceptar");
+        AceptarInvitacionGrupoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AceptarInvitacionGrupoButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 58, 0, 0);
+        getContentPane().add(AceptarInvitacionGrupoButton, gridBagConstraints);
 
         UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
         UsuariosMenu.setText("Usuarios");
@@ -118,18 +145,6 @@ public class VerInvitacionesGrupos extends javax.swing.JFrame {
         });
         jMenuBar1.add(GruposMenu);
 
-        VerInvitaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/invitacion.png"))); // NOI18N
-        VerInvitaciones.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                VerInvitacionesMenuSelected(evt);
-            }
-        });
-        jMenuBar1.add(VerInvitaciones);
-
         IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
         IconLogOut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         IconLogOut.addMenuListener(new javax.swing.event.MenuListener() {
@@ -174,15 +189,21 @@ public class VerInvitacionesGrupos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_GruposMenuMenuSelected
 
-    private void VerInvitacionesMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_VerInvitacionesMenuSelected
-        VerInvitacionesGrupos a = new VerInvitacionesGrupos();
-        a.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_VerInvitacionesMenuSelected
-
     private void IconLogOutMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_IconLogOutMenuSelected
         // aqui debe ponerse el codigo de que cierra sesion
     }//GEN-LAST:event_IconLogOutMenuSelected
+
+    private void AceptarInvitacionGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarInvitacionGrupoButtonActionPerformed
+        Grupos a = new Grupos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_AceptarInvitacionGrupoButtonActionPerformed
+
+    private void DenegarInvitacionGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DenegarInvitacionGrupoButtonActionPerformed
+        Grupos a = new Grupos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_DenegarInvitacionGrupoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,12 +256,13 @@ public class VerInvitacionesGrupos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AceptarInvitacionGrupoButton;
     private javax.swing.JMenu AmigosMenu;
+    private javax.swing.JButton DenegarInvitacionGrupoButton;
     private javax.swing.JMenu GruposMenu;
     private javax.swing.JMenu IconLogOut;
     private javax.swing.JList<String> ListaUsuarios;
     private javax.swing.JMenu UsuariosMenu;
-    private javax.swing.JMenu VerInvitaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
