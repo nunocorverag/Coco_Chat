@@ -350,10 +350,9 @@ public class Grupos extends javax.swing.JFrame {
     }//GEN-LAST:event_InvitacionesGruposButtonActionPerformed
 
     private void InvitarGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InvitarGrupoButtonActionPerformed
-        String nombreSeleccionado = ListaGrupos.getSelectedValue();
-        InvitarUsuarios a = new InvitarUsuarios(nombreSeleccionado);
-        a.setVisible(true);
-        this.setVisible(false);
+        ListaGruposInvitar a = new ListaGruposInvitar();
+         a.setVisible(true);
+         this.setVisible(false);
     }//GEN-LAST:event_InvitarGrupoButtonActionPerformed
 
     private void EliminarGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarGrupoButtonActionPerformed

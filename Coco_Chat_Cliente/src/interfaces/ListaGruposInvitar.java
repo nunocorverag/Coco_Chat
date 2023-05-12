@@ -4,6 +4,7 @@
  */
 package interfaces;
 
+import db_conection_package.Grupo;
 import db_conection_package.Usuario;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -102,6 +103,14 @@ public class ListaGruposInvitar extends javax.swing.JFrame {
         getContentPane().add(jLabel2, gridBagConstraints);
 
         ListaGrupos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        GruposDueno ListaGroups = new GruposDueno();
+        ArrayList<Grupo> gruposProp = ListaGroups.obtenerGrupos();
+
+        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+        for(Grupo g: gruposProp)
+        {
+            modeloLista.addElement(g.nombre_grupo);
+        }
         ListaGrupos.setModel(modeloLista);
         ListaGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -141,11 +150,11 @@ public class ListaGruposInvitar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public class UsuariosInvitados{
-        private ArrayList<Usuario> ListaUsuariosGrupo;
+    public class GruposDueno{
+        private ArrayList<Grupo> ListaGrupos;
         
-        public UsuariosInvitados(){
-            this.ListaUsuariosGrupo = new ArrayList<Usuario>();
+        public GruposDueno(){
+            this.ListaGrupos = new ArrayList<Grupo>();
             Socket s;
         
             try {
@@ -153,23 +162,23 @@ public class ListaGruposInvitar extends javax.swing.JFrame {
                 InetAddress direccion = InetAddress.getByName(direccionServidor);
                 s = new Socket(direccion, 1234);
                 DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
-                funcion.writeUTF("cargar_usuarios_crear_grupo");
+                funcion.writeUTF("mostrar_grupos_propietario");
 
                 String UserLogged = SessionManager.getUsername();
                 System.out.println(UserLogged);
 
                 DataOutputStream mandarUsername = new DataOutputStream(s.getOutputStream());
                 mandarUsername.writeUTF(UserLogged);
-                System.out.println("Se mando el userLogged");
+                System.out.println("Se mando el userLogged: " + UserLogged);
 
-                ObjectInputStream usuarios = new ObjectInputStream(s.getInputStream());
+                ObjectInputStream grupos = new ObjectInputStream(s.getInputStream());
 
                 try {
-                    ArrayList<Usuario>ListaUsuario = (ArrayList<Usuario>)usuarios.readObject();
+                    ArrayList<Grupo>ListaGrupo = (ArrayList<Grupo>)grupos.readObject();
 
-                    for(Usuario user : ListaUsuario)
+                    for(Grupo group : ListaGrupo)
                     {
-                        this.ListaUsuariosGrupo.add(user);
+                        this.ListaGrupos.add(group);
                     }
 
                 } catch (ClassNotFoundException ex) {
@@ -180,8 +189,8 @@ public class ListaGruposInvitar extends javax.swing.JFrame {
             }
         }
         
-        public ArrayList<Usuario> getUsuariosInvitados(){
-            return this.ListaUsuariosGrupo;
+        public ArrayList<Grupo> obtenerGrupos(){
+            return this.ListaGrupos;
         }
     }
 
@@ -193,7 +202,9 @@ public class ListaGruposInvitar extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2MenuSelected
 
     private void CrearGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearGrupoButtonActionPerformed
-        InvitarUsuarios a = new InvitarUsuarios();
+        String nombreSeleccionado = ListaGrupos.getSelectedValue();
+
+        InvitarUsuarios a = new InvitarUsuarios(nombreSeleccionado);
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_CrearGrupoButtonActionPerformed
