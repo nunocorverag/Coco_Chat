@@ -227,6 +227,15 @@ public class Usuarios extends javax.swing.JFrame {
         jMenuBar1.add(GruposMenu);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/invitacion.png"))); // NOI18N
+        jMenu1.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu1MenuSelected(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
@@ -418,6 +427,12 @@ public class Usuarios extends javax.swing.JFrame {
     private void IconLogOutMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_IconLogOutMenuSelected
         // aqui debe ponerse el codigo de que cierra sesion
     }//GEN-LAST:event_IconLogOutMenuSelected
+
+    private void jMenu1MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu1MenuSelected
+        VerInvitacionesGrupos a = new VerInvitacionesGrupos();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenu1MenuSelected
 
     /**
      * @param args the command line arguments

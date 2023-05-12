@@ -110,6 +110,9 @@
               <Image iconType="3" name="/iconos/invitacion.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="menuSelected" listener="javax.swing.event.MenuListener" parameters="javax.swing.event.MenuEvent" handler="jMenu1MenuSelected"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="IconLogOut">
           <Properties>
