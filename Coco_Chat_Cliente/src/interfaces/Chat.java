@@ -107,8 +107,8 @@ public class Chat extends javax.swing.JFrame {
         CampoChat = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(379, 494));
-        setPreferredSize(new java.awt.Dimension(379, 494));
+        setMinimumSize(new java.awt.Dimension(226, 380));
+        setPreferredSize(new java.awt.Dimension(226, 380));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         EnviarMsgButton.setText("Enviar");
