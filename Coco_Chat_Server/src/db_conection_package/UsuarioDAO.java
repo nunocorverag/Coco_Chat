@@ -19,53 +19,62 @@ public class UsuarioDAO extends Db_Conection{
         super();
     }
     
-    public boolean RegistrarUsuario(Usuario usuario) 
-    {
-        try
-        {
-        PreparedStatement ps = getConnection().prepareStatement("INSERT INTO usuario (nombre, username, password, correo, pregunta_respaldo, estado) values (?,?,?,?,?,?)");
-        
-        ps.setString(1, usuario.nombre);
-        ps.setString(2, usuario.username);
-        ps.setString(3, usuario.password);
-        ps.setString(4, usuario.correo);
-        ps.setString(5, usuario.pregunta_respaldo);
-        ps.setInt(6, usuario.estado);
-        
-        return ps.executeUpdate()>0;
-        } 
-        catch(SQLException ex)
-        {
+    public boolean RegistrarUsuario(Usuario usuario) {
+        PreparedStatement ps = null;
+        try {
+            ps = getConnection().prepareStatement("INSERT INTO usuario (nombre, username, password, correo, pregunta_respaldo, estado) values (?,?,?,?,?,?)");
+
+            ps.setString(1, usuario.nombre);
+            ps.setString(2, usuario.username);
+            ps.setString(3, usuario.password);
+            ps.setString(4, usuario.correo);
+            ps.setString(5, usuario.pregunta_respaldo);
+            ps.setInt(6, usuario.estado);
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                // Manejar la excepción de cierre
+            }
         }
         return false;
     }
     
-    public boolean IniciarSesion(String username, String password)
-    {
-        try 
-        {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM usuario WHERE username=? AND password=?");
+    public boolean IniciarSesion(String username, String password) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = getConnection().prepareStatement("SELECT * FROM usuario WHERE username=? AND password=?");
             ps.setString(1, username);
             ps.setString(2, password);
-            ResultSet rs = ps.executeQuery(); 
-            
+            rs = ps.executeQuery(); 
+
             //Si las credenciales son correctas
-            if(rs.next())
-            {
-                //Aqui necesitamos poner esta variable global o en algun cache para guardarla
-                int id_usuario = rs.getInt("id_usuario");
+            if(rs.next()) {
                 return true;
-            }
-            //Si las credenciales son incorrectas
-            else
-            {
+            } else {
+                //Si las credenciales son incorrectas
                 return false;
             }          
-        }
-        catch(SQLException es)
-        {
+        } catch(SQLException es) {
             System.out.println(es.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                // Manejar la excepción de cierre
+            }
         }
         return false;
     }
@@ -78,15 +87,19 @@ public class UsuarioDAO extends Db_Conection{
             ps.setString(1, username);
             ps.setString(2, respuesta);
             ResultSet rs = ps.executeQuery(); 
-            
+
             //Si las credenciales son correctas
             if(rs.next())
             {
+                rs.close();
+                ps.close();
                 return true;
             }
             //Si las credenciales son incorrectas
             else
             {
+                rs.close();
+                ps.close();
                 return false;
             }          
         }
@@ -96,6 +109,7 @@ public class UsuarioDAO extends Db_Conection{
         }
         return false;
     }
+    
     public boolean CambiarContrasena(String username, String password)
     {
         int res = 0;
@@ -109,6 +123,8 @@ public class UsuarioDAO extends Db_Conection{
             ps.setString(2, username);
             
             res = ps.executeUpdate();
+            ps.close(); // Cerrar el PreparedStatement
+            getConnection().close(); // Cerrar la conexión
         }
         catch (SQLException ex)
         {
@@ -123,19 +139,22 @@ public class UsuarioDAO extends Db_Conection{
             PreparedStatement ps = getConnection().prepareStatement("SELECT username FROM usuario WHERE id_usuario=?");
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
-            
+
             if(rs.next())
             {
                 String username = rs.getString("username");
+                ps.close();
+                rs.close();
                 return username;
             }
+            ps.close();
+            rs.close();
         } 
         catch (SQLException ex) 
         {
             System.out.println(ex.getMessage());
         }
         return null;
-        
     }
     
     public String obtenerNombreUsuario(int id)
@@ -144,11 +163,17 @@ public class UsuarioDAO extends Db_Conection{
             PreparedStatement ps = getConnection().prepareStatement("SELECT nombre FROM usuario WHERE id_usuario=?");
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
-            
+
             if(rs.next())
             {
                 String nombre = rs.getString("nombre");
+                rs.close(); // Cerrar ResultSet
+                ps.close(); // Cerrar PreparedStatement
                 return nombre;
+            }
+            else {
+                rs.close(); // Cerrar ResultSet
+                ps.close(); // Cerrar PreparedStatement
             }
         } 
         catch (SQLException ex) 
@@ -156,7 +181,6 @@ public class UsuarioDAO extends Db_Conection{
             System.out.println(ex.getMessage());
         }
         return null;
-        
     }
     
     public int ObtenerIDUsuario(String username)
@@ -166,14 +190,20 @@ public class UsuarioDAO extends Db_Conection{
             PreparedStatement ps =  getConnection().prepareStatement("SELECT id_usuario FROM usuario WHERE username=?");
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery(); 
-            
+
             //Si las credenciales son correctas
             if(rs.next())
             {
                 //Aqui necesitamos poner esta variable global o en algun cache para guardarla
                 int id_usuario = rs.getInt("id_usuario");
+                rs.close(); // Cerrar ResultSet
+                ps.close(); // Cerrar PreparedStatement
                 return id_usuario;
             }  
+            else {
+                rs.close(); // Cerrar ResultSet
+                ps.close(); // Cerrar PreparedStatement
+            }
         }
         catch(SQLException es)
         {
@@ -185,13 +215,15 @@ public class UsuarioDAO extends Db_Conection{
     public ArrayList<Usuario> obtenerUsuarios(String username)
     {
         ArrayList<Usuario> listaUsuarios = new ArrayList();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
         try 
         {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM usuario WHERE username <> ?");
+            ps = getConnection().prepareStatement("SELECT * FROM usuario WHERE username <> ?");
             ps.setString(1, username);
-            ResultSet rs;
-            Usuario usuario;
             rs = ps.executeQuery(); 
+            Usuario usuario;
 
             while (rs.next())
             {
@@ -206,22 +238,44 @@ public class UsuarioDAO extends Db_Conection{
         {
             System.out.println(es.getMessage());
         }
+        finally
+        {
+            // Cerrar ResultSet
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    // Manejo de excepciones
+                }
+            }
+
+            // Cerrar PreparedStatement
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    // Manejo de excepciones
+                }
+            }
+        }
         return listaUsuarios;
     }
     
     public ArrayList<Usuario> obtenerAmigos(int usuario)
     {
         ArrayList<Usuario> listaAmigos = new ArrayList();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
         try 
         {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM amistad where (amigo1 = ? OR amigo2 = ?)");
+            ps = getConnection().prepareStatement("SELECT * FROM amistad where (amigo1 = ? OR amigo2 = ?)");
             ps.setInt(1, usuario);
             ps.setInt(2, usuario);
 
-            ResultSet rs;
             Amistad infoAmistad;
             rs = ps.executeQuery(); 
-                        
+
             while (rs.next())
             {
                 infoAmistad = new Amistad();
@@ -251,26 +305,46 @@ public class UsuarioDAO extends Db_Conection{
         {
             System.out.println(es.getMessage());
         }
+        finally
+        {
+            // Cerrar ResultSet
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    // Manejo de excepciones
+                }
+            }
+
+            // Cerrar PreparedStatement
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    // Manejo de excepciones
+                }
+            }
+        }
         return listaAmigos;
     }
     
     public ArrayList<Usuario> obtenerNoAmigos(int usuario)
     {
         ArrayList<Usuario> listaNoAmigos = new ArrayList();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try 
         {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM usuario WHERE id_usuario <> ? AND id_usuario NOT IN (SELECT amigo2 FROM amistad WHERE amigo1 = ? UNION SELECT amigo1 FROM amistad WHERE amigo2 = ?)");
+            ps = getConnection().prepareStatement("SELECT * FROM usuario WHERE id_usuario <> ? AND id_usuario NOT IN (SELECT amigo2 FROM amistad WHERE amigo1 = ? UNION SELECT amigo1 FROM amistad WHERE amigo2 = ?)");
             ps.setInt(1, usuario);
             ps.setInt(2, usuario);
             ps.setInt(3, usuario);
 
-            ResultSet rs;
-            Usuario infoNoAmigo;
             rs = ps.executeQuery(); 
 
             while (rs.next())
             {
-                infoNoAmigo = new Usuario();
+                Usuario infoNoAmigo = new Usuario();
                 infoNoAmigo.nombre = rs.getString("nombre");
                 infoNoAmigo.username = rs.getString("username");
                 listaNoAmigos.add(infoNoAmigo);
@@ -279,6 +353,18 @@ public class UsuarioDAO extends Db_Conection{
         catch(SQLException es)
         {
             System.out.println(es.getMessage());
+        }
+        finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         return listaNoAmigos;
     }
@@ -295,7 +381,7 @@ public class UsuarioDAO extends Db_Conection{
             ResultSet rs2;
             Grupo infoGrupo;
             rs = ps.executeQuery(); 
-                        
+
             while (rs.next()) {
                 int ID_grupo = rs.getInt("grupo");
                 PreparedStatement ps2 = getConnection().prepareStatement("SELECT * FROM grupo where id_grupo = ?");
@@ -315,6 +401,14 @@ public class UsuarioDAO extends Db_Conection{
                 } catch (SQLException e) {
                 }
             }       
+            try {
+                rs.close();
+            } catch (SQLException e) {
+            }
+            try {
+                ps.close();
+            } catch (SQLException e) {
+            }
         }
         catch(SQLException es)
         {
@@ -328,19 +422,16 @@ public class UsuarioDAO extends Db_Conection{
         int res = 0;
         try 
         {
-            PreparedStatement ps = getConnection()
-                                .prepareStatement
-                                ("UPDATE usuario SET estado = 1 WHERE username = ?");
-            
+            PreparedStatement ps = getConnection().prepareStatement("UPDATE usuario SET estado = 1 WHERE username = ?");
             ps.setString(1, username);
-            
             res = ps.executeUpdate();
+            ps.close(); // Close the PreparedStatement object
         }
         catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
         }
-        return res>0;
+        return res > 0;
     }
    
     public boolean DesconectarUsuario(String username)
@@ -351,10 +442,12 @@ public class UsuarioDAO extends Db_Conection{
             PreparedStatement ps = getConnection()
                                 .prepareStatement
                                 ("UPDATE usuario SET estado = 0 WHERE username = ?");
-            
+
             ps.setString(1, username);
-            
+
             res = ps.executeUpdate();
+
+            ps.close();
         }
         catch (SQLException ex)
         {
@@ -374,17 +467,20 @@ public class UsuarioDAO extends Db_Conection{
             ResultSet rs;
             InfoSolicitudAmistad infoSolicitudAmistad;
             rs = ps.executeQuery(); 
-            
+
             String username_destinatario = obtenerUsernameUsuario(usuario);
-                        
+
             while (rs.next())
             {
                 infoSolicitudAmistad = new InfoSolicitudAmistad();
                 String username_remitente = obtenerUsernameUsuario(rs.getInt("remitente_solicitud_amistad"));
                 infoSolicitudAmistad.remitente_solicitud_amistad = username_remitente;
-                infoSolicitudAmistad.remitente_solicitud_amistad = username_destinatario;
+                infoSolicitudAmistad.destinatario_solicitud_amistad = username_destinatario;
                 listaSolicitudesAmistad.add(infoSolicitudAmistad);
-            }           
+            } 
+
+            rs.close();
+            ps.close();          
         }
         catch(SQLException es)
         {
@@ -398,16 +494,14 @@ public class UsuarioDAO extends Db_Conection{
         ArrayList<InfoInvitacionGrupo> listaInvitacionesGrupos = new ArrayList();
         try 
         {
-            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM invitacion_grupo where destinatario_invitacion_grupo = ?");
+            PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM invitacion_grupo where destinatario_invitacion_grupo = ?");
             ps.setInt(1, usuario);
 
-            ResultSet rs;
+            ResultSet rs = ps.executeQuery(); 
             InfoInvitacionGrupo infoInvitacionGrupo;
-            rs = ps.executeQuery(); 
-            
             String username_destinatario = obtenerUsernameUsuario(usuario);
             GruposDAO gruposDAO; 
-                        
+
             while (rs.next())
             {
                 infoInvitacionGrupo = new InfoInvitacionGrupo();
@@ -418,7 +512,9 @@ public class UsuarioDAO extends Db_Conection{
                 infoInvitacionGrupo.remitente_invitacion_grupo = username_remitente;
                 infoInvitacionGrupo.destinatario_invitacion_grupo = username_destinatario;
                 listaInvitacionesGrupos.add(infoInvitacionGrupo);
-            }           
+            }
+            rs.close();
+            ps.close();
         }
         catch(SQLException es)
         {
