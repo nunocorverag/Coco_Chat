@@ -79,7 +79,7 @@
       <SubComponents>
         <Component class="javax.swing.JList" name="ListaUsuarios">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="ListaAmigos AmigosList = new ListaAmigos();&#xa;ArrayList&lt;Usuario&gt; Amigos = AmigosList.obtenerAmigos();&#xa;&#xa;DefaultListModel&lt;String&gt; modeloLista = new DefaultListModel&lt;&gt;();&#xa;for(Usuario amigo: Amigos)&#xa;{&#xa;    modeloLista.addElement(amigo.username);&#xa;}">
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="ListaSolicitudes SoliList = new ListaSolicitudes();&#xa;ArrayList&lt;InfoSolicitudAmistad&gt; sol = SoliList.obtenerAmigos();&#xa;&#xa;DefaultListModel&lt;String&gt; modeloLista = new DefaultListModel&lt;&gt;();&#xa;for(InfoSolicitudAmistad amigo: sol)&#xa;{&#xa;    modeloLista.addElement(amigo.remitente_solicitud_amistad);&#xa;}">
               <Font name="Dialog" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
