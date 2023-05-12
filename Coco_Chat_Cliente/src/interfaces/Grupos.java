@@ -303,7 +303,7 @@ public class Grupos extends javax.swing.JFrame {
             listaChatsAbiertos.obtenerNombres().add(listaPro);
             System.out.println(nombreSeleccionado);
             if (windowopen = true) {
-                a.setTitle(nombreSeleccionado);
+                a.setTitle(nombreSeleccionado + " mensaje Grupo");
                 int posX = Toolkit.getDefaultToolkit().getScreenSize().width - a.getWidth();
                 int posY = Toolkit.getDefaultToolkit().getScreenSize().height - a.getHeight() - 30;
                 a.setLocation(posX, posY);
