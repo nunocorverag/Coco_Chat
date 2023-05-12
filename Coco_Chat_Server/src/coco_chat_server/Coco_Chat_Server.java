@@ -260,6 +260,27 @@ public class Coco_Chat_Server {
                             respuestaGruposPropietario.writeObject(listaGruposPropietario);
                         }
                         
+                        if(funcion.equals("mostrar_no_miembros"))
+                        {
+                            System.out.println("Mostrar No Miembros");
+                             ObjectInputStream infoReceived = new ObjectInputStream(clientSocket.getInputStream());
+                             try {
+                               Object objectReceived = infoReceived.readObject();
+                               SolicitudCrearGrupo infoCrearGrupo  = (SolicitudCrearGrupo)objectReceived;
+                               System.out.println("Usuario: " + infoCrearGrupo.creador_grupo);
+                               System.out.println("Grupo: " + infoCrearGrupo.nombre_grupo);
+                               UsuarioDAO usuarioDAO = new UsuarioDAO();
+                               GruposDAO grupoDAO = new GruposDAO();
+                               int IDUsuario = usuarioDAO.ObtenerIDUsuario(infoCrearGrupo.creador_grupo);
+                               int IDGrupo = grupoDAO.ObtenerIDGrupo(infoCrearGrupo.nombre_grupo);
+                               ArrayList<Usuario> listaUsuariosNoMiembros = grupoDAO.obtenerNoMiembrosSinInvitacion(IDGrupo, IDUsuario);
+                               ObjectOutputStream respuestaUsuariosNoMiembros = new ObjectOutputStream(clientSocket.getOutputStream());
+                               respuestaUsuariosNoMiembros.writeObject(listaUsuariosNoMiembros);
+                             } catch (ClassNotFoundException ex) {
+                                 Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
+                             }
+                        }
+                        
                         if(funcion.equals("cerrar_sesion"))
                         {
                                System.out.println("Desconectar usuario:");
