@@ -164,6 +164,11 @@ public class Grupos extends javax.swing.JFrame {
         getContentPane().add(EliminarGrupoButton, new java.awt.GridBagConstraints());
 
         SalirGrupoButton.setText("Salir");
+        SalirGrupoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirGrupoButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(SalirGrupoButton, new java.awt.GridBagConstraints());
 
         UsuariosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/usuario.png"))); // NOI18N
@@ -218,6 +223,15 @@ public class Grupos extends javax.swing.JFrame {
         jMenuBar1.add(GruposMenu);
 
         IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
+        IconLogOut.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                IconLogOutMenuSelected(evt);
+            }
+        });
 
         jMenuBar1.add(createHorizontalGlue());
 
@@ -360,6 +374,18 @@ public class Grupos extends javax.swing.JFrame {
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_EliminarGrupoButtonActionPerformed
+
+    private void SalirGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirGrupoButtonActionPerformed
+        ListaGruposSalir a = new ListaGruposSalir();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_SalirGrupoButtonActionPerformed
+
+    private void IconLogOutMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_IconLogOutMenuSelected
+        InicioSesion a = new InicioSesion();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_IconLogOutMenuSelected
 
     /**
      * @param args the command line arguments

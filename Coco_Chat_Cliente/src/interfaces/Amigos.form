@@ -129,6 +129,9 @@
               <Image iconType="3" name="/iconos/log-out.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="menuSelected" listener="javax.swing.event.MenuListener" parameters="javax.swing.event.MenuEvent" handler="IconLogOutMenuSelected"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="jMenuBar1.add(createHorizontalGlue());"/>
           </AuxValues>

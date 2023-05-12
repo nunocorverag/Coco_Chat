@@ -181,7 +181,7 @@ public class InvitarUsuarios extends javax.swing.JFrame {
                     ObjectInputStream NoMiembrosObject = new ObjectInputStream(s.getInputStream());
                     
                     try {
-                        ArrayList<Usuario> NM= (ArrayList<Usuario>)NoMiembrosObject.readObject();
+                        ArrayList<Usuario> NM = (ArrayList<Usuario>)NoMiembrosObject.readObject();
                         s.close();
                         for(Usuario user: NM)
                         {

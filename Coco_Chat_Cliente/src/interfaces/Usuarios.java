@@ -414,7 +414,9 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_ListaUsuariosNoConectadosMouseClicked
 
     private void IconLogOutMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_IconLogOutMenuSelected
-        // aqui debe ponerse el codigo de que cierra sesion
+         InicioSesion a = new InicioSesion();
+        a.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_IconLogOutMenuSelected
 
     /**
