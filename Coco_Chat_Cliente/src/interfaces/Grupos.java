@@ -156,6 +156,11 @@ public class Grupos extends javax.swing.JFrame {
         getContentPane().add(InvitarGrupoButton, new java.awt.GridBagConstraints());
 
         EliminarGrupoButton.setText("Eliminar");
+        EliminarGrupoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarGrupoButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(EliminarGrupoButton, new java.awt.GridBagConstraints());
 
         SalirGrupoButton.setText("Salir");
@@ -301,7 +306,8 @@ public class Grupos extends javax.swing.JFrame {
         String nombreSeleccionado = ListaGrupos.getSelectedValue();
         String listaPro = ListaGrupos.getSelectedValue();
         String nombreAmigo = ListaGrupos.getSelectedValue();
-        
+            
+
         Chat a = new Chat(nombreSeleccionado, "Grupos");
         
         if (listaChatsAbiertos.obtenerNombres().contains(nombreSeleccionado)) {
@@ -344,10 +350,16 @@ public class Grupos extends javax.swing.JFrame {
     }//GEN-LAST:event_InvitacionesGruposButtonActionPerformed
 
     private void InvitarGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InvitarGrupoButtonActionPerformed
-        InvitarUsuarios a = new InvitarUsuarios();
+        ListaGruposInvitar a = new ListaGruposInvitar();
          a.setVisible(true);
          this.setVisible(false);
     }//GEN-LAST:event_InvitarGrupoButtonActionPerformed
+
+    private void EliminarGrupoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarGrupoButtonActionPerformed
+        ListaGruposEliminar a = new ListaGruposEliminar();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_EliminarGrupoButtonActionPerformed
 
     /**
      * @param args the command line arguments
