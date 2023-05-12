@@ -44,7 +44,7 @@ public class MensajesDAO extends Db_Conection{
     {
         try
         {
-        PreparedStatement ps = getConnection().prepareStatement("DELETE FROM mensaje_usuario where (mensaje_de = ? OR mensaje_para = ?)");
+        PreparedStatement ps = getConnection().prepareStatement("DELETE FROM mensaje_usuario where (remitente_usuario = ? OR remitente_destinatario = ?)");
         
         ps.setInt(1, usuario);
         ps.setInt(2, usuario);
