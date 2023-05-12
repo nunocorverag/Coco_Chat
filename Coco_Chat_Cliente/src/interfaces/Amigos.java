@@ -372,7 +372,9 @@ public class Amigos extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2MenuSelected
 
     private void AgregarAmigosButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarAmigosButton3ActionPerformed
-        // TODO add your handling code here:
+        SolicitudesAmistad a = new SolicitudesAmistad();
+        a.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_AgregarAmigosButton3ActionPerformed
 
     /**
