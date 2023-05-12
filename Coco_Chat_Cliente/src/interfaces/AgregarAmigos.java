@@ -10,13 +10,16 @@ import java.awt.event.WindowEvent;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import returned_models.InfoSolicitudAmistad;
 import user_session.SessionManager;
 
 /**
@@ -201,6 +204,42 @@ public class AgregarAmigos extends javax.swing.JFrame {
 
     private void AgregarAmigoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarAmigoButtonActionPerformed
         // TODO add your handling code here:
+        
+        Socket s;
+        String userLogged = SessionManager.getUsername();
+        
+        List<String> selectedUsers = ListaUsuarios.getSelectedValuesList();
+        ArrayList<String> ListaUsuariosSolicitudes = new ArrayList<>(selectedUsers);
+        
+        try {
+            String direccionServidor = "10.147.17.147";
+            InetAddress direccion = InetAddress.getByName(direccionServidor);
+            s = new Socket(direccion, 1234);
+            
+            DataOutputStream funcion = new DataOutputStream(s.getOutputStream());
+            funcion.writeUTF("enviar_solicitud_amistad");
+            
+            ArrayList<InfoSolicitudAmistad> infoSolicitudes = new ArrayList<InfoSolicitudAmistad>();
+            
+            for(String selectedUser:ListaUsuariosSolicitudes)
+            {
+               InfoSolicitudAmistad soli = new InfoSolicitudAmistad(userLogged, selectedUser);
+               infoSolicitudes.add(soli);
+               System.out.println("Se envio solicitud a: "+selectedUser);
+            }
+
+             ObjectOutputStream ListInfo = new ObjectOutputStream(s.getOutputStream());
+             ListInfo.writeObject(infoSolicitudes);
+            
+            Amigos a = new Amigos();
+            a.setVisible(true);
+            this.setVisible(false);
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(AgregarAmigos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_AgregarAmigoButtonActionPerformed
 
     /**
