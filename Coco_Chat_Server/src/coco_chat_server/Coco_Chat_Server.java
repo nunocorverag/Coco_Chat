@@ -247,6 +247,19 @@ public class Coco_Chat_Server {
                             respuestaCredencialesCorrectas.writeObject(listaGrupos);
                         }
                         
+                        if(funcion.equals("mostrar_grupos_propietario"))
+                        {
+                            System.out.println("Mostrar Grupos Propietario");
+                            DataInputStream informacionUsuarioCliente = new DataInputStream(clientSocket.getInputStream());
+                            String nombre_usuario = informacionUsuarioCliente.readUTF();
+                            System.out.println(nombre_usuario);
+                            UsuarioDAO usuarioDAO = new UsuarioDAO();
+                            int IDUsuario = usuarioDAO.ObtenerIDUsuario(nombre_usuario);
+                            ArrayList<Grupo> listaGruposPropietario = usuarioDAO.obtenerGruposPropietario(IDUsuario);
+                            ObjectOutputStream respuestaGruposPropietario = new ObjectOutputStream(clientSocket.getOutputStream());
+                            respuestaGruposPropietario.writeObject(listaGruposPropietario);
+                        }
+                        
                         if(funcion.equals("cerrar_sesion"))
                         {
                                System.out.println("Desconectar usuario:");
@@ -376,6 +389,11 @@ public class Coco_Chat_Server {
                                int ID_grupo = gruposDAO.ObtenerIDGrupo(enviarMensajeGrupo.destinatario);
                                String mensaje_enviado = enviarMensajeGrupo.mensaje;
                                mensajesDAO.EnviarMensajeGrupo(ID_usuario_loggeado, ID_grupo, mensaje_enviado);
+                               
+                               ArrayList<RespuestaMensajesGrupo> mensajes_grupo = mensajesDAO.obtenerMensajesGrupo(ID_grupo);
+                               ObjectOutputStream respuestaMensajesGrupo = new ObjectOutputStream(clientSocket.getOutputStream());
+                               
+                               respuestaMensajesGrupo.writeObject(mensajes_grupo);
                            } catch (ClassNotFoundException ex) {
                                Logger.getLogger(Coco_Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
                            }
@@ -590,5 +608,4 @@ public class Coco_Chat_Server {
             Logger.getLogger(Socket.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

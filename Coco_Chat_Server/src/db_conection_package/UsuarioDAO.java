@@ -418,6 +418,54 @@ public ArrayList<Usuario> obtenerNoAmigos(int usuario)
         return listaGrupos;
     }
     
+    public ArrayList<Grupo> obtenerGruposPropietario(int usuario)
+    {
+        ArrayList<Grupo> listaGruposPropietario = new ArrayList();
+        try 
+        {
+            PreparedStatement ps =  getConnection().prepareStatement("SELECT * FROM grupo where creador_grupo = ?");
+            ps.setInt(1, usuario);
+
+            ResultSet rs;
+            ResultSet rs2;
+            Grupo infoGrupo;
+            rs = ps.executeQuery(); 
+
+            while (rs.next()) {
+                int ID_grupo = rs.getInt("grupo");
+                PreparedStatement ps2 = getConnection().prepareStatement("SELECT * FROM grupo where id_grupo = ?");
+                ps2.setInt(1, ID_grupo);
+                rs2 = ps2.executeQuery();
+                infoGrupo = new Grupo();
+                if (rs2.next()) {
+                    infoGrupo.nombre_grupo = rs2.getString("nombre_grupo");
+                    listaGruposPropietario.add(infoGrupo);
+                }
+                try {
+                    rs2.close();
+                } catch (SQLException e) {
+                }
+                try {
+                    ps2.close();
+                } catch (SQLException e) {
+                }
+            }       
+            try {
+                rs.close();
+            } catch (SQLException e) {
+            }
+            try {
+                ps.close();
+            } catch (SQLException e) {
+            }
+        }
+        catch(SQLException es)
+        {
+            System.out.println(es.getMessage());
+        }
+        return listaGruposPropietario;
+    }
+    
     public boolean ConectarUsuario(String username)
     {
         int res = 0;

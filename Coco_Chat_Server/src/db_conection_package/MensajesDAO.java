@@ -70,7 +70,7 @@ public class MensajesDAO extends Db_Conection{
             
         Timestamp fecha_actual = new Timestamp(System.currentTimeMillis());
 
-        PreparedStatement ps = getConnection().prepareStatement("INSERT INTO mensaje_grupo (remitente_usuario, destinatario_grupo, fecha_mensaje_grupo, mensaje_grupo) values (?,?,?,?)");
+        PreparedStatement ps = getConnection().prepareStatement("INSERT INTO mensaje_grupo (remitente_grupo, destinatario_grupo, fecha_mensaje_grupo, mensaje_grupo) values (?,?,?,?)");
         
         ps.setInt(1, mensaje_de);
         ps.setInt(2, mensaje_para);

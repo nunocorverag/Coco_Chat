@@ -248,7 +248,7 @@ public class GruposDAO extends Db_Conection{
     
     public int ObtenerIDGrupo(String grupo) {
         try {
-                PreparedStatement ps =  getConnection().prepareStatement("SELECT id_grupo FROM grupo WHERE username=?");
+                PreparedStatement ps =  getConnection().prepareStatement("SELECT id_grupo FROM grupo WHERE nombre_grupo=?");
                 ps.setString(1, grupo);
                 ResultSet rs = ps.executeQuery();
 
