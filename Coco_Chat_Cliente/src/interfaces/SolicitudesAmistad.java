@@ -236,11 +236,16 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
             
             ArrayList<InfoSolicitudAmistad> infoSolicitudes = new ArrayList<InfoSolicitudAmistad>();
             
+            InfoSolicitudAmistad soli;
             for(String selectedUser:ListaUsuariosSolicitudes)
             {
-               InfoSolicitudAmistad soli = new InfoSolicitudAmistad(userLogged, selectedUser);
+               soli = new InfoSolicitudAmistad();
+               
+               soli.remitente_solicitud_amistad = selectedUser;
+               soli.destinatario_solicitud_amistad = userLogged;
                infoSolicitudes.add(soli);
-               System.out.println("Se envio solicitud a: "+selectedUser);
+               System.out.println("Remitente: "+soli.remitente_solicitud_amistad);
+               System.out.println("Destinatario: "+soli.destinatario_solicitud_amistad);
             }
 
              ObjectOutputStream ListInfo = new ObjectOutputStream(s.getOutputStream());
@@ -275,11 +280,16 @@ public class SolicitudesAmistad extends javax.swing.JFrame {
             
             ArrayList<InfoSolicitudAmistad> infoSolicitudes = new ArrayList<InfoSolicitudAmistad>();
             
+            InfoSolicitudAmistad soli;
             for(String selectedUser:ListaUsuariosSolicitudes)
             {
-               InfoSolicitudAmistad soli = new InfoSolicitudAmistad(userLogged, selectedUser);
+               soli = new InfoSolicitudAmistad();
+               
+               soli.remitente_solicitud_amistad = userLogged;
+               soli.destinatario_solicitud_amistad = selectedUser;
                infoSolicitudes.add(soli);
-               System.out.println("Se envio solicitud a: "+selectedUser);
+               System.out.println("Remitente: "+soli.remitente_solicitud_amistad);
+               System.out.println("Destinatario: "+soli.destinatario_solicitud_amistad);
             }
 
              ObjectOutputStream ListInfo = new ObjectOutputStream(s.getOutputStream());

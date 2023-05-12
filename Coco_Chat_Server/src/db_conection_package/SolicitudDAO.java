@@ -46,8 +46,8 @@ public class SolicitudDAO extends Db_Conection{
             PreparedStatement ps2 = getConnection().prepareStatement("DELETE FROM solicitud_amistad where (remitente_solicitud_amistad = ? AND destinatario_solicitud_amistad = ?) OR (remitente_solicitud_amistad = ? AND destinatario_solicitud_amistad = ?)");
             ps2.setInt(1, solicitud_de);
             ps2.setInt(2, solicitud_para);
-            ps2.setInt(1, solicitud_para);
-            ps2.setInt(2, solicitud_de);
+            ps2.setInt(3, solicitud_para);
+            ps2.setInt(4, solicitud_de);
 
             boolean result = ps1.executeUpdate() > 0 && ps2.executeUpdate() > 0;
 
