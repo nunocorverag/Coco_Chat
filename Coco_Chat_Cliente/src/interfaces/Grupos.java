@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.Box.createHorizontalGlue;
+import javax.swing.JButton;
 import user_session.SessionManager;
 
 /**
@@ -73,6 +74,7 @@ public class Grupos extends javax.swing.JFrame {
         UsuariosMenu = new javax.swing.JMenu();
         AmigosMenu = new javax.swing.JMenu();
         GruposMenu = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
         IconLogOut = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -102,7 +104,10 @@ public class Grupos extends javax.swing.JFrame {
         String[] grupos = listaGrupos.obtenerGrupos();
         ListaGrupos.setModel(new javax.swing.AbstractListModel<String>() {
             public int getSize() { return grupos.length; }
-            public String getElementAt(int i) { return grupos[i]; }
+            public String getElementAt(int i) { return grupos[i];
+                JButton botonEliminar = new JButton("Eliminar");
+                l.add(botonEliminar);
+            }
         });
         ListaGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -177,6 +182,9 @@ public class Grupos extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(GruposMenu);
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/invitacion.png"))); // NOI18N
+        jMenuBar1.add(jMenu1);
 
         IconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/log-out.png"))); // NOI18N
 
@@ -295,6 +303,7 @@ public class Grupos extends javax.swing.JFrame {
     private javax.swing.JMenu UsuariosMenu;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
